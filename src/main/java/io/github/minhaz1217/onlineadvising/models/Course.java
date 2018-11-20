@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
- * @author 2016-1-60-134
+ * @author Minhaz
  */
 @Document(collection = "Course")
 public class Course {

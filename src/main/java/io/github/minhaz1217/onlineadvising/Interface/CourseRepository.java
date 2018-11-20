@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author 2016-1-60-134
+ * @author Minhaz
  */
 @Repository
 public interface CourseRepository extends MongoRepository<Course, String> {

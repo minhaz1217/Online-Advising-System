@@ -13,7 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 /**
  *
- * @author 2016-1-60-134
+ * @author Minhaz
  */
 
 
@@ -36,8 +36,11 @@ public class DbSeeder implements CommandLineRunner {
             "Software Development",
             "CSE411",
             "Computer Science And Enginnering",
-            1, 
-            new ArrayList<String>()
+            1,
+                new ArrayList<String>(
+                Arrays.asList("Req_1",
+                        "Req_2",
+                        "Req_3"))
             );
         Course cse350 = new Course(
             "Data Communication",
@@ -50,7 +53,7 @@ public class DbSeeder implements CommandLineRunner {
             "Computer Architecture",
             "CSE360",
             "Computer Science And Enginnering",
-            0, 
+            0,
             new ArrayList<String>()
         );
         
@@ -71,7 +74,16 @@ public class DbSeeder implements CommandLineRunner {
         this.courseRepository.save(cse350);
         this.courseRepository.save(cse360);
         this.courseRepository.save(cse442);
-        
+        this.courseRepository.save(new Course(
+                "Operating System",
+                "CSE325",
+                "Computer Science And Enginnering",
+                1,
+                new ArrayList<String>(
+                        Arrays.asList("OS_REQ_1",
+                                "OS_REQ_2"
+                        ))
+        ));
          System.out.println(courseRepository.count());
         
         System.out.println("DB LOADED SUCCESSFULLY");

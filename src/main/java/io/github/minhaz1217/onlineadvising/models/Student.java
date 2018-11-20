@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 /**
  *
- * @author 2016-1-60-134
+ * @author Minhaz
  */
 @Document(collection = "Student")
 public class Student {

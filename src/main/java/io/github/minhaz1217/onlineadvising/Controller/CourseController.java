@@ -8,13 +8,15 @@ package io.github.minhaz1217.onlineadvising.Controller;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
 import java.util.List;
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author 2016-1-60-134
+ * @author Minhaz
  */
 
 @RestController
