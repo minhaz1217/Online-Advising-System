@@ -1,5 +1,6 @@
 package io.github.minhaz1217.onlineadvising.Controller;
 
+import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,10 +11,19 @@ import java.sql.Time;
 public class ViewController {
 
     @RequestMapping(value = "/")
-    public String showCourse(Model model){
-        model.addAttribute("TIME", "HI");
-        return "course";
+    public String showIndex(Model model){
+        model.addAttribute("TIME", "HI THERE");
+        return "index";
     }
+
+    @RequestMapping(value = "/courses")
+    public String showCourses(Model model, CourseRepository courseRepos){
+        CourseRepository courseRepository = courseRepos;
+        model.addAttribute("course", courseRepository.findAll());
+        return "course";
+
+    }
+
     @RequestMapping(value = "/hello")
     public String showHello(Model model){
         model.addAttribute("name", "HI");
