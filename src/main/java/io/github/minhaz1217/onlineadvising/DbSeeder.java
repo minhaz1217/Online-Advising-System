@@ -5,10 +5,12 @@
  */
 package io.github.minhaz1217.onlineadvising;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
+import io.github.minhaz1217.onlineadvising.Interface.UserRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
+import io.github.minhaz1217.onlineadvising.models.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 /**
@@ -21,15 +23,25 @@ import org.springframework.stereotype.Component;
 public class DbSeeder implements CommandLineRunner {
     
     protected CourseRepository courseRepository;
+    private UserRepository userRepository;
     
-    public DbSeeder(CourseRepository courseRepository){
+    public DbSeeder(CourseRepository courseRepository,
+                    UserRepository userRepository){
         this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
     
     
     @Override
     public void run(String... args) throws Exception {
-        
+
+        User minhaz = new User("minhaz2", "minhaz2", "ROLE_ADMIN", "ROLE_USER");
+        User admin = new User("admin", "admin", "ROLE_ADMIN", "ROLE_USER");
+        this.courseRepository.deleteAll();
+        this.userRepository.deleteAll();
+        this.userRepository.save(minhaz);
+        this.userRepository.save(admin);
+
         ArrayList<String>hi = new ArrayList<>();
         hi.add("CSE248");
         Course cse411 = new Course(
@@ -67,7 +79,6 @@ public class DbSeeder implements CommandLineRunner {
         );
         System.out.println(courseRepository.count());
         
-        this.courseRepository.deleteAll();
         //List<Course> courses = Arrays.asList(cse411, cse360,cse350);
         
         this.courseRepository.save(cse411);
