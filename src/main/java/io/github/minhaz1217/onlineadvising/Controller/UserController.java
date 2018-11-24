@@ -35,12 +35,18 @@ public class UserController {
                              @RequestParam("confirm_pass") String conPass,
                              @RequestParam("admin_pass") String adminPass){
         if(bindingResult.hasErrors()){
-            model.addAttribute("success", "UNSUCCESSFUL SIGNEDUP");
+            model.addAttribute("error", "Check Below for details");
             return "signup";
         }else if(!user.getPassword().equals(conPass)){
+            model.addAttribute("error", "Check Below for details");
             model.addAttribute("err_confirm_pass", "Password Didn't Match, Try again.");
             return "signup";
         }else{
+            if(userRepository.findByUsername( user.getUsername() ) != null ){
+                model.addAttribute("error", "Check Below for details");
+                model.addAttribute("error", "Username already exists.");
+                return "signup";
+            }
             if(adminPass.equals("minhaz")){
                 user.setRole("ROLE_ADMIN", "ROLE_USER");
             }else{
