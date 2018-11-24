@@ -7,7 +7,9 @@
 </head>
 <body>
 <h1>This is the signup form</h1>
-<p th:if="${#success}" th:text="'MESSAGE: ' + ${success}" />
+<div th:if="${success != null}">
+    <p th:text="'MESSAGE: ' + ${success}"> </p>
+</div>
 <form method="post" th:action="@{/signup}" th:object="${user}">
     <table>
         <tr>
@@ -17,14 +19,21 @@
         </tr>
         <tr>
             <td>Password: </td>
-            <td><input type="text"  th:field="*{password}" /></td>
+            <td><input type="password"  th:field="*{password}" /></td>
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+        </tr>
+        <tr>
+            <td>Confirm Password: </td>
+            <td><input type="password"  name="confirm_pass" /></td>
+            <td th:if="${err_confirm_pass != null}" th:errors="$(err_confirm_pass)">Error</td>
+        </tr>
+        <tr>
+            <td>Admin Password(optional): </td>
+            <td><input type="password"  name="admin_pass" /></td>
         </tr>
         <tr>
             <td colspan="3"><input type="submit" value="Signup" /></td>
         </tr>
-
-
     </table>
 
 </form>

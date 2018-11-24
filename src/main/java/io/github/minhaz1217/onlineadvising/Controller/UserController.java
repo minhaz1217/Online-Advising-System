@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -28,12 +29,25 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
-    public String signupPost(@Valid User user, BindingResult bindingResult, Model model){
+    public String signupPost(@Valid User user,
+                             BindingResult bindingResult,
+                             Model model,
+                             @RequestParam("confirm_pass") String conPass,
+                             @RequestParam("admin_pass") String adminPass){
         if(bindingResult.hasErrors()){
+            model.addAttribute("success", "UNSUCCESSFUL SIGNEDUP");
+            return "signup";
+        }else if(!user.getPassword().equals(conPass)){
+            model.addAttribute("err_confirm_pass", "Password Didn't Match, Try again.");
             return "signup";
         }else{
+            if(adminPass.equals("minhaz")){
+                user.setRole("ROLE_ADMIN", "ROLE_USER");
+            }else{
+                user.setRole("ROLE_USER");
+            }
+            userRepository.save(user);
         }
-        model.addAttribute("success", "SUCCESSFULLY SIGNEDUP");
-        return "signup";
+        return "test";
     }
 }

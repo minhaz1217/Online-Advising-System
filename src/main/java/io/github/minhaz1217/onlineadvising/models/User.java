@@ -19,9 +19,8 @@ public class User {
     @Size(min=5, max=30)
     private String username;
     @NotNull
-    @Min(8)
+    @Size(min=8, max=40)
     private String password;
-    @NotNull
     private String[] role;
     private User(){
     }
@@ -60,7 +59,7 @@ public class User {
         return role;
     }
 
-    public void setRole(String[] role) {
+    public void setRole(String... role) {
         this.role = role;
     }
 }
