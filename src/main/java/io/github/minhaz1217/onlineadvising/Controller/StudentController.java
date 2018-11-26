@@ -10,9 +10,8 @@ import io.github.minhaz1217.onlineadvising.Interface.StudentRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
 import io.github.minhaz1217.onlineadvising.models.Student;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -24,14 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/student")
 public class StudentController {
        
-    private final StudentRepository studentRepository;
-    
+    protected final StudentRepository studentRepository;
+
     public StudentController(StudentRepository studentRepository){
         this.studentRepository= studentRepository;
     }
+    //TODO: Remove this /all gate while deplying
     @GetMapping("/all")
     public List<Student> getAll(){
         List<Student> students = this.studentRepository.findAll();
         return students;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "id/{student}")
+    public Student getStudent(@PathVariable String student){
+        return studentRepository.findStudentByStudentCode(student);
     }
 }

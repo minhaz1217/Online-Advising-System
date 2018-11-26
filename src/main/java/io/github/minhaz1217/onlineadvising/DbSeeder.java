@@ -5,11 +5,13 @@
  */
 package io.github.minhaz1217.onlineadvising;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
+import io.github.minhaz1217.onlineadvising.Interface.StudentRepository;
 import io.github.minhaz1217.onlineadvising.Interface.UserRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import io.github.minhaz1217.onlineadvising.models.Student;
 import io.github.minhaz1217.onlineadvising.models.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -24,63 +26,35 @@ public class DbSeeder implements CommandLineRunner {
     
     protected CourseRepository courseRepository;
     private UserRepository userRepository;
-    
+    private StudentRepository studentRepository;
     public DbSeeder(CourseRepository courseRepository,
-                    UserRepository userRepository){
+                    UserRepository userRepository,
+                    StudentRepository studentRepository){
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
     }
     
     
     @Override
     public void run(String... args) throws Exception {
 
-        User minhaz = new User("minhaz2", "minhaz2", "ROLE_ADMIN", "ROLE_USER");
-        User admin = new User("admin", "admin", "ROLE_ADMIN", "ROLE_USER");
+        // clearing all the tables
         this.courseRepository.deleteAll();
         this.userRepository.deleteAll();
+        this.studentRepository.deleteAll();
+        System.out.println("DB Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Students: " + studentRepository.count());
+
+
+        //adding some user to use
+        User minhaz = new User("minhaz2", "minhaz2", "ROLE_ADMIN", "ROLE_USER");
+        User admin = new User("admin", "admin", "ROLE_ADMIN", "ROLE_USER");
         this.userRepository.save(minhaz);
         this.userRepository.save(admin);
 
-        ArrayList<String>hi = new ArrayList<>();
-        hi.add("CSE248");
-        Course cse411 = new Course(
-            "Software Development",
-            "CSE411",
-            "Computer Science And Enginnering",
-            1,
-                new ArrayList<String>(
-                Arrays.asList("Req_1",
-                        "Req_2",
-                        "Req_3"))
-            );
-        Course cse350 = new Course(
-            "Data Communication",
-            "CSE350",
-            "Computer Science And Enginnering",
-            0,
-            hi
-        );
-        Course cse360 = new Course(
-            "Computer Architecture",
-            "CSE360",
-            "Computer Science And Enginnering",
-            0,
-            new ArrayList<String>()
-        );
-        
-        
-        Course cse442 = new Course(
-            "Micro Controller",
-            "CSE442",
-            "Computer Science And Enginnering",
-            1, 
-            new ArrayList<String>()
-        );
-        System.out.println(courseRepository.count());
-        
-        //List<Course> courses = Arrays.asList(cse411, cse360,cse350);
 
+
+        // adding all the courses
         this.courseRepository.save( new Course("Basic English","ENG101","Department of English",0,new ArrayList<String>()));
         this.courseRepository.save( new Course("Differential And Integral Calculus","MAT101","Mathematical and Physical Sciences",0,new ArrayList<String>()));
         this.courseRepository.save( new Course("Structured Programming","CSE105","Department of Computer Seience and Engineering",1,new ArrayList<String>()));
@@ -116,8 +90,14 @@ public class DbSeeder implements CommandLineRunner {
 
 
 
+        //adding some demo students
+        this.studentRepository.save(new Student( "Alex", "Jone", "minhaz1217@gmail.com", "2016-1-60-100", "ENG101", "MAT101", "CSE105", "ENG102", "MAT102", "CSE107", "PHY109", "MAT104", "CHE109", "CSE109", "GEN201", "STA102", "CSE205", "MAT205", "CSE207", "CSE225", "PHY209", "CSE245", "CSE248", "CSE251", "CSE301", "CSE325", "CSE345" ));
+        this.studentRepository.save(new Student( "Mikasa", "Es Sukasa", "minhaz1217@gmail.com", "2016-1-60-101", "ENG101", "MAT101", "CSE105", "ENG102", "MAT102", "CSE107", "PHY109", "MAT104", "CHE109", "CSE109" ));
+        this.studentRepository.save(new Student( "Hakua", "Matata", "minhaz1217@gmail.com", "2016-1-60-102", "" ));
 
-         System.out.println(courseRepository.count());
+        //showing some messages to verify that everything went ok
+        System.out.println("DB Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Students: " + studentRepository.count());
+        System.out.println(courseRepository.count());
         
         System.out.println("DB LOADED SUCCESSFULLY");
     }
