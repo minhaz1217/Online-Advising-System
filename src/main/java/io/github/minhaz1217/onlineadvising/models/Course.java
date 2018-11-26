@@ -23,7 +23,7 @@ public class Course {
     private String name;
     private String code;
     private String dept;
-    private int has_lab;
+    private String has_lab;
     private List<String> prerequisite;
 
     private Course(){
@@ -31,12 +31,20 @@ public class Course {
     }
     
 
-    public Course(String name, String course_code, String dept, int has_lab, ArrayList<String> prerequisite) {
+    public Course(String name, String course_code, String dept, String has_lab, ArrayList<String> prerequisite) {
         this.name = name;
         this.code = course_code;
         this.dept = dept;
-        this.has_lab = has_lab;
+        this.has_lab = (has_lab);
         this.prerequisite = prerequisite;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -47,12 +55,12 @@ public class Course {
         this.name = name;
     }
 
-    public String getCourse_code() {
+    public String getCode() {
         return code;
     }
 
-    public void setCourse_code(String course_code) {
-        this.code = course_code;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getDept() {
@@ -63,11 +71,11 @@ public class Course {
         this.dept = dept;
     }
 
-    public int getHas_lab() {
+    public String getHas_lab() {
         return has_lab;
     }
 
-    public void setHas_lab(int has_lab) {
+    public void setHas_lab(String has_lab) {
         this.has_lab = has_lab;
     }
 
@@ -78,7 +86,4 @@ public class Course {
     public void setPrerequisite(List<String> prerequisite) {
         this.prerequisite = prerequisite;
     }
-
-    
-    
 }

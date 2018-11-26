@@ -55,7 +55,7 @@ public class StudentController {
         for(int i=0;i<fullCourse.size();i++){
             Course curr = fullCourse.get(i);
 
-            if(myTaken.indexOf(curr.getCourse_code()) == -1){
+            if(myTaken.indexOf(curr.getCode()) == -1){
                 flag = 1;
                 for(int j=0;j<curr.getPrerequisite().size();j++){
                     if(myTaken.indexOf(curr.getPrerequisite().get(j)) == -1){
@@ -64,7 +64,7 @@ public class StudentController {
                     }
                 }
                 if(flag == 1){
-                    available.add(curr.getCourse_code());
+                    available.add(curr.getCode());
                 }
             }
         }

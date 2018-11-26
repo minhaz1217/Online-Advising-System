@@ -55,7 +55,8 @@ public class CourseController {
         }else if(val == 3){
             myList = Arrays.asList(course.getDept());
         }else if(val == 4){
-            myList = Arrays.asList(Integer.toString(course.getHas_lab()));
+            myList = Arrays.asList((course.getHas_lab()));
+            //myList = Arrays.asList(Integer.toString(course.getHas_lab()));
         }else{
             myList = (course.getPrerequisite());
         }
