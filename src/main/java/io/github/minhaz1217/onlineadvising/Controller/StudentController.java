@@ -58,7 +58,7 @@ public class StudentController {
             if(myTaken.indexOf(curr.getCourse_code()) == -1){
                 flag = 1;
                 for(int j=0;j<curr.getPrerequisite().size();j++){
-                    if(myTaken.indexOf(curr.getPrerequisite().get(j)) != -1){
+                    if(myTaken.indexOf(curr.getPrerequisite().get(j)) == -1){
                         flag = 0;
                         break;
                     }
