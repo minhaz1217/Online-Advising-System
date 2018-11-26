@@ -25,11 +25,11 @@ public class Student {
     private String last_name;
     private String email;
     private String student_id;
-    private List<Course> taken;
+    private String[] taken;
     private Student(){
-        taken = new ArrayList<>();
+        //taken = new ArrayList<>();
     }
-    public Student(String first_name, String last_name, String email, String student_id, List<Course> taken) {
+    public Student(String first_name, String last_name, String email, String student_id, String... taken) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -77,11 +77,11 @@ public class Student {
         this.student_id = student_id;
     }
 
-    public List<Course> getTaken() {
+    public String[] getTaken() {
         return taken;
     }
 
-    public void setTaken(List<Course> taken) {
+    public void setTaken(String... taken) {
         this.taken = taken;
     }
     
