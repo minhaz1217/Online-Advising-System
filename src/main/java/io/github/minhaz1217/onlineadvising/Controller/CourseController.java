@@ -8,7 +8,9 @@ package io.github.minhaz1217.onlineadvising.Controller;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.ui.Model;
@@ -25,26 +27,39 @@ import javax.print.DocFlavor;
 @RequestMapping("/course")
 public class CourseController {
     
-    private final CourseRepository courseRepository2;
+    private final CourseRepository courseRepository;
     
     public CourseController(CourseRepository courseRepository){
-        this.courseRepository2= courseRepository;
+        this.courseRepository= courseRepository;
     }
     @GetMapping("/all")
     public List<Course> getAll(){
-        List<Course> courses = this.courseRepository2.findAll();
+        List<Course> courses = this.courseRepository.findAll();
         return courses;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{courseCode}")
     public Course findCourseByCode(@PathVariable String courseCode){
-        return courseRepository2.findCourseByCode(courseCode.toUpperCase());
+        return courseRepository.findCourseByCode(courseCode.toUpperCase());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{courseCode}/{val}")
-    public List<String> findCourseByCodeAndExtra(@PathVariable String courseCode, @PathVariable String val){
+    public List<String> findCourseByCodeAndExtra(@PathVariable String courseCode, @PathVariable int val){
         //return (Course)courseRepository2.findCourseByCode(courseCode);
-       return courseRepository2.findCourseByCode(courseCode.toUpperCase()).getPrerequisite();
+        Course course = courseRepository.findCourseByCode(courseCode.toUpperCase());
+        List<String> myList = new ArrayList<>();
+        if(val == 1){
+            myList = Arrays.asList(course.getName());
+        }else if(val == 2){
+            myList = Arrays.asList(courseCode.toUpperCase());
+        }else if(val == 3){
+            myList = Arrays.asList(course.getDept());
+        }else if(val == 4){
+            myList = Arrays.asList(Integer.toString(course.getHas_lab()));
+        }else{
+            myList = (course.getPrerequisite());
+        }
+        return myList;
         //return courseCode + " " + val;
     }
     
