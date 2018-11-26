@@ -21,7 +21,7 @@ public class Course {
     @Id @GeneratedValue
     private String id;
     private String name;
-    private String course_code;
+    private String code;
     private String dept;
     private int has_lab;
     private List<String> prerequisite;
@@ -33,7 +33,7 @@ public class Course {
 
     public Course(String name, String course_code, String dept, int has_lab, ArrayList<String> prerequisite) {
         this.name = name;
-        this.course_code = course_code;
+        this.code = course_code;
         this.dept = dept;
         this.has_lab = has_lab;
         this.prerequisite = prerequisite;
@@ -48,11 +48,11 @@ public class Course {
     }
 
     public String getCourse_code() {
-        return course_code;
+        return code;
     }
 
     public void setCourse_code(String course_code) {
-        this.course_code = course_code;
+        this.code = course_code;
     }
 
     public String getDept() {

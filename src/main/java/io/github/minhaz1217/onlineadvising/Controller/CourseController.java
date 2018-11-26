@@ -7,12 +7,14 @@ package io.github.minhaz1217.onlineadvising.Controller;
 
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.print.DocFlavor;
 
 /**
  *
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/course")
 public class CourseController {
     
     private final CourseRepository courseRepository2;
@@ -33,7 +35,18 @@ public class CourseController {
         List<Course> courses = this.courseRepository2.findAll();
         return courses;
     }
-    
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{courseCode}")
+    public Course findCourseByCode(@PathVariable String courseCode){
+        return courseRepository2.findCourseByCode(courseCode.toUpperCase());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{courseCode}/{val}")
+    public List<String> findCourseByCodeAndExtra(@PathVariable String courseCode, @PathVariable String val){
+        //return (Course)courseRepository2.findCourseByCode(courseCode);
+       return courseRepository2.findCourseByCode(courseCode.toUpperCase()).getPrerequisite();
+        //return courseCode + " " + val;
+    }
     
     
 }
