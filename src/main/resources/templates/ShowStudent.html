@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<style>
+        .myCenter{
+        text-align :center;
+        vertical-align: middle;
+       }
+    </style>
+
+<h1 class="row justify-content-center" >All Students Currently Registered</h1>
+<table class="table table-hover table-bordered">
+    <thead class="thead-dark">
+    <th class="myCenter">First Name</th>
+    <th class="myCenter">Last Name</th>
+    <th class="myCenter">Student ID</th>
+    <th class="myCenter">Email</th>
+    <th class="myCenter">Course Taken</th>
+    </thead>
+    <tbody>
+    <tr th:each="my : ${student}">
+        <td class="myCenter" th:text="${my.first_name}"> </td>
+        <td class="myCenter" th:text="${my.last_name}"> </td>
+        <td class="myCenter" th:text="${my.student_id}"> </td>
+        <td class="myCenter" th:text="${my.email}"> </td>
+
+
+        <td class="myCenter">
+            <span th:each="pre: ${my.taken}">
+                <span th:text="${pre.code} + ', '" th:remove="tag"> </span>
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<!--
+<div th:each="my : ${course}">
+    <p th:text="${my.name}"> </p>
+    <p th:text="${my.code}"> </p>
+    <p th:text="${my.dept}"> </p>
+    <p th:text="${my.has_lab}"> </p>
+    <div th:each="pre: ${my.prerequisite}">
+        <p th:text="${pre}"></p>
+    </div >
+</div>
+-->
+</body>
+</html>

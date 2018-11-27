@@ -8,6 +8,7 @@ package io.github.minhaz1217.onlineadvising.Controller;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.Interface.StudentRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
+import io.github.minhaz1217.onlineadvising.models.CourseExtended;
 import io.github.minhaz1217.onlineadvising.models.Student;
 
 import java.util.ArrayList;
@@ -49,8 +50,12 @@ public class StudentController {
     @RequestMapping(method = RequestMethod.GET, value = "available/{student}")
     public List<String> findRemainingCourse(@PathVariable String student){
         List<Course> fullCourse = courseRepository.findAll();
-        List<String> myTaken = Arrays.asList(studentRepository.findStudentByStudentCode(student).getTaken());
+        List<CourseExtended> myCourses = Arrays.asList(studentRepository.findStudentByStudentCode(student).getTaken());
         List<String> available = new ArrayList<>();
+        List<String> myTaken = new ArrayList<>();
+        for(int i=0;i<myCourses.size();i++){
+            myTaken.add(myCourses.get(i).getCode());
+        }
         int flag = 0;
         for(int i=0;i<fullCourse.size();i++){
             Course curr = fullCourse.get(i);
@@ -69,6 +74,5 @@ public class StudentController {
             }
         }
         return available;
-
     }
 }

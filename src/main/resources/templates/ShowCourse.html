@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+        <title>Courses</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+    </head>
+    <body>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <style>
+        td, th{
+        text-align :center;
+        vertical-align: middle;
+       }
+    </style>
+
+    <h1 class="row justify-content-center" >Full Course Description</h1>
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+        <th>Course Name</th>
+        <th>Code</th>
+        <th>Department</th>
+        <th>Lab</th>
+        <th>Prerequisites</th>
+        </thead>
+        <tbody>
+        <tr th:each="my : ${course}">
+            <td th:text="${my.name}"> </td>
+            <td th:text="${my.code}"> </td>
+            <td th:text="${my.dept}"> </td>
+
+
+        <!-- <td th:text="${my.has_lab}"> </td> -->
+
+            <td th:switch="${my.has_lab}">
+                <span th:case="'1'">YES</span>
+                <span th:case="'0'">NO</span>
+                <p th:case="*">no</p>
+            </td>
+
+
+
+            <td>
+                <ul th:each="pre: ${my.prerequisite}">
+                    <li th:text="${pre}"></li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+        <!--
+        <div th:each="my : ${course}">
+            <p th:text="${my.name}"> </p>
+            <p th:text="${my.code}"> </p>
+            <p th:text="${my.dept}"> </p>
+            <p th:text="${my.has_lab}"> </p>
+            <div th:each="pre: ${my.prerequisite}">
+                <p th:text="${pre}"></p>
+            </div >
+        </div>
+        -->
+    </body>
+</html>

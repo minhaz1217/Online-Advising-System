@@ -43,6 +43,4 @@ public class ViewController {
     public String addCourse(Model model, Course course, Pageable pageable){
         return "addCourse";
     }
-
-
 }
