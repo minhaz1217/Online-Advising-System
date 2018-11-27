@@ -5,9 +5,11 @@
  */
 package io.github.minhaz1217.onlineadvising.Controller;
 
+import io.github.minhaz1217.onlineadvising.Interface.CourseDescriptionRepository;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.Interface.StudentRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
+import io.github.minhaz1217.onlineadvising.models.CourseDescription;
 import io.github.minhaz1217.onlineadvising.models.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +28,11 @@ import java.util.List;
 public class ShowControl {
     CourseRepository courseRepository;
     StudentRepository studentRepository;
-    public ShowControl(CourseRepository courseRepository, StudentRepository studentRepository){
+    CourseDescriptionRepository courseDescriptionRepository;
+    public ShowControl(CourseRepository courseRepository, StudentRepository studentRepository, CourseDescriptionRepository courseDescriptionRepository){
         this.courseRepository = courseRepository;
         this.studentRepository = studentRepository;
+        this.courseDescriptionRepository = courseDescriptionRepository;
     }
 
 
@@ -44,6 +48,12 @@ public class ShowControl {
         List<Student> myStudents = studentRepository.findAll();
         model.addAttribute("student", myStudents);
         return "ShowStudent";
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/list")
+    public String showCourseDescription(Model model){
+        List<CourseDescription> myCourses = courseDescriptionRepository.findAll();
+        model.addAttribute("courseList", myCourses);
+        return "ShowCourseList";
     }
     
 }

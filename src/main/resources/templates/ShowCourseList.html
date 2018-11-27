@@ -7,7 +7,7 @@ and open the template in the editor.
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Students</title>
+    <title>Courses Offered</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -17,34 +17,40 @@ and open the template in the editor.
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <style>
-        .myCenter{
+    .myCenter{
         text-align :center;
         vertical-align: middle;
-       }
+    }
 </style>
 
-<h1 class="row justify-content-center" >All Students Currently Registered</h1>
+<h1 class="row justify-content-center" >All Couses Offered</h1>
 <table class="table table-hover table-bordered">
     <thead class="thead-dark">
-    <th class="myCenter">First Name</th>
-    <th class="myCenter">Last Name</th>
-    <th class="myCenter">Student ID</th>
-    <th class="myCenter">Email</th>
-    <th class="myCenter">Course Taken</th>
+    <th class="myCenter">Code</th>
+    <th class="myCenter">Section</th>
+    <th class="myCenter">Time</th>
+    <th class="myCenter">Day</th>
+    <th class="myCenter">Room</th>
+    <th class="myCenter">Seat</th>
+    <th class="myCenter">Instructor</th>
     </thead>
     <tbody>
-    <tr th:each="my : ${student}">
-        <td class="myCenter" th:text="${my.first_name}"> </td>
-        <td class="myCenter" th:text="${my.last_name}"> </td>
-        <td class="myCenter" th:text="${my.student_id}"> </td>
-        <td class="myCenter" th:text="${my.email}"> </td>
+    <tr th:each="my : ${courseList}">
+        <td class="myCenter" th:text="${my.code}"> </td>
+        <td class="myCenter" th:text="${my.sec}"> </td>
+        <td class="myCenter" th:text="${my.time}"> </td>
+        <td class="myCenter" th:text="${my.day}"> </td>
+        <td class="myCenter" th:text="${my.room}"> </td>
+        <td class="myCenter" th:text="${my.seats}"> </td>
+        <td class="myCenter" th:text="${my.instructor}"> </td>
 
-
+        <!--
         <td class="myCenter">
             <span th:each="pre: ${my.taken}">
                 <span th:text="${pre.code} + ', '" th:remove="tag"> </span>
             </span>
         </td>
+        -->
     </tr>
     </tbody>
 </table>

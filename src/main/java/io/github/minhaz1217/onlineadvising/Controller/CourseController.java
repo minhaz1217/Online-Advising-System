@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ import javax.print.DocFlavor;
  * @author Minhaz
  */
 
-@RestController
+@Controller
 @RequestMapping("/course")
 public class CourseController {
     
@@ -62,6 +63,12 @@ public class CourseController {
         }
         return myList;
         //return courseCode + " " + val;
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/remove/{id}")
+    public String courseDelete(@PathVariable String id){
+        courseRepository.delete(courseRepository.findCourseById(id));
+        return "redirect:/show/course";
     }
     
     

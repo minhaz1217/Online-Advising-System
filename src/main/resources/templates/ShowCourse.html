@@ -34,6 +34,7 @@ and open the template in the editor.
         </thead>
         <tbody>
         <tr th:each="my : ${course}">
+            <div th:id="${my.id}">
             <td th:text="${my.name}"> </td>
             <td th:text="${my.code}"> </td>
             <td th:text="${my.dept}"> </td>
@@ -54,6 +55,15 @@ and open the template in the editor.
                     <li th:text="${pre}"></li>
                 </ul>
             </td>
+            <td>
+                <form th:method="delete" th:action="@{'/course/remove/' + ${my.id}}">
+                    <input type="submit" value="Remove" />
+                </form>
+            </td>
+                <td>
+                    <input type="button" value="Edit" th:onclick="@{'myFunc(' +${my.id} + ')'}" />
+                </td>
+            </div>
         </tr>
         </tbody>
     </table>

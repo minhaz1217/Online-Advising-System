@@ -17,4 +17,5 @@ import org.springframework.stereotype.Repository;
 public interface CourseRepository extends MongoRepository<Course, String> {
     Course findCourseByName(String name);
     Course findCourseByCode(String code);
+    Course findCourseById(String code);
 }
