@@ -26,6 +26,8 @@
         <th>Department</th>
         <th>Lab</th>
         <th>Prerequisites</th>
+        <th>Delete</th>
+        <th>Update</th>
         </thead>
         <tbody>
         <tr th:each="my : ${course}">
@@ -56,7 +58,11 @@
                 </form>
             </td>
                 <td>
-                    <input type="button" value="Edit" th:onclick="@{'myFunc(' +${my.id} + ')'}" />
+
+                    <form th:method="post" th:action="@{'/course/edit/'}">
+                        <input type="hidden" th:value="${my.id}" name="id" />
+                        <input type="submit" value="Edit" />
+                    </form>
                 </td>
             </div>
         </tr>

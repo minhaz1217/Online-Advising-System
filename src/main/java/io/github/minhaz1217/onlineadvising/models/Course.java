@@ -10,6 +10,11 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OrderBy;
+
+import org.springframework.core.annotation.Order;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -21,6 +26,7 @@ public class Course {
     @Id @GeneratedValue
     private String id;
     private String name;
+    @OrderBy(value="code")
     private String code;
     private String dept;
     private String has_lab;

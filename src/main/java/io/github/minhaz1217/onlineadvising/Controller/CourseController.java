@@ -72,10 +72,10 @@ public class CourseController {
         return "redirect:/show/course";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
-    public String courseEdit(@PathVariable String id, Model model){
-        //courseRepository.delete(courseRepository.findCourseById(id));
-        Course course = courseRepository.findCourseByCode("CSE411");
+    @RequestMapping(method = RequestMethod.POST, value = "/edit")
+    public String courseEdit(@RequestParam("id") String id, Model model){
+        //Course course = courseRepository.findCourseByCode("CSE411");
+        Course course = courseRepository.findCourseById(id);
         model.addAttribute("course", course);
         return "EditCourse";
     }
@@ -84,20 +84,44 @@ public class CourseController {
         //courseRepository.delete(courseRepository.findCourseById(id));
         Course course = courseRepository.findCourseByCode("CSE411");
         model.addAttribute("course", course);
-        List<String> myList = new ArrayList<>();
+        ArrayList<String> myList = new ArrayList<>();
+        /*
         myList.add(myMap.values().toString());
         myList.add(myMap.getFirst("name"));
         myList.add(myMap.getFirst("code"));
         myList.add(myMap.getFirst("dept"));
         myList.add(myMap.getFirst("has_lab"));
-        for(int i=0;i<myMap.get("prereq").size();i++){
-            myList.add(myMap.get("prereq").get(i));
+        */
+        if(myMap.get("prereq")!=null) {
+            for (int i = 0; i < myMap.get("prereq").size(); i++) {
+                if(!myMap.get("prereq").get(i).equals("")) {
+                    myList.add(myMap.get("prereq").get(i));
+                }
+            }
         }
+        String id = myMap.getFirst("id");
+        String name = myMap.getFirst("name");
+        String code = myMap.getFirst("code");
+        String dept = myMap.getFirst("dept");
+        String has_lab = "";
+        if(myMap.get("has_lab") == null){
+            has_lab = "0";
+        }else{
+            has_lab = "1";
+        }
+        //String[] prereq= myMap.get("prereq").toArray(new String[0]);
+
+        courseRepository.delete( courseRepository.findCourseById(id) );
+        courseRepository.save( new Course(name, code, dept, has_lab, myList) );
         //myList.add(myMap.get("prereq").get(0) );
         //myList.add(myMap.get("prerq").size() + "");
-
+        //        myList.add(code);
+        //        myList.add(dept);
+        //        myList.add(has_lab);
+        myList.add(name);
         model.addAttribute("value", myList);
-        return "test";
+        //return "test";
+        return "redirect:/show/course";
     }
     
 }

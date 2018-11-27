@@ -27,6 +27,8 @@
 <div class="makeCenter">
     <h1>Edit Course</h1>
 <form action="/course/update" method="post" id="courseForm" >
+
+    <input hidden name="id" th:value="${course.id}" />
     <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Course Name</label>
         <div class="col-sm-8 offset-sm-1">
@@ -51,7 +53,11 @@
     <div class="form-group row">
         <label for="has_lab" class="col-sm-2 col-form-label">Lab</label>
         <div class="col-sm-8 offset-sm-1">
-            <input type="checkbox" class="form-control" th:checked="${course.has_lab}" id="has_lab" name="has_lab"/>
+            <div th:switch="${course.has_lab}">
+                <input type="checkbox" class="form-control" checked th:case="1" id="has_lab" name="has_lab"/>
+                <input type="checkbox" class="form-control" th:case="0" id="has_lab" name="has_lab"/>
+                <input type="checkbox" class="form-control" th:case="*" id="has_lab" name="has_lab"/>
+            </div>
         </div>
     </div>
     <div>
@@ -64,7 +70,7 @@
         </div>
     </div>
 
-        <input id="addReq" type="button" onclick="addPrerequisite()" value="Add"/>
+        <input id="addReq" type="button" onclick="addPrerequisite()" value="Add Prerequisite"/>
 
     </div>
     <input type="submit" value="Update" />
