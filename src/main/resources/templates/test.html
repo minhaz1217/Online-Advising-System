@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Edit Course</title>
     <meta charset="UTF-8">
-    <title>TEST PAGE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
-<h1>THIS IS THE TEST PAGE</h1>
 
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<h1>For testing purposes only</h1>
+<div th:each="e : ${value}">
+    <p th:text="${e}"></p>
+</div>
 </body>
 </html>

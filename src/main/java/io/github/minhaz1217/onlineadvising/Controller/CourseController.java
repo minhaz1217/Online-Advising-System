@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.DocFlavor;
@@ -70,6 +71,33 @@ public class CourseController {
         courseRepository.delete(courseRepository.findCourseById(id));
         return "redirect:/show/course";
     }
-    
+
+    @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
+    public String courseEdit(@PathVariable String id, Model model){
+        //courseRepository.delete(courseRepository.findCourseById(id));
+        Course course = courseRepository.findCourseByCode("CSE411");
+        model.addAttribute("course", course);
+        return "EditCourse";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/update")
+    public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
+        //courseRepository.delete(courseRepository.findCourseById(id));
+        Course course = courseRepository.findCourseByCode("CSE411");
+        model.addAttribute("course", course);
+        List<String> myList = new ArrayList<>();
+        myList.add(myMap.values().toString());
+        myList.add(myMap.getFirst("name"));
+        myList.add(myMap.getFirst("code"));
+        myList.add(myMap.getFirst("dept"));
+        myList.add(myMap.getFirst("has_lab"));
+        for(int i=0;i<myMap.get("prereq").size();i++){
+            myList.add(myMap.get("prereq").get(i));
+        }
+        //myList.add(myMap.get("prereq").get(0) );
+        //myList.add(myMap.get("prerq").size() + "");
+
+        model.addAttribute("value", myList);
+        return "test";
+    }
     
 }
