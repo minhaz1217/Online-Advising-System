@@ -135,6 +135,14 @@ public class StudentController {
                     List<CourseDescription> courseDescription = descriptionRepository.findCourseDescriptionsByCodeAndSec(cdCode, cdSec);
                     if(courseDescription.size() >= 1){
                         myCourseExtended.add(new CourseExtended( cdCode, cdSec ) );
+                    }else{
+                        Student student = studentRepository.findStudentById(id);
+                        for(int j=0;j<student.getTaken().size();j++){
+                            if(student.getTaken().get(i).getCode().equals(cdCode)){
+                                myCourseExtended.add(student.getTaken().get(i));
+                                break;
+                            }
+                        }
                     }
                 }
             }
