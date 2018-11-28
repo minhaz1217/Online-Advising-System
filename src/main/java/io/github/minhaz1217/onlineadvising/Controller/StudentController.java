@@ -127,10 +127,13 @@ public class StudentController {
         }
         if(myMap.get("cdCode")!=null) {
             for (int i = 0; i < myMap.get("cdCode").size(); i++) {
+
+                String cdCode = myMap.get("cdCode").get(i).toUpperCase();
                 if(myMap.get("cdSec").get(i).equals("")) {
-                    myCourseExtended.add(new CourseExtended( myMap.get("cdCode").get(i).toUpperCase() ));
+                    if(!cdCode.equals("")){
+                        myCourseExtended.add(new CourseExtended( myMap.get("cdCode").get(i).toUpperCase() ));
+                    }
                 }else{
-                    String cdCode = myMap.get("cdCode").get(i).toUpperCase();
                     String cdSec = myMap.get("cdSec").get(i).toUpperCase();
                     List<CourseDescription> courseDescription = descriptionRepository.findCourseDescriptionsByCodeAndSec(cdCode, cdSec);
                     if(courseDescription.size() >= 1){

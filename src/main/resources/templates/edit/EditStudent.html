@@ -90,6 +90,7 @@
                         </div>
                     </div>
                 </div>
+                <input id="addCourse" type="button" onclick="myAddCourse()" value="Add New Course"/>
             </div>
         </div>
 
@@ -97,6 +98,22 @@
     </form>
 
 </div>
+
+<script>
+    function myAddCourse(){
+        $("#addCourse").before("                               <div class=\"input-group col-sm-12\">\n" +
+            "                                    <div class=\"input-group-prepend\">\n" +
+            "                                        <span class=\"input-group-text\">Course Code</span>\n" +
+            "                                    </div>\n" +
+            "                                    <input type=\"text\" class=\"form-control\" name=\"cdCode\"/>\n" +
+            "\n" +
+            "                                    <div class=\"input-group-prepend\">\n" +
+            "                                        <span class=\"input-group-text\">Section</span>\n" +
+            "                                    </div>\n" +
+            "                                    <input type=\"text\" class=\"form-control\" name=\"cdSec\"/>\n" +
+            "                                </div>");
+    }
+</script>
 
 </body>
 </html>
