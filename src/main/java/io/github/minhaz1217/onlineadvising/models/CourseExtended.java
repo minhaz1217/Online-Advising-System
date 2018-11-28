@@ -21,6 +21,10 @@ public class CourseExtended {
         this.code = code;
         this.courseDescription = courseDescription;
     }
+    public CourseExtended(CourseDescription courseDescription) {
+        this.code = courseDescription.getCode();
+        this.courseDescription = courseDescription;
+    }
 
     public String getCode() {
         return code;
