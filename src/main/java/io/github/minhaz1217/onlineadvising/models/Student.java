@@ -24,19 +24,20 @@ public class Student {
     @Id @GeneratedValue
     private String id;
     
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String student_id;
+    private String studentId;
     private CourseExtended[] taken;
     private Student(){
         //taken = new ArrayList<>();
     }
-    public Student(String first_name, String last_name, String email, String student_id, CourseExtended... taken) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+
+    public Student(String firstName, String lastName, String email, String studentId, CourseExtended... taken) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.student_id = student_id;
+        this.studentId = studentId;
         this.taken = taken;
     }
 
@@ -48,20 +49,20 @@ public class Student {
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -72,23 +73,19 @@ public class Student {
         this.email = email;
     }
 
-    public String getStudent_id() {
-        return student_id;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudent_id(String student_id) {
-        this.student_id = student_id;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public CourseExtended[] getTaken() {
         return taken;
     }
 
-    public void setTaken(CourseExtended... taken) {
+    public void setTaken(CourseExtended[] taken) {
         this.taken = taken;
     }
-    
-    
-    
-    
 }

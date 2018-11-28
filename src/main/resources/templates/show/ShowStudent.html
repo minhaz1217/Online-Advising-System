@@ -34,9 +34,9 @@ and open the template in the editor.
     </thead>
     <tbody>
     <tr th:each="my : ${student}">
-        <td class="myCenter" th:text="${my.first_name}"> </td>
-        <td class="myCenter" th:text="${my.last_name}"> </td>
-        <td class="myCenter" th:text="${my.student_id}"> </td>
+        <td class="myCenter" th:text="${my.firstName}"> </td>
+        <td class="myCenter" th:text="${my.lastName}"> </td>
+        <td class="myCenter" th:text="${my.studentId}"> </td>
         <td class="myCenter" th:text="${my.email}"> </td>
 
 
@@ -44,6 +44,20 @@ and open the template in the editor.
             <span th:each="pre: ${my.taken}">
                 <span th:text="${pre.code} + ', '" th:remove="tag"> </span>
             </span>
+        </td>
+
+        <td>
+            <form th:method="delete" th:action="@{'/student/remove'}">
+                <input type="hidden" name="id" th:value="${my.id}" />
+                <input type="submit" value="Remove" />
+            </form>
+        </td>
+        <td>
+
+            <form th:method="post" th:action="@{'/student/edit'}">
+                <input type="hidden" th:value="${my.id}" name="id" />
+                <input type="submit" value="Edit" />
+            </form>
         </td>
     </tr>
     </tbody>

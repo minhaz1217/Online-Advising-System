@@ -8,6 +8,7 @@ package io.github.minhaz1217.onlineadvising.Controller;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.Interface.StudentRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
+import io.github.minhaz1217.onlineadvising.models.CourseDescription;
 import io.github.minhaz1217.onlineadvising.models.CourseExtended;
 import io.github.minhaz1217.onlineadvising.models.Student;
 
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,8 +26,7 @@ import org.springframework.web.bind.annotation.*;
  * @author Minhaz
  */
 
-
-@RestController
+@Controller
 @RequestMapping("/student")
 public class StudentController {
        
@@ -35,19 +38,22 @@ public class StudentController {
         this.courseRepository = courseRepository;
     }
     //TODO: Remove this /all gate while deplying
-    @GetMapping("/all")
+    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    @ResponseBody
     public List<Student> getAll(){
         List<Student> students = this.studentRepository.findAll();
         return students;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "id/{student}")
+    @ResponseBody
     public Student getStudent(@PathVariable String student){
         //List<Course> fullCourse = courseRepository.findAll();
         return studentRepository.findStudentByStudentCode(student);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "available/{student}")
+    @ResponseBody
     public List<String> findRemainingCourse(@PathVariable String student){
         List<Course> fullCourse = courseRepository.findAll();
         List<CourseExtended> myCourses = Arrays.asList(studentRepository.findStudentByStudentCode(student).getTaken());
@@ -74,5 +80,45 @@ public class StudentController {
             }
         }
         return available;
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/")
+    public String showStudent(Model model){
+        return "redirect:/show/student";
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/remove")
+    public String studentRemove(@RequestParam("id") String id){
+        studentRepository.delete(studentRepository.findStudentById(id));
+        return "redirect:/show/student";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/edit")
+    public String studentEdit(@RequestParam("id") String id, Model model){
+        //Course course = courseRepository.findCourseByCode("CSE411");
+        Student student = this.studentRepository.findStudentById(id);
+        model.addAttribute("student", student);
+        return "/edit/EditStudent";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/update")
+    public String studentUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
+        ArrayList<String> myList = new ArrayList<>();
+        String id = myMap.getFirst("id");
+/*
+
+        String code = myMap.getFirst("code");
+        String sec = myMap.getFirst("sec");
+        String time = myMap.getFirst("time");
+        String day = myMap.getFirst("day");
+        String room = myMap.getFirst("room");
+        String seats = myMap.getFirst("seats");
+        String instructor = myMap.getFirst("instructor");
+        String has_lab = "";
+        */
+        this.studentRepository.delete(this.studentRepository.findStudentById(id));
+        //this.studentRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
+        return "redirect:/show/student";
     }
 }

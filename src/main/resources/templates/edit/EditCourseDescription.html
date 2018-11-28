@@ -28,6 +28,8 @@
     <h1>Edit Course Description</h1>
     <form action="/coursedescription/update" method="post" id="courseForm" >
 
+
+
         <input hidden name="id" th:value="${course.id}" />
         <div class="form-group row">
             <label for="code" class="col-sm-2 col-form-label">Course Code</label>
@@ -68,7 +70,7 @@
         <div class="form-group row">
             <label for="seat" class="col-sm-2 col-form-label">Seats</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="seat" th:value="${course.seats}" name="seats"/>
+                <input type="text" class="form-control" id="seat" th:value="${course.seat}" name="seat"/>
             </div>
         </div>
 

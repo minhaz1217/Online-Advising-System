@@ -45,7 +45,7 @@ public class ShowControl {
 
     @RequestMapping(method = RequestMethod.GET, value = "/student")
     public String showStudents(Model model){
-        List<Student> myStudents = studentRepository.findAllByOrderByEmailAsc();
+        List<Student> myStudents = studentRepository.findAllByOrderByFirstNameAsc();
         model.addAttribute("student", myStudents);
         return "/show/ShowStudent";
     }

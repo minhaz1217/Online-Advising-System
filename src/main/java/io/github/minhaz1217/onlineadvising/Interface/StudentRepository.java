@@ -21,8 +21,11 @@ public interface StudentRepository extends MongoRepository<Student, String>{
     //Student getStudentByStudent_id(String Student_id);
     Student getStudentByEmail(String studentId);
 
-    @Query(value = "{'student_id':?0}")
+    @Query(value = "{'studentId':?0}")
     Student findStudentByStudentCode(String code);
 
-    List<Student> findAllByOrderByEmailAsc();
+    List<Student> findAllByOrderByFirstNameAsc();
+
+    Student findStudentById(String id);
+
 }
