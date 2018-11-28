@@ -13,4 +13,6 @@ public interface CourseDescriptionRepository extends MongoRepository<CourseDescr
     public List<CourseDescription> findCourseDescriptionsByCode(String code);
     public CourseDescription findCourseDescriptionById(String id);
 
+    public List<CourseDescription> findAllByOrderByCodeAsc();
+
 }

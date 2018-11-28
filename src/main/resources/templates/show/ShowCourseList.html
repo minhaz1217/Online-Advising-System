@@ -33,6 +33,8 @@ and open the template in the editor.
     <th class="myCenter">Room</th>
     <th class="myCenter">Seat</th>
     <th class="myCenter">Instructor</th>
+    <th class="myCenter">Delete</th>
+    <th class="myCenter">Update</th>
     </thead>
     <tbody>
     <tr th:each="my : ${courseList}">
@@ -44,13 +46,14 @@ and open the template in the editor.
         <td class="myCenter" th:text="${my.seats}"> </td>
         <td class="myCenter" th:text="${my.instructor}"> </td>
         <td>
-            <form th:method="delete" th:action="@{'/course/remove/' + ${my.id}}">
+            <form th:method="delete" th:action="@{'/coursedescription/remove'}">
+                <input type="hidden" th:value="${my.id}" name="id" />
                 <input type="submit" value="Remove" />
             </form>
         </td>
         <td>
 
-            <form th:method="post" th:action="@{'/course/edit/'}">
+            <form th:method="post" th:action="@{'/coursedescription/edit'}">
                 <input type="hidden" th:value="${my.id}" name="id" />
                 <input type="submit" value="Edit" />
             </form>

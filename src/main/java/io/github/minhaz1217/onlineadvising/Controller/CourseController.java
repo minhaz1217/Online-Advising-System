@@ -8,7 +8,6 @@ package io.github.minhaz1217.onlineadvising.Controller;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
-import javax.print.DocFlavor;
 
 /**
  *
@@ -82,8 +79,6 @@ public class CourseController {
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
         //courseRepository.delete(courseRepository.findCourseById(id));
-        Course course = courseRepository.findCourseByCode("CSE411");
-        model.addAttribute("course", course);
         ArrayList<String> myList = new ArrayList<>();
         /*
         myList.add(myMap.values().toString());

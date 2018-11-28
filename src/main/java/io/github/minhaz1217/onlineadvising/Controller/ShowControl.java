@@ -40,20 +40,20 @@ public class ShowControl {
     public String showCourse(Model model){
         List<Course> myCourses = courseRepository.findAllByOrderByCodeAsc();
         model.addAttribute("course", myCourses);
-        return "ShowCourse";
+        return "/show/ShowCourse";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/student")
     public String showStudents(Model model){
-        List<Student> myStudents = studentRepository.findAll();
+        List<Student> myStudents = studentRepository.findAllByOrderByEmailAsc();
         model.addAttribute("student", myStudents);
-        return "ShowStudent";
+        return "/show/ShowStudent";
     }
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public String showCourseDescription(Model model){
-        List<CourseDescription> myCourses = courseDescriptionRepository.findAll();
+        List<CourseDescription> myCourses = courseDescriptionRepository.findAllByOrderByCodeAsc();
         model.addAttribute("courseList", myCourses);
-        return "ShowCourseList";
+        return "/show/ShowCourseList";
     }
     
 }

@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  *
  * @author Minhaz
@@ -21,4 +23,6 @@ public interface StudentRepository extends MongoRepository<Student, String>{
 
     @Query(value = "{'student_id':?0}")
     Student findStudentByStudentCode(String code);
+
+    List<Student> findAllByOrderByEmailAsc();
 }
