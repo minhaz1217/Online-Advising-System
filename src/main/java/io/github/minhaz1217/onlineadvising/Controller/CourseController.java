@@ -5,6 +5,7 @@
  */
 package io.github.minhaz1217.onlineadvising.Controller;
 
+import io.github.minhaz1217.onlineadvising.Interface.CourseDescriptionRepository;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.minhaz1217.onlineadvising.models.CourseDescription;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -80,14 +82,19 @@ public class CourseController {
     public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
         //courseRepository.delete(courseRepository.findCourseById(id));
         ArrayList<String> myList = new ArrayList<>();
+
+        myList.add(myMap.getFirst("firstName"));
+        myList.add(myMap.getFirst("lastName"));
+        myList.add(myMap.getFirst("email"));
+        myList.add(myMap.getFirst("studentId"));
         /*
         myList.add(myMap.values().toString());
-        myList.add(myMap.getFirst("name"));
         myList.add(myMap.getFirst("code"));
         myList.add(myMap.getFirst("dept"));
         myList.add(myMap.getFirst("has_lab"));
         */
-        if(myMap.get("prereq")!=null) {
+        List<CourseDescription> myCouseDescription;
+        if(myMap.get("code")!=null) {
             for (int i = 0; i < myMap.get("prereq").size(); i++) {
                 if(!myMap.get("prereq").get(i).equals("")) {
                     myList.add(myMap.get("prereq").get(i));

@@ -11,19 +11,16 @@ package io.github.minhaz1217.onlineadvising.models;
  */
 public class CourseExtended {
     private String code;
-    private CourseDescription courseDescription;
-    private CourseExtended(){}
-    public CourseExtended(String code){
+private String section;
+private CourseExtended(){}
+
+    public CourseExtended(String code, String section) {
         this.code = code;
-        this.courseDescription = null;
+        this.section = section;
     }
-    public CourseExtended(String code, CourseDescription courseDescription) {
+    public CourseExtended(String code) {
         this.code = code;
-        this.courseDescription = courseDescription;
-    }
-    public CourseExtended(CourseDescription courseDescription) {
-        this.code = courseDescription.getCode();
-        this.courseDescription = courseDescription;
+        this.section = null;
     }
 
     public String getCode() {
@@ -34,14 +31,11 @@ public class CourseExtended {
         this.code = code;
     }
 
-    public CourseDescription getCourseDescription() {
-        return courseDescription;
+    public String getSection() {
+        return section;
     }
 
-    public void setCourseDescription(CourseDescription courseDescription) {
-        this.courseDescription = courseDescription;
+    public void setSection(String section) {
+        this.section = section;
     }
-
-
-    
 }

@@ -5,6 +5,7 @@
  */
 package io.github.minhaz1217.onlineadvising.models;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -28,12 +29,12 @@ public class Student {
     private String lastName;
     private String email;
     private String studentId;
-    private CourseExtended[] taken;
+    private ArrayList<CourseExtended> taken;
     private Student(){
-        //taken = new ArrayList<>();
+        taken = new ArrayList<>();
     }
 
-    public Student(String firstName, String lastName, String email, String studentId, CourseExtended... taken) {
+    public Student(String firstName, String lastName, String email, String studentId, ArrayList<CourseExtended> taken) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -81,11 +82,11 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public CourseExtended[] getTaken() {
+    public ArrayList<CourseExtended> getTaken() {
         return taken;
     }
 
-    public void setTaken(CourseExtended[] taken) {
+    public void setTaken(ArrayList<CourseExtended> taken) {
         this.taken = taken;
     }
 }

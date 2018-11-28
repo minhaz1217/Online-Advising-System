@@ -225,7 +225,7 @@ public class DbSeeder implements CommandLineRunner {
 
 
         //adding some demo students
-        this.studentRepository.save(new Student( "Alex", "Jone", "minhaz1217@gmail.com", "2016-1-60-100", 
+        this.studentRepository.save(new Student( "Alex", "Jone", "minhaz1217@gmail.com", "2016-1-60-100",new ArrayList<CourseExtended>( Arrays.asList(
                 new CourseExtended("ENG101"), 
                 new CourseExtended("MAT101"), 
                 new CourseExtended("CSE105"), 
@@ -248,8 +248,11 @@ public class DbSeeder implements CommandLineRunner {
                 new CourseExtended("CSE251"), 
                 new CourseExtended("CSE301"), 
                 new CourseExtended("CSE325"), 
-                new CourseExtended("CSE345" )));
-        this.studentRepository.save(new Student( "Mikasa","Es Sukasa", "minhaz1217@gmail.com", "2016-1-60-101", 
+                new CourseExtended("CSE345" )
+        )
+        )));
+        this.studentRepository.save(new Student( "Mikasa","Es Sukasa", "minhaz1217@gmail.com", "2016-1-60-101",
+                new ArrayList<CourseExtended>( Arrays.asList(
                 new CourseExtended("ENG101"), 
                 new CourseExtended("MAT101"), 
                 new CourseExtended("CSE105"), 
@@ -260,14 +263,17 @@ public class DbSeeder implements CommandLineRunner {
                 new CourseExtended("MAT104"), 
                 new CourseExtended("CHE109"), 
                 new CourseExtended("CSE109" )
-        ));
-        this.studentRepository.save(new Student( "Hakua", "Matata", "minhaz1217@gmail.com", "2016-1-60-102", new CourseExtended("")));
+        ))));
+        this.studentRepository.save(new Student( "Hakua", "Matata", "minhaz1217@gmail.com", "2016-1-60-102",
+                new ArrayList<CourseExtended>( Arrays.asList(
+                new CourseExtended("")
+                ))));
         this.studentRepository.save(new Student( "Minhaz", "Khan", "minhaz1217@gmail.com", "2016-1-60-103",
-                new CourseExtended( "MAT101", new CourseDescription( "MAT101","2","11:50 - 01:20","ST","AB1-302","40")),
-
-                new CourseExtended(new CourseDescription( "ENG101","2","08:30 - 10:00","ST","241","40")),
-                new CourseExtended(  new CourseDescription( "CSE411","1","10:10 - 11:40","T","AB2-304","40"))
-        ));
+                new ArrayList<CourseExtended>( Arrays.asList(
+                new CourseExtended( "MAT101","2"),
+                new CourseExtended( "ENG101","2"),
+                new CourseExtended( "CSE411","1")
+        ))));
 
 
 

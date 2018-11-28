@@ -4,6 +4,7 @@ package io.github.minhaz1217.onlineadvising.Controller;
 import io.github.minhaz1217.onlineadvising.Interface.CourseDescriptionRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
 import io.github.minhaz1217.onlineadvising.models.CourseDescription;
+import io.github.minhaz1217.onlineadvising.models.CourseExtended;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -55,10 +56,18 @@ public class CourseDescriptionController {
         String room = myMap.getFirst("room");
         String seats = myMap.getFirst("seats");
         String instructor = myMap.getFirst("instructor");
-        String has_lab = "";
+
+
+
         this.courseDescriptionRepository.delete(this.courseDescriptionRepository.findCourseDescriptionById(id));
         this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
         return "redirect:/show/list";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "test/{code}/{sec}/{day}")
+    @ResponseBody
+    public String testingThing(@PathVariable String code, @PathVariable String sec, @PathVariable String day){
+        return "HELLO";
     }
 
 }
