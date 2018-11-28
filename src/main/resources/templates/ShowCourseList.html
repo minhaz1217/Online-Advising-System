@@ -43,7 +43,18 @@ and open the template in the editor.
         <td class="myCenter" th:text="${my.room}"> </td>
         <td class="myCenter" th:text="${my.seats}"> </td>
         <td class="myCenter" th:text="${my.instructor}"> </td>
+        <td>
+            <form th:method="delete" th:action="@{'/course/remove/' + ${my.id}}">
+                <input type="submit" value="Remove" />
+            </form>
+        </td>
+        <td>
 
+            <form th:method="post" th:action="@{'/course/edit/'}">
+                <input type="hidden" th:value="${my.id}" name="id" />
+                <input type="submit" value="Edit" />
+            </form>
+        </td>
         <!--
         <td class="myCenter">
             <span th:each="pre: ${my.taken}">
