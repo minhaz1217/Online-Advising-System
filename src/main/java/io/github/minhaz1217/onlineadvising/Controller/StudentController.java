@@ -149,9 +149,6 @@ public class StudentController {
             }
         }
 
-
-
-
         this.studentRepository.delete(this.studentRepository.findStudentById(id));
         this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
         return "redirect:/show/student";
