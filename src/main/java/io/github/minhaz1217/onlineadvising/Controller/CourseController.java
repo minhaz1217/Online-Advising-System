@@ -76,7 +76,7 @@ public class CourseController {
         //Course course = courseRepository.findCourseByCode("CSE411");
         Course course = courseRepository.findCourseById(id);
         model.addAttribute("course", course);
-        return "EditCourse";
+        return "/edit/EditCourse";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
@@ -124,6 +124,15 @@ public class CourseController {
         model.addAttribute("value", myList);
         //return "test";
         return "redirect:/show/course";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/add")
+    public String showAddCourse(Model model){
+        return "/add/AddCourse";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    public String addCourse(Model model){
+        return "/add/AddCourse";
     }
     
 }

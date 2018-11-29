@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Student</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body class="text-center">
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+<style>
+    .makeCenter{
+        width:60%;
+        margin:10% auto;
+        padding:2%;
+        background-color: #9fcdff;
+    }
+    body{
+    //background-color: #9fcdff;
+        background-color: mediumaquamarine;
+    }
+</style>
+<div class="makeCenter">
+    <h1>Edit Student</h1>
+    <form action="/student/update" method="post" id="courseForm" >
+
+        <input hidden name="id" th:value="${student.id}" />
+        <div class="form-group row">
+            <label for="code" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="code" th:value="${student.firstName}" name="firstName"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="sec" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="sec" th:value="${student.lastName}" name="lastName"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="time" class="col-sm-2 col-form-label">Email Address</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="time" th:value="${student.email}" name="email"/>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="day" class="col-sm-2 col-form-label">Student ID</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="day" th:value="${student.studentId}" name="studentId"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="courseTaken" class="col-sm-2 col-form-label">Course Taken</label>
+            <div class="col-sm-8 offset-sm-1" id="courseTaken">
+
+                <div th:each="take: ${student.taken}" th:remove="tag">
+
+
+                    <div th:switch="${take.section}" th:remove="tag">
+                        <div th:case="null">
+                            <div class="input-group col-sm-12">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Course(s)</span>
+                                </div>
+                                <input type="text" class="form-control" th:value="${take.code}" name="code"/>
+
+                            </div>
+                        </div>
+                        <div th:case="*">
+                                <div class="input-group col-sm-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Course Code</span>
+                                    </div>
+                                    <input type="text" class="form-control" th:value="${take.code}" name="cdCode"/>
+
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Section</span>
+                                    </div>
+                                    <input type="text" class="form-control" th:value="${take.section}"  name="cdSec"/>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <input id="addCourse" type="button" onclick="myAddCourse()" value="Add New Course"/>
+            </div>
+        </div>
+
+        <input type="submit" value="Update" />
+    </form>
+
+</div>
+
+<script>
+    function myAddCourse(){
+        $("#addCourse").before("                               <div class=\"input-group col-sm-12\">\n" +
+            "                                    <div class=\"input-group-prepend\">\n" +
+            "                                        <span class=\"input-group-text\">Course Code</span>\n" +
+            "                                    </div>\n" +
+            "                                    <input type=\"text\" class=\"form-control\" name=\"cdCode\"/>\n" +
+            "\n" +
+            "                                    <div class=\"input-group-prepend\">\n" +
+            "                                        <span class=\"input-group-text\">Section</span>\n" +
+            "                                    </div>\n" +
+            "                                    <input type=\"text\" class=\"form-control\" name=\"cdSec\"/>\n" +
+            "                                </div>");
+    }
+</script>
+
+</body>
+</html>

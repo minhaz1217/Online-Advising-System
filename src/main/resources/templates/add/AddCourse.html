@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Course</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body class="text-center">
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+<style>
+    .makeCenter{
+        width:60%;
+        margin:10% auto;
+        padding:2%;
+        background-color: #9fcdff;
+    }
+    body{
+        //background-color: #9fcdff;
+        background-color: mediumaquamarine;
+    }
+</style>
+<div class="makeCenter">
+    <h1>Edit Course</h1>
+<form action="/course/add" method="post" id="courseForm" >
+
+    <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Course Name</label>
+        <div class="col-sm-8 offset-sm-1">
+            <input type="text" class="form-control" id="name" name="name"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="code" class="col-sm-2 col-form-label">Course Code</label>
+        <div class="col-sm-8 offset-sm-1">
+            <input type="text" class="form-control" id="code"  name="code"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="dept" class="col-sm-2 col-form-label">Department</label>
+        <div class="col-sm-8 offset-sm-1">
+            <input type="text" class="form-control" id="dept" name="dept"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="has_lab" class="col-sm-2 col-form-label">Lab</label>
+        <div class="col-sm-8 offset-sm-1">
+            <input type="checkbox" class="form-control" id="has_lab" name="has_lab"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="prerquisite" class="col-sm-2 col-form-label">Prerequisites</label>
+        <div class="col-sm-8 offset-sm-1">
+            <div id="prerquisite">
+                <input id="addReq" type="button" onclick="addPrerequisite()" value="Add Prerequisite"/>
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Add Course" />
+</form>
+
+</div>
+
+
+<script>
+    function addPrerequisite(){
+        //alert("HELLO");
+        //Console.log("ADDED");
+        //alert(mine);
+        $("#addReq").before("        <div class=\"form-group row\">\n" +
+            "        <label th:for=\"newLine\" class=\"col-sm-2 col-form-label\">Prerequisite(s)</label>\n" +
+            "        <div class=\"col-sm-8 offset-sm-1\">\n" +
+            "            <input type=\"text\" class=\"form-control\" name='prereq'/>\n" +
+            "        </div>\n" +
+            "        </div>");
+    }
+</script>
+</body>
+</html>

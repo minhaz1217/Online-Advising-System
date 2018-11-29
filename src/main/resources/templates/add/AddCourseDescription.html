@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Course Description</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body class="text-center">
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+<style>
+    .makeCenter{
+        width:60%;
+        margin:10% auto;
+        padding:2%;
+        background-color: #9fcdff;
+    }
+    body{
+    //background-color: #9fcdff;
+        background-color: mediumaquamarine;
+    }
+</style>
+<div class="makeCenter">
+    <h1>Edit Course Description</h1>
+    <form action="/coursedescription/update" method="post" id="courseForm" >
+
+
+
+        <input hidden name="id" th:value="${course.id}" />
+        <div class="form-group row">
+            <label for="code" class="col-sm-2 col-form-label">Course Code</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="code" th:value="${course.code}" name="code"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="sec" class="col-sm-2 col-form-label">Course Section</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="sec" th:value="${course.sec}" name="sec"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="time" class="col-sm-2 col-form-label">Time</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="time" th:value="${course.time}" name="time"/>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="day" class="col-sm-2 col-form-label">Day</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="day" th:value="${course.day}" name="day"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="room" class="col-sm-2 col-form-label">Room</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="room" th:value="${course.room}" name="room"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="seat" class="col-sm-2 col-form-label">Seats</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="seat" th:value="${course.seat}" name="seat"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="instructor" class="col-sm-2 col-form-label">Instructor</label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="instructor" th:value="${course.instructor}" name="instructor"/>
+            </div>
+        </div>
+
+        <input type="submit" value="Update" />
+    </form>
+
+</div>
+
+</body>
+</html>
