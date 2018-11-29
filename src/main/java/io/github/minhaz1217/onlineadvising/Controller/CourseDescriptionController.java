@@ -46,8 +46,6 @@ public class CourseDescriptionController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
-        ArrayList<String> myList = new ArrayList<>();
-
         String id = myMap.getFirst("id");
         String code = myMap.getFirst("code");
         String sec = myMap.getFirst("sec");
@@ -56,18 +54,26 @@ public class CourseDescriptionController {
         String room = myMap.getFirst("room");
         String seats = myMap.getFirst("seats");
         String instructor = myMap.getFirst("instructor");
-
-
-
         this.courseDescriptionRepository.delete(this.courseDescriptionRepository.findCourseDescriptionById(id));
         this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
         return "redirect:/show/list";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "test/{code}/{sec}/{day}")
-    @ResponseBody
-    public String testingThing(@PathVariable String code, @PathVariable String sec, @PathVariable String day){
-        return "HELLO";
+    @RequestMapping(method = RequestMethod.GET, value = "/add")
+    public String showAddCourse(Model model){
+        return "/add/AddCourseDescription";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    public String addCourse(@RequestParam MultiValueMap<String, String> myMap,  Model model){
+        String code = myMap.getFirst("code");
+        String sec = myMap.getFirst("sec");
+        String time = myMap.getFirst("time");
+        String day = myMap.getFirst("day");
+        String room = myMap.getFirst("room");
+        String instructor = myMap.getFirst("instructor");
+        String seats = myMap.getFirst("seats");
+        this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
+        return "redirect:/show/list";
     }
 
 }

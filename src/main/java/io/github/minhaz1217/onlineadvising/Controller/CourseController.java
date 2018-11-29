@@ -82,18 +82,6 @@ public class CourseController {
     public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
         //courseRepository.delete(courseRepository.findCourseById(id));
         ArrayList<String> myList = new ArrayList<>();
-
-        myList.add(myMap.getFirst("firstName"));
-        myList.add(myMap.getFirst("lastName"));
-        myList.add(myMap.getFirst("email"));
-        myList.add(myMap.getFirst("studentId"));
-        /*
-        myList.add(myMap.values().toString());
-        myList.add(myMap.getFirst("code"));
-        myList.add(myMap.getFirst("dept"));
-        myList.add(myMap.getFirst("has_lab"));
-        */
-        List<CourseDescription> myCouseDescription;
         if(myMap.get("code")!=null) {
             for (int i = 0; i < myMap.get("prereq").size(); i++) {
                 if(!myMap.get("prereq").get(i).equals("")) {
@@ -111,18 +99,10 @@ public class CourseController {
         }else{
             has_lab = "1";
         }
-        //String[] prereq= myMap.get("prereq").toArray(new String[0]);
-
         courseRepository.delete( courseRepository.findCourseById(id) );
-        courseRepository.save( new Course(name, code, dept, has_lab, myList) );
-        //myList.add(myMap.get("prereq").get(0) );
-        //myList.add(myMap.get("prerq").size() + "");
-        //        myList.add(code);
-        //        myList.add(dept);
-        //        myList.add(has_lab);
+        Course c = courseRepository.save( new Course(name, code, dept, has_lab, myList) );
         myList.add(name);
         model.addAttribute("value", myList);
-        //return "test";
         return "redirect:/show/course";
     }
 
@@ -131,7 +111,25 @@ public class CourseController {
         return "/add/AddCourse";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String addCourse(Model model){
+    public String addCourse(@RequestParam MultiValueMap<String, String> myMap,  Model model){
+        String name = myMap.getFirst("name");
+        String code = myMap.getFirst("code");
+        String dept = myMap.getFirst("dept");
+        String has_lab = "";
+        if(myMap.get("has_lab") == null){
+            has_lab = "0";
+        }else{
+            has_lab = "1";
+        }
+        ArrayList<String> myList = new ArrayList<>();
+        if(myMap.get("code")!=null) {
+            for (int i = 0; i < myMap.get("prereq").size(); i++) {
+                if(!myMap.get("prereq").get(i).equals("")) {
+                    myList.add(myMap.get("prereq").get(i));
+                }
+            }
+        }
+        this.courseRepository.save(new Course( name, code, dept, has_lab, myList ));
         return "/add/AddCourse";
     }
     

@@ -28,73 +28,45 @@
     <h1>Edit Student</h1>
     <form action="/student/update" method="post" id="courseForm" >
 
-        <input hidden name="id" th:value="${student.id}" />
         <div class="form-group row">
             <label for="code" class="col-sm-2 col-form-label">First Name</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="code" th:value="${student.firstName}" name="firstName"/>
+                <input type="text" class="form-control" id="code" name="firstName"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="sec" class="col-sm-2 col-form-label">Last Name</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="sec" th:value="${student.lastName}" name="lastName"/>
+                <input type="text" class="form-control" id="sec" name="lastName"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="time" class="col-sm-2 col-form-label">Email Address</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="time" th:value="${student.email}" name="email"/>
+                <input type="text" class="form-control" id="time" name="email"/>
             </div>
         </div>
 
 
         <div class="form-group row">
-            <label for="day" class="col-sm-2 col-form-label">Student ID</label>
+            <label for="studentId" class="col-sm-2 col-form-label">Student ID</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="day" th:value="${student.studentId}" name="studentId"/>
+                <input type="text" class="form-control" id="studentId" name="studentId"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="courseTaken" class="col-sm-2 col-form-label">Course Taken</label>
-            <div class="col-sm-8 offset-sm-1" id="courseTaken">
-
-                <div th:each="take: ${student.taken}" th:remove="tag">
-
-
-                    <div th:switch="${take.section}" th:remove="tag">
-                        <div th:case="null">
-                            <div class="input-group col-sm-12">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Course(s)</span>
-                                </div>
-                                <input type="text" class="form-control" th:value="${take.code}" name="code"/>
-
-                            </div>
-                        </div>
-                        <div th:case="*">
-                                <div class="input-group col-sm-12">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Course Code</span>
-                                    </div>
-                                    <input type="text" class="form-control" th:value="${take.code}" name="cdCode"/>
-
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Section</span>
-                                    </div>
-                                    <input type="text" class="form-control" th:value="${take.section}"  name="cdSec"/>
-                                </div>
-                        </div>
-                    </div>
+            <div class="col-sm-8 offset-sm-1">
+                <div id="courseTaken">
+                    <input id="addCourse" type="button" onclick="myAddCourse()" value="Add New Course"/>
                 </div>
-                <input id="addCourse" type="button" onclick="myAddCourse()" value="Add New Course"/>
             </div>
         </div>
 
-        <input type="submit" value="Update" />
+        <input type="submit" value="Add Student" />
     </form>
 
 </div>

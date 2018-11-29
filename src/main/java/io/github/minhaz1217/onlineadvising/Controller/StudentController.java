@@ -108,8 +108,6 @@ public class StudentController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public String studentUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
-        ArrayList<String> myList = new ArrayList<>();
-
         String id = myMap.getFirst("id");
         String firstName = (myMap.getFirst("firstName"));
         String lastName = (myMap.getFirst("lastName"));
@@ -156,6 +154,40 @@ public class StudentController {
 
         this.studentRepository.delete(this.studentRepository.findStudentById(id));
         this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
+        return "redirect:/show/student";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/add")
+    public String showAddStudent(Model model){
+        return "/add/AddStudent";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    public String addStudent(@RequestParam MultiValueMap<String, String> myMap,  Model model){
+
+        String firstName = (myMap.getFirst("firstName"));
+        String lastName = (myMap.getFirst("lastName"));
+        String email = (myMap.getFirst("email"));
+        String studentId = (myMap.getFirst("studentId"));
+        ArrayList<CourseExtended> myCourseExtended = new ArrayList<>();
+
+        if(myMap.get("cdCode")!=null) {
+            for (int i = 0; i < myMap.get("cdCode").size(); i++) {
+                String cdCode = myMap.get("cdCode").get(i).toUpperCase();
+                if(myMap.get("cdSec").get(i).equals("")) {
+                    if(!cdCode.equals("")){
+                        myCourseExtended.add(new CourseExtended( myMap.get("cdCode").get(i).toUpperCase() ));
+                    }
+                }else{
+                    String cdSec = myMap.get("cdSec").get(i).toUpperCase();
+                    List<CourseDescription> courseDescription = descriptionRepository.findCourseDescriptionsByCodeAndSec(cdCode, cdSec);
+                    if(courseDescription.size() >= 1){
+                        myCourseExtended.add(new CourseExtended( cdCode, cdSec ) );
+                    }
+                }
+            }
+        }
+        this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
+
         return "redirect:/show/student";
     }
 }

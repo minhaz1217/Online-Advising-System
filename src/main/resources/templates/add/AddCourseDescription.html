@@ -26,29 +26,26 @@
 </style>
 <div class="makeCenter">
     <h1>Edit Course Description</h1>
-    <form action="/coursedescription/update" method="post" id="courseForm" >
+    <form action="/coursedescription/add" method="post" id="courseForm" >
 
-
-
-        <input hidden name="id" th:value="${course.id}" />
         <div class="form-group row">
             <label for="code" class="col-sm-2 col-form-label">Course Code</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="code" th:value="${course.code}" name="code"/>
+                <input type="text" class="form-control" id="code" name="code"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="sec" class="col-sm-2 col-form-label">Course Section</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="sec" th:value="${course.sec}" name="sec"/>
+                <input type="text" class="form-control" id="sec" name="sec"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="time" class="col-sm-2 col-form-label">Time</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="time" th:value="${course.time}" name="time"/>
+                <input type="text" class="form-control" id="time" name="time"/>
             </div>
         </div>
 
@@ -56,32 +53,32 @@
         <div class="form-group row">
             <label for="day" class="col-sm-2 col-form-label">Day</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="day" th:value="${course.day}" name="day"/>
+                <input type="text" class="form-control" id="day" name="day"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="room" class="col-sm-2 col-form-label">Room</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="room" th:value="${course.room}" name="room"/>
+                <input type="text" class="form-control" id="room" name="room"/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="seat" class="col-sm-2 col-form-label">Seats</label>
+            <label for="seats" class="col-sm-2 col-form-label">Seats</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="seat" th:value="${course.seat}" name="seat"/>
+                <input type="text" class="form-control" id="seats"  name="seats"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="instructor" class="col-sm-2 col-form-label">Instructor</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="instructor" th:value="${course.instructor}" name="instructor"/>
+                <input type="text" class="form-control" id="instructor" name="instructor"/>
             </div>
         </div>
 
-        <input type="submit" value="Update" />
+        <input type="submit" value="Add Course Description" />
     </form>
 
 </div>
