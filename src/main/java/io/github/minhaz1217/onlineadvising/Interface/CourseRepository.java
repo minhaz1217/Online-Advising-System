@@ -27,4 +27,6 @@ public interface CourseRepository extends MongoRepository<Course, String> {
     Course findCourseByName(String name);
     Course findCourseByCode(String code);
     Course findCourseById(String id);
+    List<Course> findCoursesByCodeOrCodeOrCode(String code, String s2, String s3);
+    List<Course> findCoursesByCodeOrCode(String code, String s2);
 }

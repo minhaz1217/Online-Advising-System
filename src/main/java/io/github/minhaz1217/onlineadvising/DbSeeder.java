@@ -220,6 +220,15 @@ public class DbSeeder implements CommandLineRunner {
         this.courseDescriptionRepository.save(new CourseDescription( "CSE109","04","11:50 - 01:20","R","AB1-401","40"));
         this.courseDescriptionRepository.save(new CourseDescription( "CSE109","05","10:10 - 11:40","MW","358","40"));
         this.courseDescriptionRepository.save(new CourseDescription( "CSE109","07","03:10 - 04:40","SR","AB2-203","40"));
+        //adding the labs
+        this.courseDescriptionRepository.save(new CourseDescription( "CSE365LAB","01","10:10 - 12:10","R","638","40"));
+        this.courseDescriptionRepository.save(new CourseDescription( "CSE365LAB","02","01:30 - 03:30","R","638","40"));
+        this.courseDescriptionRepository.save(new CourseDescription( "CSE365LAB","03","01:30 - 03:30","M","638","40"));
+
+        this.courseDescriptionRepository.save(new CourseDescription( "CSE411LAB","01","10:10 - 12:10","S","638","40"));
+        this.courseDescriptionRepository.save(new CourseDescription( "CSE411LAB","02","08:00 - 10:00","T","638","40"));
+        this.courseDescriptionRepository.save(new CourseDescription( "CSE411LAB","03","04:50 - 06:50","T","638","40"));
+
 
 
 

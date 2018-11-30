@@ -16,25 +16,44 @@ and open the template in the editor.
 
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+<style>
+    .makeCenter{
+        width:60%;
+        margin:10% auto;
+        padding:2%;
+        background-color: #9fcdff;
+    }
+    body{
+    //background-color: #9fcdff;
+        background-color: mediumaquamarine;
+    }
+</style>
+<div class="makeCenter">
+
+
 <h2>Select the courses you want, you can only select at most 4</h2>
+    <h3 th:if="${error}" th:text="${error}"></h3>
 <form action="#" method="post" id="courseForm" >
+    <input type="hidden" name="id" th:value="${student}"/>
     <div th:each="st : ${seatplan}">
 
-        <div class="form-group row">
-            <label th:for="${st.code}" class="col-sm-2 col-form-label" th:text="${st.code}" name="takeCode"></label>
-            <div class="col-sm-8 offset-sm-1" th:id="${st.code}">
-                <select>
-                    <div th:each="msg : ${st.sections}">
-                        <option th:text="${msg.value}" th:value="${msg.key}"></option>
-                    </div>
-                </select>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label th:for="${st.code}" class="input-group-text" th:text="${st.code}"></label>
             </div>
+
+            <select  class="custom-select" th:id="${st.code}" name="takeCode">
+                <option th:value="0" selected>None</option>
+                <div th:each="msg : ${st.sections}" th:remove="tag">
+                    <option th:text="${msg.value}" th:value=" @{${st.code}+'_'+  ${msg.key}}"></option>
+                </div>
+            </select>
         </div>
-
     </div>
-    <input type="submit" value="Add Course" />
+    <input type="submit" value="Add Course" class="button"/>
 </form>
-
+</div>
 
 </body>
 </html>

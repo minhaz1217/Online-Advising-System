@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -86,6 +87,7 @@ public class StudentController {
     @RequestMapping(method = RequestMethod.GET, value = "available/{student}")
     //@ResponseBody
     public String findRemainingCourse(@PathVariable String student, Model model){
+        model.addAttribute("student", student);
         List<Course> fullCourse = courseRepository.findAll();
         List<CourseExtended> myCourses = (studentRepository.findStudentByStudentCode(student).getTaken());
         List<String> available = new ArrayList<>();
@@ -157,10 +159,49 @@ public class StudentController {
         //return seatPlan;
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "available/{student}")
+    //@ResponseBody
+    public String takeCourse(@PathVariable String student, @RequestParam MultiValueMap<String, String> myMap, Model model, RedirectAttributes redirectAttributes){
+
+        String id = myMap.getFirst("id");
+        List<Pair<String , String>> pair = new ArrayList<Pair<String, String>>();
+        if(myMap.get("takeCode")!=null){
+            for(int i=0;i<myMap.get("takeCode").size();i++){
+                String full = myMap.get("takeCode").get(i);
+                if(!full.equals("0")){
+                    String code = full.substring(0,full.length()- full.lastIndexOf("_"));
+                    String section = full.substring(full.lastIndexOf('_'));
+
+                    //System.out.println(code + " " + section);
+                    pair.add(new Pair(code, section));
+                }
+            }
+        }
+        String needLab = "Need lab for: ", code = "";
+        List<String> sendList = new ArrayList<>();
+        for(int i=0;i<pair.size();i++){
+            code = pair.get(i).getKey();
+            sendList.add(code);
+            if(sendList.size() == 3){
+                List<Course> courses = courseRepository.findCoursesByCodeOrCodeOrCode(sendList.get(0), sendList.get(1), sendList.get(2));
+                for(Course cc : courses){
+                    if(cc.getHas_lab() == "1"){
+
+                    }
+                }
+            }
+        }
+
+
+
+        redirectAttributes.addFlashAttribute("error", "THERE WAS AN ERROR");
+        return "redirect:/student/available/"+id;
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/test")
     @ResponseBody
-    public List<CourseDescription> hi(){
-        return descriptionRepository.findCourseDescriptionsByCodeOrderBySecAsc("ENG101");
+    public List<Course> hi(){
+        return courseRepository.findCoursesByCodeOrCodeOrCode("ENG101", "CSE109", "CSE411");
     }
 
 
