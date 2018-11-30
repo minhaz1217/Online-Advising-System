@@ -92,13 +92,18 @@ public class StudentController {
         List<CourseExtended> myCourses = (studentRepository.findStudentByStudentCode(student).getTaken());
         List<String> available = new ArrayList<>();
         List<String> myTaken = new ArrayList<>();
+
+        //getting the code name for the taken courses
         for(int i=0;i<myCourses.size();i++){
             myTaken.add(myCourses.get(i).getCode());
         }
+
+
+        //checking prerequisite
         int flag = 0;
         for(int i=0;i<fullCourse.size();i++) {
             Course curr = fullCourse.get(i);
-
+            //he didn't take this course and this isn't a lab course
             if (myTaken.indexOf(curr.getCode()) == -1) {
                 flag = 1;
                 for (int j = 0; j < curr.getPrerequisite().size(); j++) {
@@ -108,10 +113,17 @@ public class StudentController {
                     }
                 }
                 if (flag == 1) {
+
                     available.add(curr.getCode());
+                    // if this course has lab then we need to add this course's lab with it
+                    if(curr.getHas_lab().equals("1")){
+                        available.add(curr.getCode()+"LAB");
+                    }
                 }
             }
         }
+        System.out.println(available.size());
+
         List<CourseDescription> availableList = new ArrayList<CourseDescription>();
         List<SeatPlan> seatPlan = new ArrayList<>();
         String section = "", seats = "", code="", instructor = "", day = "", time = "", room= "", message = "";
@@ -141,6 +153,10 @@ public class StudentController {
                     for(int j=ai+1;j<availableList.size();j++){
                         if(availableList.get(j).getCode().equals(code) && availableList.get(j).getSec().equals(section)){
                             availableList.get(j).setSec("");
+                            cd = availableList.get(j);
+                            time = cd.getTime();
+                            day = cd.getDay();
+                            room = cd.getRoom();
                             message = message + " (" + day + ", " + time + ", " + room + ")";
                             break;
                         }
@@ -153,7 +169,7 @@ public class StudentController {
         }
 
         //( Section : time : WEEKDAY : class room : instructor : seats )
-        System.out.println(seatPlan.size());
+        //System.out.println(seatPlan.size());
         model.addAttribute("seatplan", seatPlan);
         return  "/show/ShowAvailable";
         //return seatPlan;
@@ -169,27 +185,81 @@ public class StudentController {
             for(int i=0;i<myMap.get("takeCode").size();i++){
                 String full = myMap.get("takeCode").get(i);
                 if(!full.equals("0")){
-                    String code = full.substring(0,full.length()- full.lastIndexOf("_"));
-                    String section = full.substring(full.lastIndexOf('_'));
+                    String code = full.substring(0,full.lastIndexOf("_"));
+                    String section = full.substring(full.lastIndexOf('_')+1 );
 
                     //System.out.println(code + " " + section);
                     pair.add(new Pair(code, section));
                 }
             }
         }
-        String needLab = "Need lab for: ", code = "";
+
+        // took subject that has a lab but didn't take the lab
+        String needLab = "Need to take lab for: ", code = "", needMain = "You need to take the course : ";
         List<String> sendList = new ArrayList<>();
+        String pairToString = pair.toString();
+        int flagLab =0, flagMain =0;
         for(int i=0;i<pair.size();i++){
             code = pair.get(i).getKey();
-            sendList.add(code);
+
+            //this is a normal course
+            if(!code.contains("LAB")){
+                sendList.add(code);
+            }else{
+                // this is a lab course
+                String mainCourseCode = code.substring(0,code.lastIndexOf("LAB"));
+                //checking if the CSE411 and CSE411LAB doesn't have same index
+                //searching from front and from end, if they give different result then both the course and the lab is  there, if they won't then they aren't there
+                System.out.println(pairToString.indexOf(mainCourseCode) + " " + pairToString.lastIndexOf(mainCourseCode));
+                if(pairToString.indexOf(mainCourseCode) == pairToString.lastIndexOf(mainCourseCode)){
+                    needMain = needMain +  mainCourseCode + " ";
+                    flagMain = 1;
+                }
+
+            }
+
             if(sendList.size() == 3){
                 List<Course> courses = courseRepository.findCoursesByCodeOrCodeOrCode(sendList.get(0), sendList.get(1), sendList.get(2));
                 for(Course cc : courses){
-                    if(cc.getHas_lab() == "1"){
-
+                    if(cc.getHas_lab().equals("1")){
+                        if(!pairToString.contains(cc.getCode()+"LAB")){
+                            sendList.add(cc.getCode());
+                            needLab = needLab + cc.getCode()+" ";
+                            flagLab = 1;
+                        }
                     }
                 }
             }
+        }
+        if(sendList.size() == 2){
+
+            List<Course> courses = courseRepository.findCoursesByCodeOrCode(sendList.get(0), sendList.get(1));
+            for(Course cc : courses){
+                if(cc.getHas_lab().equals("1")){
+                    if(!pairToString.contains(cc.getCode()+"LAB")){
+                        sendList.add(cc.getCode());
+                        needLab = needLab + cc.getCode()+" ";
+                        flagLab = 1;
+                    }
+                }
+            }
+        }else if(sendList.size() == 1){
+            Course cc= courseRepository.findCourseByCode(sendList.get(0));
+            if(cc.getHas_lab().equals("1")){
+                if(!pairToString.contains(cc.getCode()+"LAB")){
+                    sendList.add(cc.getCode());
+                    needLab = needLab + cc.getCode()+" ";
+                    flagLab = 1;
+                }
+            }
+        }
+
+        if(flagLab == 1){
+            redirectAttributes.addFlashAttribute("error", needLab);
+            return "redirect:/student/available/"+id;
+        }else if(flagMain == 1){
+            redirectAttributes.addFlashAttribute("error", needMain);
+            return "redirect:/student/available/"+id;
         }
 
 
