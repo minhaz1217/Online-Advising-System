@@ -181,20 +181,36 @@ public class StudentController {
 
         String id = myMap.getFirst("id");
         List<Pair<String , String>> pair = new ArrayList<Pair<String, String>>();
+        int credit = 0;
         if(myMap.get("takeCode")!=null){
             for(int i=0;i<myMap.get("takeCode").size();i++){
                 String full = myMap.get("takeCode").get(i);
                 if(!full.equals("0")){
                     String code = full.substring(0,full.lastIndexOf("_"));
                     String section = full.substring(full.lastIndexOf('_')+1 );
-
+                    if(code.contains("LAB")){
+                        credit+=1;
+                    }else{
+                        credit += 3;
+                    }
                     //System.out.println(code + " " + section);
                     pair.add(new Pair(code, section));
                 }
             }
         }
 
-        // took subject that has a lab but didn't take the lab
+        //DETECTION: credit count check{
+        if(credit < 9){
+            redirectAttributes.addFlashAttribute("error", "Need to take at least 9 credits.");
+            return "redirect:/student/available/"+id;
+        }else if(credit > 15){
+
+            redirectAttributes.addFlashAttribute("error", "You can take maximum 15 credits.");
+            return "redirect:/student/available/"+id;
+        }
+
+
+        //DETECTION: took subject that has a lab but didn't take the lab
         String needLab = "Need to take lab for: ", code = "", needMain = "You need to take the course : ";
         List<String> sendList = new ArrayList<>();
         String pairToString = pair.toString();
@@ -215,9 +231,7 @@ public class StudentController {
                     needMain = needMain +  mainCourseCode + " ";
                     flagMain = 1;
                 }
-
             }
-
             if(sendList.size() == 3){
                 List<Course> courses = courseRepository.findCoursesByCodeOrCodeOrCode(sendList.get(0), sendList.get(1), sendList.get(2));
                 for(Course cc : courses){
@@ -232,7 +246,6 @@ public class StudentController {
             }
         }
         if(sendList.size() == 2){
-
             List<Course> courses = courseRepository.findCoursesByCodeOrCode(sendList.get(0), sendList.get(1));
             for(Course cc : courses){
                 if(cc.getHas_lab().equals("1")){
@@ -261,6 +274,10 @@ public class StudentController {
             redirectAttributes.addFlashAttribute("error", needMain);
             return "redirect:/student/available/"+id;
         }
+
+
+
+
 
 
 
