@@ -11,10 +11,12 @@ import java.util.List;
 public interface CourseDescriptionRepository extends MongoRepository<CourseDescription, String> {
     //public CourseDescription findCourseDescriptionByName(String name);
     public List<CourseDescription> findCourseDescriptionsByCode(String code);
+    public List<CourseDescription> findCourseDescriptionsByCodeOrderBySecAsc(String code);
     public CourseDescription findCourseDescriptionById(String id);
 
     public List<CourseDescription> findAllByOrderByCodeAsc();
 
     public List<CourseDescription> findCourseDescriptionsByCodeAndSec(String code, String sec);
+
 
 }

@@ -13,11 +13,10 @@ import io.github.minhaz1217.onlineadvising.models.CourseDescription;
 import io.github.minhaz1217.onlineadvising.models.CourseExtended;
 import io.github.minhaz1217.onlineadvising.models.Student;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import javafx.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -27,6 +26,33 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author Minhaz
  */
+
+class SeatPlan{
+    String code;
+    List<Pair<String , String>> sections;
+
+    public SeatPlan(String code, List<Pair<String, String>> sections) {
+        this.code = code;
+        this.sections = sections;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public List<Pair<String, String>> getSections() {
+        return sections;
+    }
+
+    public void setSections(List<Pair<String, String>> sections) {
+        this.sections = sections;
+    }
+}
+
 
 @Controller
 @RequestMapping("/student")
@@ -41,6 +67,7 @@ public class StudentController {
         this.courseRepository = courseRepository;
         this.descriptionRepository = descriptionRepository;
     }
+
     //TODO: Remove this /all gate while deplying
     @RequestMapping(method = RequestMethod.GET, value = "/all")
     @ResponseBody
@@ -57,8 +84,8 @@ public class StudentController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "available/{student}")
-    @ResponseBody
-    public List<String> findRemainingCourse(@PathVariable String student){
+    //@ResponseBody
+    public String findRemainingCourse(@PathVariable String student, Model model){
         List<Course> fullCourse = courseRepository.findAll();
         List<CourseExtended> myCourses = (studentRepository.findStudentByStudentCode(student).getTaken());
         List<String> available = new ArrayList<>();
@@ -67,23 +94,73 @@ public class StudentController {
             myTaken.add(myCourses.get(i).getCode());
         }
         int flag = 0;
-        for(int i=0;i<fullCourse.size();i++){
+        for(int i=0;i<fullCourse.size();i++) {
             Course curr = fullCourse.get(i);
 
-            if(myTaken.indexOf(curr.getCode()) == -1){
+            if (myTaken.indexOf(curr.getCode()) == -1) {
                 flag = 1;
-                for(int j=0;j<curr.getPrerequisite().size();j++){
-                    if(myTaken.indexOf(curr.getPrerequisite().get(j)) == -1){
+                for (int j = 0; j < curr.getPrerequisite().size(); j++) {
+                    if (myTaken.indexOf(curr.getPrerequisite().get(j)) == -1) {
                         flag = 0;
                         break;
                     }
                 }
-                if(flag == 1){
+                if (flag == 1) {
                     available.add(curr.getCode());
                 }
             }
         }
-        return available;
+        List<CourseDescription> availableList = new ArrayList<CourseDescription>();
+        List<SeatPlan> seatPlan = new ArrayList<>();
+        String section = "", seats = "", code="", instructor = "", day = "", time = "", room= "", message = "";
+
+        for(int i=0;i<available.size();i++){
+            availableList.addAll( descriptionRepository.findCourseDescriptionsByCodeOrderBySecAsc(available.get(i)) );
+            List<Pair<String, String>> mySections = new ArrayList<Pair<String, String>>();
+
+            for (int ai=0;ai<availableList.size();ai++) {
+                CourseDescription cd = availableList.get(ai);
+                code = cd.getCode();
+                section = cd.getSec();
+                time = cd.getTime();
+                day = cd.getDay();
+                room = cd.getRoom();
+                seats = cd.getSeats();
+                instructor = cd.getInstructor();
+                //empty section means we've already added this section
+                if(section.equals("")){
+                    continue;
+                }
+                if(instructor.equals("")){
+                    instructor = "TBA";
+                }
+                message = section + "("+ seats +") -> [" + instructor + "] (" + day + ", " + time + ", " + room + ")";
+                if(day.length() == 1){
+                    for(int j=ai+1;j<availableList.size();j++){
+                        if(availableList.get(j).getCode().equals(code) && availableList.get(j).getSec().equals(section)){
+                            availableList.get(j).setSec("");
+                            message = message + " (" + day + ", " + time + ", " + room + ")";
+                            break;
+                        }
+                    }
+                }
+                mySections.add(new Pair(section, message));
+            }
+            seatPlan.add(new SeatPlan(available.get(i), mySections));
+            availableList.clear();
+        }
+
+        //( Section : time : WEEKDAY : class room : instructor : seats )
+        System.out.println(seatPlan.size());
+        model.addAttribute("seatplan", seatPlan);
+        return  "/show/ShowAvailable";
+        //return seatPlan;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/test")
+    @ResponseBody
+    public List<CourseDescription> hi(){
+        return descriptionRepository.findCourseDescriptionsByCodeOrderBySecAsc("ENG101");
     }
 
 
