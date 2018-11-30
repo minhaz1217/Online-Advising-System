@@ -18,18 +18,19 @@ and open the template in the editor.
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <h2>Select the courses you want, you can only select at most 4</h2>
 <form action="#" method="post" id="courseForm" >
-    <div th:each="st : seatplan">
-        <p th:text="st"></p>
-        <!--
+    <div th:each="st : ${seatplan}">
+
         <div class="form-group row">
-            <label th:for="st.code" class="col-sm-2 col-form-label" th:text="st.code" name="takeCode"></label>
-            <div class="col-sm-8 offset-sm-1" th:id="st.code">
-                <option th:each="msg : st.sections">
-                    <select th:text="msg.value" th:value="msg.key"></select>
-                </option>
+            <label th:for="${st.code}" class="col-sm-2 col-form-label" th:text="${st.code}" name="takeCode"></label>
+            <div class="col-sm-8 offset-sm-1" th:id="${st.code}">
+                <select>
+                    <div th:each="msg : ${st.sections}">
+                        <option th:text="${msg.value}" th:value="${msg.key}"></option>
+                    </div>
+                </select>
             </div>
         </div>
--->
+
     </div>
     <input type="submit" value="Add Course" />
 </form>
