@@ -13,10 +13,12 @@ import io.github.minhaz1217.onlineadvising.models.CourseDescription;
 import io.github.minhaz1217.onlineadvising.models.CourseExtended;
 import io.github.minhaz1217.onlineadvising.models.Student;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.util.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -175,9 +177,42 @@ public class StudentController {
         //return seatPlan;
     }
 
+    public int convDay(char c){
+        if(c == 'S' || c == 's'){
+            return 1;
+        }else if(c == 'M' || c == 'm'){
+            return 2;
+        }else if(c == 'T' || c == 't'){
+            return 3;
+        }else if(c == 'W' || c == 'w'){
+            return 4;
+        }else if(c == 'R' || c == 'r'){
+            return 5;
+        }
+        return 0;
+    }
+
+    private static boolean checkCollision(String startTime, String endTime, String check){
+        int startHour = Integer.parseInt(startTime.split(":")[0].trim()),
+                startMinute = Integer.parseInt(startTime.split(":")[1].trim()),
+                endHour = Integer.parseInt(endTime.split(":")[0].trim()),
+                endMin = Integer.parseInt(endTime.split(":")[1].trim()),
+                checkHour = Integer.parseInt(check.split(":")[0].trim()),
+                checkMin = Integer.parseInt(check.split(":")[1].trim());
+        //convert the start and end time to 24 hour format
+        LocalTime sTime = LocalTime.parse(startTime);
+        LocalTime eTime = LocalTime.parse(endTime);
+        LocalTime cTime = LocalTime.parse(check);
+
+        return (cTime.isAfter(sTime) && cTime.isBefore(eTime));
+        //return !candidate.isBefore(start) && !candidate.isAfter(end);// for inclusive
+        //return !candidate.isBefore(start) && candidate.isBefore(end);  // Exclusive of end.
+
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "available/{student}")
-    //@ResponseBody
-    public String takeCourse(@PathVariable String student, @RequestParam MultiValueMap<String, String> myMap, Model model, RedirectAttributes redirectAttributes){
+    @ResponseBody
+    public List<CourseDescription> takeCourse(@PathVariable String student, @RequestParam MultiValueMap<String, String> myMap, Model model, RedirectAttributes redirectAttributes){
 
         String id = myMap.getFirst("id");
         List<Pair<String , String>> pair = new ArrayList<Pair<String, String>>();
@@ -202,11 +237,11 @@ public class StudentController {
         //DETECTION: credit count check{
         if(credit < 9){
             redirectAttributes.addFlashAttribute("error", "Need to take at least 9 credits.");
-            return "redirect:/student/available/"+id;
+            //return "redirect:/student/available/"+id;
         }else if(credit > 15){
 
             redirectAttributes.addFlashAttribute("error", "You can take maximum 15 credits.");
-            return "redirect:/student/available/"+id;
+            //return "redirect:/student/available/"+id;
         }
 
 
@@ -266,23 +301,49 @@ public class StudentController {
                 }
             }
         }
-
         if(flagLab == 1){
             redirectAttributes.addFlashAttribute("error", needLab);
-            return "redirect:/student/available/"+id;
+            //return "redirect:/student/available/"+id;
         }else if(flagMain == 1){
             redirectAttributes.addFlashAttribute("error", needMain);
-            return "redirect:/student/available/"+id;
+            //return "redirect:/student/available/"+id;
         }
 
 
+        // detect time collusion
+        List<CourseDescription> fullList = new ArrayList<>();
+
+        for(int i=0;i<pair.size();i++){
+            fullList.addAll( descriptionRepository.findCourseDescriptionsByCodeAndSec(pair.get(i).getKey(), pair.get(i).getValue()) );
+        }
+        ArrayList<String>[] week = (ArrayList<String>[])new ArrayList[7];
+
+        String day, time,startTime, endTime;
+        for(int i=0;i<fullList.size();i++){
+            day = fullList.get(i).getDay();
+            time = fullList.get(i).getTime();
+            startTime = time.split("-")[0].trim();
+            endTime = time.split("-")[1].trim();
+            if(day.length() == 2){
+                week[convDay(day.charAt(0))].add(startTime);
+                week[convDay(day.charAt(0))].add(endTime);
+                week[convDay(day.charAt(1))].add(startTime);
+                week[convDay(day.charAt(1))].add(endTime);
+            }else{
+                week[convDay(day.charAt(0))].add(startTime);
+                week[convDay(day.charAt(0))].add(endTime);
+            }
+        }
+
+        return fullList;
 
 
 
 
 
-        redirectAttributes.addFlashAttribute("error", "THERE WAS AN ERROR");
-        return "redirect:/student/available/"+id;
+
+        //redirectAttributes.addFlashAttribute("error", "THERE WAS AN ERROR");
+        //return "redirect:/student/available/"+id;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
