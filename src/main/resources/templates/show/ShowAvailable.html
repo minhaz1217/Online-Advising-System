@@ -36,6 +36,7 @@ and open the template in the editor.
     <h3 th:if="${error}" th:text="${error}"></h3>
 <form action="#" method="post" id="courseForm" >
     <input type="hidden" name="id" th:value="${student}"/>
+
     <div th:each="st : ${seatplan}">
 
         <div class="input-group mb-3">
@@ -44,9 +45,18 @@ and open the template in the editor.
             </div>
 
             <select  class="custom-select" th:id="${st.code}" name="takeCode">
-                <option th:value="0" selected>None</option>
+                <option th:value="0">None</option>
                 <div th:each="msg : ${st.sections}" th:remove="tag">
-                    <option th:text="${msg.value}" th:value=" @{${st.code}+'_'+  ${msg.key}}"></option>
+                    <div th:if="${take}">
+                        <option th:text="${msg.value}" th:value="${msg.key}" th:selected="${#lists.contains(take, msg.key )}"></option>
+
+                    </div>
+                    <div th:unless="${take}">
+                        <option th:text="${msg.value}" th:value="${msg.key}"></option>
+                    </div>
+                    <!--
+                        <option th:text="${msg.value}" th:value="${msg.key}" th:checked="${#lists.contains(take, msg.key )}" ></option>
+                    -->
                 </div>
             </select>
         </div>

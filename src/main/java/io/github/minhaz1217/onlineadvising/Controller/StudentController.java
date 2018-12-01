@@ -167,7 +167,7 @@ public class StudentController {
                         }
                     }
                 }
-                mySections.add(new Pair(section, message));
+                mySections.add(new Pair(code+"_"+section, message));
             }
             seatPlan.add(new SeatPlan(available.get(i), mySections));
             availableList.clear();
@@ -175,6 +175,11 @@ public class StudentController {
 
         //( Section : time : WEEKDAY : class room : instructor : seats )
         //System.out.println(seatPlan.size());
+
+        for(int i=0;i<seatPlan.size();i++){
+
+        }
+
         model.addAttribute("seatplan", seatPlan);
         return  "/show/ShowAvailable";
         //return seatPlan;
@@ -246,6 +251,7 @@ public class StudentController {
 
         String id = myMap.getFirst("id");
         List<Pair<String , String>> pair = new ArrayList<Pair<String, String>>();
+        List<String> retrunList = new ArrayList<>();
         int credit = 0;
         if(myMap.get("takeCode")!=null){
             for(int i=0;i<myMap.get("takeCode").size();i++){
@@ -260,6 +266,7 @@ public class StudentController {
                     }
                     //System.out.println(code + " " + section);
                     pair.add(new Pair(code, section));
+                    retrunList.add(code+"_"+section);
                 }
             }
         }
@@ -267,9 +274,9 @@ public class StudentController {
         //DETECTION: credit count check{
         if(credit < 9){
             redirectAttributes.addFlashAttribute("error", "Need to take at least 9 credits.");
+            redirectAttributes.addFlashAttribute("take", retrunList);
             return "redirect:/student/available/"+id;
         }else if(credit > 15){
-
             redirectAttributes.addFlashAttribute("error", "You can take maximum 15 credits.");
             return "redirect:/student/available/"+id;
         }
