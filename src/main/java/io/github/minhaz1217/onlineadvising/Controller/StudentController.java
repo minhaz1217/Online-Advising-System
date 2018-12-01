@@ -278,6 +278,7 @@ public class StudentController {
             return "redirect:/student/available/"+id;
         }else if(credit > 15){
             redirectAttributes.addFlashAttribute("error", "You can take maximum 15 credits.");
+            redirectAttributes.addFlashAttribute("take", retrunList);
             return "redirect:/student/available/"+id;
         }
 
@@ -298,6 +299,7 @@ public class StudentController {
         }
         if(flagSeat == 1){
             redirectAttributes.addFlashAttribute("error", seatErrorMessage);
+            redirectAttributes.addFlashAttribute("take", retrunList);
             return "redirect:/student/available/"+id;
         }
 
@@ -361,9 +363,11 @@ public class StudentController {
         }
         if(flagLab == 1){
             redirectAttributes.addFlashAttribute("error", needLab);
+            redirectAttributes.addFlashAttribute("take", retrunList);
             return "redirect:/student/available/"+id;
         }else if(flagMain == 1){
             redirectAttributes.addFlashAttribute("error", needMain);
+            redirectAttributes.addFlashAttribute("take", retrunList);
             return "redirect:/student/available/"+id;
         }
 
@@ -411,6 +415,7 @@ public class StudentController {
         }
         if(flagCollision == 1){
             redirectAttributes.addFlashAttribute("error", errMessage);
+            redirectAttributes.addFlashAttribute("take", retrunList);
             return "redirect:/student/available/"+id;
 
         }
