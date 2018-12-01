@@ -14,6 +14,7 @@ import io.github.minhaz1217.onlineadvising.models.CourseExtended;
 import io.github.minhaz1217.onlineadvising.models.Student;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.util.Pair;
@@ -210,12 +211,6 @@ public class StudentController {
 
                 c2EndHour = convertTimeTo24HourFormat(course2Time.split("-")[1].trim().split(":")[0].trim()),
                 c2EndMin = Integer.parseInt(course2Time.split("-")[1].trim().split(":")[1].trim());
-        /*
-                System.out.println("Start1: " +c1StartHour + ", " +c1StartMin);
-                System.out.println("end1: " +c1EndHour + ", " +c1EndMin);
-                System.out.println("Start2: " +c2StartHour + ", " +c2StartMin);
-                System.out.println("end2: " +c2EndHour + ", " +c2EndMin);
-        */
         // checking c2's starting
 
         if(c2StartHour >= c1StartHour && c2StartHour <= c1EndHour){
@@ -239,6 +234,7 @@ public class StudentController {
         }
         return false;
     }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "available/{student}")
     //@ResponseBody
@@ -273,6 +269,27 @@ public class StudentController {
             redirectAttributes.addFlashAttribute("error", "You can take maximum 15 credits.");
             return "redirect:/student/available/"+id;
         }
+
+        // all the taken courses
+        List<CourseDescription> fullList = new ArrayList<>();
+        for(int i=0;i<pair.size();i++){
+            fullList.addAll( descriptionRepository.findCourseDescriptionsByCodeAndSec(pair.get(i).getKey(), pair.get(i).getValue()) );
+        }
+
+        //DETECTION: ENOUGH SEATS
+        String seatErrorMessage = "Not enough seats in: ";
+        int flagSeat = 0;
+        for(int i=0;i<fullList.size();i++){
+            if(fullList.get(i).getSeats() == "0"){
+                seatErrorMessage = seatErrorMessage + fullList.get(i).getCode() + "("+fullList.get(i).getSec()+") ";
+                flagSeat = 1;
+            }
+        }
+        if(flagSeat == 1){
+            redirectAttributes.addFlashAttribute("error", seatErrorMessage);
+            return "redirect:/student/available/"+id;
+        }
+
 
 
         //DETECTION: took subject that has a lab but didn't take the lab
@@ -342,11 +359,7 @@ public class StudentController {
 
         // detect time collusion
 
-        // all the taken courses
-        List<CourseDescription> fullList = new ArrayList<>();
-        for(int i=0;i<pair.size();i++){
-            fullList.addAll( descriptionRepository.findCourseDescriptionsByCodeAndSec(pair.get(i).getKey(), pair.get(i).getValue()) );
-        }
+
         
         String day, time,startTime, endTime,checkDay, checkTime,checkCode,errMessage="Conflict in: ";
         int flagCollision = 0;
@@ -392,13 +405,20 @@ public class StudentController {
         }
 
 
-
-
-
+        //everything is fine so the student can take this course
+        Student myStudent = studentRepository.findStudentByStudentCode(id);
+        myStudent.setAdvising(new ArrayList<>(fullList));
+        //studentRepository.delete(studentRepository.findStudentByStudentCode(id));
+        studentRepository.save(myStudent);
+        //making all the courses' seat one less
+        for(int i=0;i<fullList.size();i++){
+            fullList.get(i).setSeats( (Integer.parseInt(fullList.get(i).getSeats())-1)+"" );
+            descriptionRepository.save(fullList.get(i));
+        }
 
         //redirectAttributes.addFlashAttribute("error", "THERE WAS AN ERROR");
         //return "redirect:/student/available/"+id;
-        return id;
+        return "redirect:/student/id/"+id;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")

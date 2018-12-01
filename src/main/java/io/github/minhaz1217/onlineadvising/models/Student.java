@@ -30,8 +30,10 @@ public class Student {
     private String email;
     private String studentId;
     private ArrayList<CourseExtended> taken;
+    private ArrayList<CourseDescription> advising;
     private Student(){
         taken = new ArrayList<>();
+        advising = new ArrayList<>();
     }
 
     public Student(String firstName, String lastName, String email, String studentId, ArrayList<CourseExtended> taken) {
@@ -40,6 +42,15 @@ public class Student {
         this.email = email;
         this.studentId = studentId;
         this.taken = taken;
+        advising = new ArrayList<>();
+    }
+
+    public ArrayList<CourseDescription> getAdvising() {
+        return advising;
+    }
+
+    public void setAdvising(ArrayList<CourseDescription> advising) {
+        this.advising = advising;
     }
 
     public String getId() {

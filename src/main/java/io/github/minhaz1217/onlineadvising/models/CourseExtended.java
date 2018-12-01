@@ -11,7 +11,8 @@ package io.github.minhaz1217.onlineadvising.models;
  */
 public class CourseExtended {
     private String code;
-private String section;
+    private String section;
+    private String curr;
 private CourseExtended(){}
 
     public CourseExtended(String code, String section) {
