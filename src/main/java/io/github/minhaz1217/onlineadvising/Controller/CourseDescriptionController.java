@@ -75,7 +75,5 @@ public class CourseDescriptionController {
         this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
         return "redirect:/show/list";
     }
-
-
-
+    //TODO: add select in course description add
 }

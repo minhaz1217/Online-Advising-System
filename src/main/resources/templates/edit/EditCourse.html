@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body class="text-center">
-
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<div th:replace="@{'/inc/' + nav}"></div>
+
 
 <style>
     .makeCenter{
@@ -24,6 +25,8 @@
         background-color: mediumaquamarine;
     }
 </style>
+
+
 <div class="makeCenter">
     <h1>Edit Course</h1>
 <form action="/course/update" method="post" id="courseForm" >

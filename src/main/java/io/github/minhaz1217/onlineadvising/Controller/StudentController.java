@@ -544,4 +544,10 @@ public class StudentController {
 
         return "redirect:/show/student";
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/show/{id}")
+    public String showStudent(@PathVariable String id){
+        return "/show/ShowStudentDashboard";
+    }
 }
