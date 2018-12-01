@@ -293,7 +293,7 @@ public class DbSeeder implements CommandLineRunner {
 
         //showing some messages to verify that everything went ok
         System.out.println("DB Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
-        System.out.println(courseRepository.count());
+        //System.out.println(courseRepository.count());
         
         System.out.println("DB LOADED SUCCESSFULLY");
     }

@@ -13,12 +13,10 @@ import io.github.minhaz1217.onlineadvising.models.CourseDescription;
 import io.github.minhaz1217.onlineadvising.models.CourseExtended;
 import io.github.minhaz1217.onlineadvising.models.Student;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.util.Pair;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -124,7 +122,7 @@ public class StudentController {
                 }
             }
         }
-        System.out.println(available.size());
+        //System.out.println(available.size());
 
         List<CourseDescription> availableList = new ArrayList<CourseDescription>();
         List<SeatPlan> seatPlan = new ArrayList<>();
@@ -192,27 +190,59 @@ public class StudentController {
         return 0;
     }
 
-    private static boolean checkCollision(String startTime, String endTime, String check){
-        int startHour = Integer.parseInt(startTime.split(":")[0].trim()),
-                startMinute = Integer.parseInt(startTime.split(":")[1].trim()),
-                endHour = Integer.parseInt(endTime.split(":")[0].trim()),
-                endMin = Integer.parseInt(endTime.split(":")[1].trim()),
-                checkHour = Integer.parseInt(check.split(":")[0].trim()),
-                checkMin = Integer.parseInt(check.split(":")[1].trim());
-        //convert the start and end time to 24 hour format
-        LocalTime sTime = LocalTime.parse(startTime);
-        LocalTime eTime = LocalTime.parse(endTime);
-        LocalTime cTime = LocalTime.parse(check);
+    private int convertTimeTo24HourFormat(String time){
+        int t = Integer.parseInt(time);
+        if(t >= 1 && t<=7){
+            return t+12;
+        }
+        return t;
+    }
+    private boolean isConflicting(String course1Time, String course2Time){
+        // 11:50 - 01:20
+        int     c1StartHour = convertTimeTo24HourFormat(course1Time.split("-")[0].trim().split(":")[0].trim()),
+                c1StartMin = Integer.parseInt(course1Time.split("-")[0].trim().split(":")[1].trim()),
 
-        return (cTime.isAfter(sTime) && cTime.isBefore(eTime));
-        //return !candidate.isBefore(start) && !candidate.isAfter(end);// for inclusive
-        //return !candidate.isBefore(start) && candidate.isBefore(end);  // Exclusive of end.
+                c1EndHour = convertTimeTo24HourFormat(course1Time.split("-")[1].trim().split(":")[0].trim()),
+                c1EndMin = Integer.parseInt(course1Time.split("-")[1].trim().split(":")[1].trim()),
 
+                c2StartHour = convertTimeTo24HourFormat(course2Time.split("-")[0].trim().split(":")[0].trim()),
+                c2StartMin = Integer.parseInt(course2Time.split("-")[0].trim().split(":")[1].trim()),
+
+                c2EndHour = convertTimeTo24HourFormat(course2Time.split("-")[1].trim().split(":")[0].trim()),
+                c2EndMin = Integer.parseInt(course2Time.split("-")[1].trim().split(":")[1].trim());
+        /*
+                System.out.println("Start1: " +c1StartHour + ", " +c1StartMin);
+                System.out.println("end1: " +c1EndHour + ", " +c1EndMin);
+                System.out.println("Start2: " +c2StartHour + ", " +c2StartMin);
+                System.out.println("end2: " +c2EndHour + ", " +c2EndMin);
+        */
+        // checking c2's starting
+
+        if(c2StartHour >= c1StartHour && c2StartHour <= c1EndHour){
+            if(c2StartHour == c1StartHour && c2StartMin < c1StartMin){
+                return false;
+            }else if(c2StartHour == c1EndHour && c2StartMin > c1EndMin){
+                return false;
+            }else{
+                return true;
+            }
+        }
+        // checking c2's ending
+        if(c2EndHour >= c1StartHour && c2EndHour <= c1EndHour){
+            if(c2EndHour == c1StartHour && c2EndMin < c1StartMin){
+                return false;
+            }else if(c2EndHour == c1EndHour && c2EndMin > c1EndMin){
+                return false;
+            }else{
+                return true;
+            }
+        }
+        return false;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "available/{student}")
-    @ResponseBody
-    public List<CourseDescription> takeCourse(@PathVariable String student, @RequestParam MultiValueMap<String, String> myMap, Model model, RedirectAttributes redirectAttributes){
+    //@ResponseBody
+    public String takeCourse(@PathVariable String student, @RequestParam MultiValueMap<String, String> myMap, Model model, RedirectAttributes redirectAttributes){
 
         String id = myMap.getFirst("id");
         List<Pair<String , String>> pair = new ArrayList<Pair<String, String>>();
@@ -237,11 +267,11 @@ public class StudentController {
         //DETECTION: credit count check{
         if(credit < 9){
             redirectAttributes.addFlashAttribute("error", "Need to take at least 9 credits.");
-            //return "redirect:/student/available/"+id;
+            return "redirect:/student/available/"+id;
         }else if(credit > 15){
 
             redirectAttributes.addFlashAttribute("error", "You can take maximum 15 credits.");
-            //return "redirect:/student/available/"+id;
+            return "redirect:/student/available/"+id;
         }
 
 
@@ -261,7 +291,7 @@ public class StudentController {
                 String mainCourseCode = code.substring(0,code.lastIndexOf("LAB"));
                 //checking if the CSE411 and CSE411LAB doesn't have same index
                 //searching from front and from end, if they give different result then both the course and the lab is  there, if they won't then they aren't there
-                System.out.println(pairToString.indexOf(mainCourseCode) + " " + pairToString.lastIndexOf(mainCourseCode));
+                //System.out.println(pairToString.indexOf(mainCourseCode) + " " + pairToString.lastIndexOf(mainCourseCode));
                 if(pairToString.indexOf(mainCourseCode) == pairToString.lastIndexOf(mainCourseCode)){
                     needMain = needMain +  mainCourseCode + " ";
                     flagMain = 1;
@@ -303,39 +333,63 @@ public class StudentController {
         }
         if(flagLab == 1){
             redirectAttributes.addFlashAttribute("error", needLab);
-            //return "redirect:/student/available/"+id;
+            return "redirect:/student/available/"+id;
         }else if(flagMain == 1){
             redirectAttributes.addFlashAttribute("error", needMain);
-            //return "redirect:/student/available/"+id;
+            return "redirect:/student/available/"+id;
         }
 
 
         // detect time collusion
-        List<CourseDescription> fullList = new ArrayList<>();
 
+        // all the taken courses
+        List<CourseDescription> fullList = new ArrayList<>();
         for(int i=0;i<pair.size();i++){
             fullList.addAll( descriptionRepository.findCourseDescriptionsByCodeAndSec(pair.get(i).getKey(), pair.get(i).getValue()) );
         }
-        ArrayList<String>[] week = (ArrayList<String>[])new ArrayList[7];
-
-        String day, time,startTime, endTime;
+        
+        String day, time,startTime, endTime,checkDay, checkTime,checkCode,errMessage="Conflict in: ";
+        int flagCollision = 0;
         for(int i=0;i<fullList.size();i++){
             day = fullList.get(i).getDay();
             time = fullList.get(i).getTime();
             startTime = time.split("-")[0].trim();
             endTime = time.split("-")[1].trim();
-            if(day.length() == 2){
-                week[convDay(day.charAt(0))].add(startTime);
-                week[convDay(day.charAt(0))].add(endTime);
-                week[convDay(day.charAt(1))].add(startTime);
-                week[convDay(day.charAt(1))].add(endTime);
-            }else{
-                week[convDay(day.charAt(0))].add(startTime);
-                week[convDay(day.charAt(0))].add(endTime);
+            code = fullList.get(i).getCode();
+            for(int j=i+1;j<fullList.size();j++){
+                checkDay = fullList.get(j).getDay();
+                checkTime = fullList.get(j).getTime();
+                checkCode = fullList.get(j).getCode();
+                if(day.length() == 2){
+                    //their day same but code not same so they might colide (a course can have 2 days in different weekday
+                    if(checkDay.contains( day.charAt(0)+"") && !code.equals(checkCode)){
+                        if(isConflicting(time, checkTime) == true){
+                            errMessage += code + " vs " + checkCode + " ";
+                            flagCollision = 1;
+                        }
+                    }
+                    if(checkDay.contains(day.charAt(1)+"") && !code.equals(checkCode)){
+                        if(isConflicting(time, checkTime) == true){
+                            errMessage += code + " vs " + checkCode + " ";
+                            flagCollision = 1;
+                        }
+
+                    }
+                }else{
+                    if(checkDay.contains(day) && !code.equals(checkCode) ){
+                        if(isConflicting(time, checkTime) == true){
+                            errMessage += code + " vs " + checkCode + " ";
+                            flagCollision = 1;
+                        }
+                    }
+                }
             }
         }
+        if(flagCollision == 1){
+            redirectAttributes.addFlashAttribute("error", errMessage);
+            return "redirect:/student/available/"+id;
 
-        return fullList;
+        }
 
 
 
@@ -344,6 +398,7 @@ public class StudentController {
 
         //redirectAttributes.addFlashAttribute("error", "THERE WAS AN ERROR");
         //return "redirect:/student/available/"+id;
+        return id;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
