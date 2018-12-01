@@ -114,7 +114,6 @@ public class StudentController {
                     }
                 }
                 if (flag == 1) {
-
                     available.add(curr.getCode());
                     // if this course has lab then we need to add this course's lab with it
                     if(curr.getHas_lab().equals("1")){
@@ -124,7 +123,7 @@ public class StudentController {
             }
         }
         //System.out.println(available.size());
-
+        //available has just the course names
         List<CourseDescription> availableList = new ArrayList<CourseDescription>();
         List<SeatPlan> seatPlan = new ArrayList<>();
         String section = "", seats = "", code="", instructor = "", day = "", time = "", room= "", message = "";
@@ -142,6 +141,11 @@ public class StudentController {
                 room = cd.getRoom();
                 seats = cd.getSeats();
                 instructor = cd.getInstructor();
+
+                if(seats.equals("0")){
+                    continue;
+                }
+
                 //empty section means we've already added this section
                 if(section.equals("")){
                     continue;
@@ -280,7 +284,7 @@ public class StudentController {
         String seatErrorMessage = "Not enough seats in: ";
         int flagSeat = 0;
         for(int i=0;i<fullList.size();i++){
-            if(fullList.get(i).getSeats() == "0"){
+            if(fullList.get(i).getSeats().equals("0")){
                 seatErrorMessage = seatErrorMessage + fullList.get(i).getCode() + "("+fullList.get(i).getSec()+") ";
                 flagSeat = 1;
             }
