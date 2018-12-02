@@ -27,6 +27,8 @@ and open the template in the editor.
 -->
 <div class="makeCenter">
     <h1 th:text="@{'Info of ' + ${dashStudent.firstName} + ' ' + ${dashStudent.lastName}}"></h1>
+    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
 
         <div class="form-group row">
             <label for="code" class="col-sm-2 col-form-label">First Name</label>

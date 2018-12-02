@@ -18,6 +18,8 @@
 </style>
 <div class="makeCenter">
     <h1>Add Course</h1>
+    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
 <form action="/course/add" method="post" id="courseForm" >
 
     <div class="form-group row">

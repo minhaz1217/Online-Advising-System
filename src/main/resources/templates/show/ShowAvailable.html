@@ -22,7 +22,8 @@ and open the template in the editor.
 
 
 <h2 class="text-center">Select Your Desired Course</h2>
-<h4 th:if="${error}" th:text="${error}" class="bg-danger text-light text-center"></h4>
+<h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+<h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
 <form action="#" method="post" id="courseForm" >
     <input type="hidden" name="id" th:value="${student}"/>
 

@@ -16,6 +16,8 @@
 
 <div class="makeCenter">
     <h1>Select Student</h1>
+    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
     <form action="/student/select" method="post" id="courseForm" >
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Insert Student ID: </label>

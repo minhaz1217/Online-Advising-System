@@ -18,6 +18,8 @@ and open the template in the editor.
 
 <div class="makeCenter">
     <h1 class="row justify-content-center" >All Students Currently Registered</h1>
+    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
 
 </div>
 <table class="table table-hover table-bordered table-light" id="sortTable">
