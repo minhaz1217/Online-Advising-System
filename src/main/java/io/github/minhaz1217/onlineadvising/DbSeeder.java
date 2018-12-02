@@ -41,7 +41,7 @@ public class DbSeeder implements CommandLineRunner {
     
     @Override
     public void run(String... args) throws Exception {
-        /*
+
         // clearing all the tables
         this.courseRepository.deleteAll();
         this.userRepository.deleteAll();
@@ -290,7 +290,7 @@ public class DbSeeder implements CommandLineRunner {
         //this.courseDescriptionRepository.save(new CourseDescription( "CSE405","1","08:30 - 10:00","MW", "112","40"));
 
 
-        */
+
         //showing some messages to verify that everything went ok
         System.out.println("DB Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
         //System.out.println(courseRepository.count());
