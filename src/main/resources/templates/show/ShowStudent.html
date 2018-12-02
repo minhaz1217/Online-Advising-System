@@ -11,22 +11,19 @@ and open the template in the editor.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mystyle.css">
 </head>
 <body class="text-center">
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <div th:replace="@{'/inc/' + nav}"></div>
 
-<style>
-        .myCenter{
-        text-align :center;
-        vertical-align: middle;
-       }
-</style>
+<div class="makeCenter">
+    <h1 class="row justify-content-center" >All Students Currently Registered</h1>
 
-<h1 class="row justify-content-center" >All Students Currently Registered</h1>
-<table class="table table-hover table-bordered">
-    <thead class="thead-dark">
+</div>
+<table class="table table-hover table-bordered table-light">
+    <thead class="thead-dark sticky-top">
     <th class="myCenter">First Name</th>
     <th class="myCenter">Last Name</th>
     <th class="myCenter">Student ID</th>
@@ -52,14 +49,14 @@ and open the template in the editor.
         <td>
             <form th:method="delete" th:action="@{'/student/remove'}">
                 <input type="hidden" name="id" th:value="${my.id}" />
-                <input type="submit" value="Remove" />
+                <input type="submit" value="Remove" class="btn btn-outline-danger"/>
             </form>
         </td>
         <td>
 
             <form th:method="post" th:action="@{'/student/edit'}">
                 <input type="hidden" th:value="${my.id}" name="id" />
-                <input type="submit" value="Edit" />
+                <input type="submit" value="Edit" class="btn btn-outline-info"/>
             </form>
         </td>
     </tr>

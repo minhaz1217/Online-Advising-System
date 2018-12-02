@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Courses</title>
+    <title>Select Student</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -13,9 +13,20 @@
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <div th:replace="@{'/inc/' + nav}"></div>
 
+
 <div class="makeCenter">
-    <h1>Welcome to the Online Advising System</h1>
+    <h1>Select Student</h1>
+    <form action="/student/select" method="post" id="courseForm" >
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Insert Student ID: </label>
+            <div class="col-sm-8 offset-sm-1">
+                <input type="text" class="form-control" id="name" name="id"/>
+            </div>
+        </div>
+        <input type="submit" value="Start Advising" />
+    </form>
 </div>
+
 
 </body>
 </html>

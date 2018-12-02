@@ -546,8 +546,37 @@ public class StudentController {
     }
 
 
+
+    @RequestMapping(method = RequestMethod.GET, value = "/select")
+    public String selectStudent(){
+        return "SelectStudent";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/select")
+    public String selectStudentPost(@RequestParam String id){
+        System.out.println(id);
+        return "redirect:/student/available/"+id;
+    }
+
+
+    //TODO: fix this
     @RequestMapping(method = RequestMethod.GET, value = "/show/{id}")
-    public String showStudent(@PathVariable String id){
+    public String showStudent(@PathVariable String id, Model model){
+        Student student = studentRepository.findStudentByStudentCode(id);
+        model.addAttribute("student", student);
         return "/show/ShowStudentDashboard";
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/show")
+    public String showStudentSingle(@PathVariable String id, Model model){
+        Student student = studentRepository.findStudentByStudentCode("2016-1-60-100");
+        model.addAttribute("student", student);
+        return "/show/ShowStudentDashboard";
+    }
+
+
+
+
+
+
 }

@@ -6,24 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mystyle.css">
 </head>
 <body class="text-center">
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <div th:replace="@{'/inc/' + nav}"></div>
 
-<style>
-    .makeCenter{
-        width:60%;
-        margin:10% auto;
-        padding:2%;
-        background-color: #9fcdff;
-    }
-    body{
-    //background-color: #9fcdff;
-        background-color: mediumaquamarine;
-    }
-</style>
 <div class="makeCenter">
     <h1>Edit Student</h1>
     <form action="/student/update" method="post" id="courseForm" >
