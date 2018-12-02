@@ -8,13 +8,33 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/mystyle.css">
 </head>
-<body class="text-center">
+
+
+<body class="text-center" >
+<style>
+    body,html{
+        height:100%;
+    }
+    body{
+        background-image: url("/image/background1.jpg");
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <div th:replace="@{'/inc/' + nav}"></div>
 
 <div class="makeCenter">
     <h1>Welcome to the Online Advising System</h1>
+    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
 </div>
 
 </body>

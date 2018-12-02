@@ -34,7 +34,7 @@ public class ViewController implements ErrorController{
 
     @RequestMapping(method = RequestMethod.GET, value = "/add/course")
     public String addCourse(Model model, Course course, Pageable pageable){
-        return "addCourse";
+        return "/";
     }
 
     @Override

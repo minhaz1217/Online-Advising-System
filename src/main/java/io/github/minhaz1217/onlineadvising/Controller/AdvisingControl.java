@@ -11,7 +11,7 @@ public class AdvisingControl {
 
     @RequestMapping(method = RequestMethod.GET, value = "/advising")
     public String showAdvising(Model model){
-        return "advising";
+        return "/";
     }
 
 }
