@@ -434,7 +434,7 @@ public class StudentController {
 
         //redirectAttributes.addFlashAttribute("error", "THERE WAS AN ERROR");
         //return "redirect:/student/available/"+id;
-        return "redirect:/student/id/"+id;
+        return "redirect:/show/"+id;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
@@ -568,7 +568,7 @@ public class StudentController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/show")
-    public String showStudentSingle(@PathVariable String id, Model model){
+    public String showStudentSingle(Model model){
         Student student = studentRepository.findStudentByStudentCode("2016-1-60-100");
         model.addAttribute("student", student);
         return "/show/ShowStudentDashboard";
