@@ -14,15 +14,13 @@ and open the template in the editor.
     <link rel="stylesheet" href="/css/mystyle.css">
 </head>
 <body class="text-center">
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <div th:replace="@{'/inc/' + nav}"></div>
 
 
 <div class="makeCenter">
     <h1 class="row justify-content-center" >All Couses Offered</h1>
 </div>
-<table class="table table-hover table-bordered table-light">
+<table class="table table-hover table-bordered table-light " id="sortTable">
     <thead class="thead-dark sticky-top">
     <th class="myCenter">Code</th>
     <th class="myCenter">Section</th>
@@ -80,5 +78,9 @@ and open the template in the editor.
     </div >
 </div>
 -->
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/myScript.js"></script>
+
 </body>
 </html>
