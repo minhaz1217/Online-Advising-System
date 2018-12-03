@@ -26,7 +26,7 @@
         background-size: cover;
     }
 </style>
-<div th:replace="@{'/inc/' + nav}"></div>
+<div th:replace="@{'inc/' + nav}"></div>
 
 <div class="makeCenter">
     <h1>Welcome to the Online Advising System</h1>
@@ -45,7 +45,7 @@
     </button>
     </a>
 </div>
-<div th:replace="@{'/inc/' + footTags}" th:remove="tag"></div>
+<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 <script>
     //$("nav").addClass("bg-info");
 </script>
