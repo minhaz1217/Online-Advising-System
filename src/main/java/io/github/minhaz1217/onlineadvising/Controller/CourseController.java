@@ -73,7 +73,7 @@ public class CourseController {
         courseRepository.delete(course);
         redirectAttributes.addFlashAttribute("msg_success", "Successfully deleted: "+courseMsg);
 
-        return "redirect:show/course";
+        return "redirect:/show/course";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "edit")
@@ -108,7 +108,7 @@ public class CourseController {
         Course c = courseRepository.save( new Course(name, code, dept, has_lab, myList) );
         myList.add(name);
         redirectAttributes.addFlashAttribute("msg_success", "Successfully updated: "+name);
-        return "redirect:show/course";
+        return "redirect:/show/course";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "add")
@@ -136,7 +136,7 @@ public class CourseController {
         }
         this.courseRepository.save(new Course( name, code, dept, has_lab, myList ));
         redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+name);
-        return "redirect:show/course";
+        return "redirect:/show/course";
     }
     
 }

@@ -37,7 +37,7 @@ public class CourseDescriptionController {
         String msg = courseDescription.getCode() + "(" + courseDescription.getSec() + ")";
         courseDescriptionRepository.delete(courseDescription);
         redirectAttributes.addFlashAttribute("msg_success", "Successfully deleted: "+msg);
-        return "redirect:show/list";
+        return "redirect:/show/list";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "edit")
@@ -61,7 +61,7 @@ public class CourseDescriptionController {
         this.courseDescriptionRepository.delete(this.courseDescriptionRepository.findCourseDescriptionById(id));
         this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
         redirectAttributes.addFlashAttribute("msg_success", "Successfully updated: "+ code + "("+sec+")");
-        return "redirect:show/list";
+        return "redirect:/show/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "add")
@@ -80,7 +80,7 @@ public class CourseDescriptionController {
         this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
 
         redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+ code + "("+sec+")");
-        return "redirect:show/list";
+        return "redirect:/show/list";
     }
     //TODO: add select in course description add
 }

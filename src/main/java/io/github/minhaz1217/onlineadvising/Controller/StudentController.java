@@ -470,7 +470,7 @@ public class StudentController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String showStudent(Model model){
-        return "redirect:show/student";
+        return "redirect:/show/student";
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/remove")
@@ -479,7 +479,7 @@ public class StudentController {
         String std_id = student.getStudentId();
         studentRepository.delete(student);
         redirectAttributes.addFlashAttribute("msg_success", "Successfully deleted: "+ std_id);
-        return "redirect:show/student";
+        return "redirect:/show/student";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "edit")
@@ -536,7 +536,7 @@ public class StudentController {
         this.studentRepository.delete(this.studentRepository.findStudentById(id));
         this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
         redirectAttributes.addFlashAttribute("msg_success", "Successfully updated: "+ studentId);
-        return "redirect:show/student";
+        return "redirect:/show/student";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "add")
@@ -571,7 +571,7 @@ public class StudentController {
         this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
 
         redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+ studentId);
-        return "redirect:show/student";
+        return "redirect:/show/student";
     }
 
 
