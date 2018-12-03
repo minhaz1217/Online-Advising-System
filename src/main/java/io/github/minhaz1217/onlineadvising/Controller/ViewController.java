@@ -50,7 +50,13 @@ public class ViewController implements ErrorController{
 
     @RequestMapping(method = RequestMethod.GET, value = "/dashboard")
     public String gotoDashboard(Model model){
-        Student student = studentRepository.findStudentByStudentCode("2016-1-60-100");
+        String mId = "2016-1-60-";
+        int myId = 100;
+        Student student = studentRepository.findStudentByStudentCode(mId + myId);
+        while(( student  ==null)){
+            myId++;
+            student = studentRepository.findStudentByStudentCode(mId + myId);
+        }
         model.addAttribute("dashStudent", student);
         return "show/ShowStudentDashboard";
     }
