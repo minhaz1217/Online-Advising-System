@@ -40,7 +40,7 @@ public class ShowControl {
     public String showCourse(Model model){
         List<Course> myCourses = courseRepository.findAllByOrderByCodeAsc();
         model.addAttribute("course", myCourses);
-        return "/show/ShowCourse";
+        return "show/ShowCourse";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/student")
