@@ -5,12 +5,9 @@
     <title>Edit Course Description</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/mystyle.css">
+    <div th:replace="@{'/inc/' + headTags}" th:remove="tag"></div>
 </head>
 <body class="text-center">
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <div th:replace="@{'/inc/' + nav}"></div>
 
 <div class="makeCenter">
@@ -76,6 +73,7 @@
     </form>
 
 </div>
+<div th:replace="@{'/inc/' + footTags}" th:remove="tag"></div>
 
 </body>
 </html>

@@ -5,8 +5,7 @@
     <title>Courses</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/mystyle.css">
+    <div th:replace="@{'/inc/' + headTags}" th:remove="tag"></div>
 </head>
 
 
@@ -27,8 +26,6 @@
         background-size: cover;
     }
 </style>
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <div th:replace="@{'/inc/' + nav}"></div>
 
 <div class="makeCenter">
@@ -36,6 +33,7 @@
     <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
     <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
 </div>
+<div th:replace="@{'/inc/' + footTags}" th:remove="tag"></div>
 
 </body>
 </html>

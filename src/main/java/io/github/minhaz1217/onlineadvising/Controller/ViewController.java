@@ -41,4 +41,12 @@ public class ViewController implements ErrorController{
     public String getErrorPath() {
         return "/error";
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/test")
+    public String test(){
+
+        return "test";
+
+    }
 }
