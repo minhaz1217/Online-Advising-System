@@ -458,7 +458,7 @@ public class StudentController {
             descriptionRepository.save(fullList.get(i));
         }
 
-        return "redirect:/studentshow/"+id;
+        return "redirect:/student/show/"+id;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
