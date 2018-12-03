@@ -83,8 +83,7 @@ public class ViewController implements ErrorController{
 
             DbSeeder hi = null;
             hi.deleteAll();
-            hi.loadAll();
-            return "LOAD SUCCESS";
+            return hi.loadAll();;
         }
         return "LOAD FAILURE";
     }

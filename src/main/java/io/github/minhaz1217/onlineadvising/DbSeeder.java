@@ -39,15 +39,16 @@ public class DbSeeder implements CommandLineRunner {
         this.courseDescriptionRepository = courseDescriptionRepository;
     }
 
-    public static void deleteAll(){
+    public static String deleteAll(){
         courseRepository.deleteAll();
         userRepository.deleteAll();
         studentRepository.deleteAll();
         courseDescriptionRepository.deleteAll();
         System.out.println("DB Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
+        return ("Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
 
     }
-    public static void loadAll(){
+    public static String loadAll(){
         // clearing all the tables
         System.out.println("DB Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
 
@@ -288,6 +289,7 @@ public class DbSeeder implements CommandLineRunner {
 
 
         System.out.println("DB Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
+        return ("Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
 
     }
     
