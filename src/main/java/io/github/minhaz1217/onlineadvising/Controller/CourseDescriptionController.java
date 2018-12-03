@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,11 @@ public class CourseDescriptionController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/remove")
-    public String courseDelete(@RequestParam("id") String id){
-        courseDescriptionRepository.delete(courseDescriptionRepository.findCourseDescriptionById(id));
+    public String courseDelete(@RequestParam("id") String id, RedirectAttributes redirectAttributes){
+        CourseDescription courseDescription = courseDescriptionRepository.findCourseDescriptionById(id);
+        String msg = courseDescription.getCode() + "(" + courseDescription.getSec() + ")";
+        courseDescriptionRepository.delete(courseDescription);
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully deleted: "+msg);
         return "redirect:/show/list";
     }
 
@@ -45,7 +49,7 @@ public class CourseDescriptionController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
-    public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
+    public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, RedirectAttributes redirectAttributes){
         String id = myMap.getFirst("id");
         String code = myMap.getFirst("code");
         String sec = myMap.getFirst("sec");
@@ -56,6 +60,7 @@ public class CourseDescriptionController {
         String instructor = myMap.getFirst("instructor");
         this.courseDescriptionRepository.delete(this.courseDescriptionRepository.findCourseDescriptionById(id));
         this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully updated: "+ code + "("+sec+")");
         return "redirect:/show/list";
     }
 
@@ -64,7 +69,7 @@ public class CourseDescriptionController {
         return "/add/AddCourseDescription";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String addCourse(@RequestParam MultiValueMap<String, String> myMap,  Model model){
+    public String addCourse(@RequestParam MultiValueMap<String, String> myMap, RedirectAttributes redirectAttributes){
         String code = myMap.getFirst("code");
         String sec = myMap.getFirst("sec");
         String time = myMap.getFirst("time");
@@ -73,6 +78,8 @@ public class CourseDescriptionController {
         String instructor = myMap.getFirst("instructor");
         String seats = myMap.getFirst("seats");
         this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
+
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+ code + "("+sec+")");
         return "redirect:/show/list";
     }
     //TODO: add select in course description add

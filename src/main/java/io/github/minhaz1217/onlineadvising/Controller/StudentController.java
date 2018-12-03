@@ -448,8 +448,11 @@ public class StudentController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/remove")
-    public String studentRemove(@RequestParam("id") String id){
-        studentRepository.delete(studentRepository.findStudentById(id));
+    public String studentRemove(@RequestParam("id") String id, RedirectAttributes redirectAttributes){
+        Student student = studentRepository.findStudentById(id);
+        String std_id = student.getStudentId();
+        studentRepository.delete(student);
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully deleted: "+ std_id);
         return "redirect:/show/student";
     }
 
@@ -462,7 +465,7 @@ public class StudentController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
-    public String studentUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
+    public String studentUpdate(@RequestParam MultiValueMap<String, String> myMap, RedirectAttributes redirectAttributes){
         String id = myMap.getFirst("id");
         String firstName = (myMap.getFirst("firstName"));
         String lastName = (myMap.getFirst("lastName"));
@@ -506,6 +509,7 @@ public class StudentController {
 
         this.studentRepository.delete(this.studentRepository.findStudentById(id));
         this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully updated: "+ studentId);
         return "redirect:/show/student";
     }
 
@@ -514,7 +518,7 @@ public class StudentController {
         return "/add/AddStudent";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String addStudent(@RequestParam MultiValueMap<String, String> myMap,  Model model){
+    public String addStudent(@RequestParam MultiValueMap<String, String> myMap,  RedirectAttributes redirectAttributes){
 
         String firstName = (myMap.getFirst("firstName"));
         String lastName = (myMap.getFirst("lastName"));
@@ -540,6 +544,7 @@ public class StudentController {
         }
         this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
 
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+ studentId);
         return "redirect:/show/student";
     }
 

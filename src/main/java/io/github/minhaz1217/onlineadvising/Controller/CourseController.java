@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -66,8 +67,12 @@ public class CourseController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/remove/{id}")
-    public String courseDelete(@PathVariable String id){
-        courseRepository.delete(courseRepository.findCourseById(id));
+    public String courseDelete(@PathVariable String id, RedirectAttributes redirectAttributes){
+        Course course = courseRepository.findCourseById(id);
+        String courseMsg = course.getName();
+        courseRepository.delete(course);
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully deleted: "+courseMsg);
+
         return "redirect:/show/course";
     }
 
@@ -79,10 +84,10 @@ public class CourseController {
         return "/edit/EditCourse";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/update")
-    public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, Model model){
+    public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, RedirectAttributes redirectAttributes){
         //courseRepository.delete(courseRepository.findCourseById(id));
         ArrayList<String> myList = new ArrayList<>();
-        if(myMap.get("code")!=null) {
+        if(myMap.get("prereq")!=null) {
             for (int i = 0; i < myMap.get("prereq").size(); i++) {
                 if(!myMap.get("prereq").get(i).equals("")) {
                     myList.add(myMap.get("prereq").get(i));
@@ -102,7 +107,7 @@ public class CourseController {
         courseRepository.delete( courseRepository.findCourseById(id) );
         Course c = courseRepository.save( new Course(name, code, dept, has_lab, myList) );
         myList.add(name);
-        model.addAttribute("value", myList);
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully updated: "+name);
         return "redirect:/show/course";
     }
 
@@ -111,7 +116,7 @@ public class CourseController {
         return "/add/AddCourse";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String addCourse(@RequestParam MultiValueMap<String, String> myMap,  Model model){
+    public String addCourse(@RequestParam MultiValueMap<String, String> myMap,  RedirectAttributes redirectAttributes){
         String name = myMap.getFirst("name");
         String code = myMap.getFirst("code");
         String dept = myMap.getFirst("dept");
@@ -122,7 +127,7 @@ public class CourseController {
             has_lab = "1";
         }
         ArrayList<String> myList = new ArrayList<>();
-        if(myMap.get("code")!=null) {
+        if(myMap.get("prereq")!=null) {
             for (int i = 0; i < myMap.get("prereq").size(); i++) {
                 if(!myMap.get("prereq").get(i).equals("")) {
                     myList.add(myMap.get("prereq").get(i));
@@ -130,7 +135,8 @@ public class CourseController {
             }
         }
         this.courseRepository.save(new Course( name, code, dept, has_lab, myList ));
-        return "/add/AddCourse";
+        redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+name);
+        return "redirect:/show/course";
     }
     
 }
