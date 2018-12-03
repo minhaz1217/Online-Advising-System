@@ -61,7 +61,6 @@ public class ViewController implements ErrorController{
         if(password.equals("MINHAZUL_HAYAT_KHAN_EWU")){
             DbSeeder hi = null;
             hi.deleteAll();
-            hi.loadAll();
             return hi.loadAll();
         }
         return "ALL FAILURE";
@@ -71,7 +70,6 @@ public class ViewController implements ErrorController{
     public String adminDeleteAll(@PathVariable String password){
         if(password.equals("MINHAZUL_HAYAT_KHAN_EWU")){
             DbSeeder hi = null;
-            hi.deleteAll();
             return hi.deleteAll();
         }
         return "DELETE FAILURE";
