@@ -10,10 +10,10 @@ and open the template in the editor.
     <title>Courses Offered</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div th:replace="@{'/inc/' + headTags}" th:remove="tag"></div>
+    <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 </head>
 <body class="text-center">
-<div th:replace="@{'/inc/' + nav}"></div>
+<div th:replace="@{'inc/' + nav}"></div>
 
 <div class="makeCenter">
 
@@ -55,7 +55,7 @@ and open the template in the editor.
     </button>
 </form>
 </div>
-<div th:replace="@{'/inc/' + footTags}" th:remove="tag"></div>
+<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 
 
 </body>
