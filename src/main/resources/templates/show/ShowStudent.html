@@ -48,14 +48,14 @@ and open the template in the editor.
         <td>
             <form th:method="delete" th:action="@{'/student/remove'}">
                 <input type="hidden" name="id" th:value="${my.id}" />
-                <input type="submit" value="Remove" class="btn btn-outline-danger"/>
+                <button type="submit" class="btn btn-outline-danger"><i class="fas fa-user-minus fa-lg"></i>Remove</button>
             </form>
         </td>
         <td>
 
             <form th:method="post" th:action="@{'/student/edit'}">
                 <input type="hidden" th:value="${my.id}" name="id" />
-                <input type="submit" value="Edit" class="btn btn-outline-info"/>
+                <button type="submit" class="btn btn-outline-info"><i class="fas fa-user-check fa-lg"></i>Edit</button>
             </form>
         </td>
     </tr>

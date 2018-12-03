@@ -56,14 +56,15 @@
             </td>
             <td>
                 <form th:method="delete" th:action="@{'/course/remove/' + ${my.id}}">
-                    <input type="submit" value="Remove" class="btn btn-outline-danger" />
+                    <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash fa-lg"></i>Remove</button>
+
                 </form>
             </td>
                 <td>
 
                     <form th:method="post" th:action="@{'/course/edit/'}">
                         <input type="hidden" th:value="${my.id}" name="id" />
-                        <input type="submit" value="Edit" class="btn btn-outline-info" />
+                        <button type="submit" class="btn btn-outline-info"><i class="fas fa-pencil-alt fa-lg"></i>Edit</button>
                     </form>
                 </td>
             </div>

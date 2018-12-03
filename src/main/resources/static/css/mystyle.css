@@ -42,7 +42,9 @@ td, th{
     margin:10% auto;
     padding:2%;
 }
-
+i{
+    margin: 0 .5em 0 0;
+}
 /*
 .header-fixed {
     width: 100%
