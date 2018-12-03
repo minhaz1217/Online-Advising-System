@@ -44,6 +44,14 @@ public class Student {
         this.taken = taken;
         advising = new ArrayList<>();
     }
+    public Student(String firstName, String lastName, String email, String studentId, ArrayList<CourseExtended> taken, ArrayList<CourseDescription> advising) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.studentId = studentId;
+        this.taken = taken;
+        this.advising = advising;
+    }
 
     public ArrayList<CourseDescription> getAdvising() {
         return advising;

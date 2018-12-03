@@ -334,7 +334,12 @@ public class StudentController {
         //DETECTION: took subject that has a lab but didn't take the lab
         String needLab = "Need to take lab for: ", code = "", needMain = "You need to take the course : ";
         List<String> sendList = new ArrayList<>();
-        String pairToString = pair.toString();
+        String pairToString = "";
+        //[CSE350=01, CSE360=02, CSE365=01, CSE365LAB=01]
+        for(int i=0;i<pair.size();i++){
+            pairToString += pair.get(i).getKey()+"="+pair.get(i).getValue() + ", ";
+        }
+        //System.out.println(pairToString);
         int flagLab =0, flagMain =0;
         for(int i=0;i<pair.size();i++){
             code = pair.get(i).getKey();
@@ -353,6 +358,7 @@ public class StudentController {
                     flagMain = 1;
                 }
             }
+            System.out.println(pairToString);
             if(sendList.size() == 3){
                 List<Course> courses = courseRepository.findCoursesByCodeOrCodeOrCode(sendList.get(0), sendList.get(1), sendList.get(2));
                 for(Course cc : courses){
@@ -360,6 +366,7 @@ public class StudentController {
                         if(!pairToString.contains(cc.getCode()+"LAB")){
                             sendList.add(cc.getCode());
                             needLab = needLab + cc.getCode()+" ";
+                            System.out.println("HIT 1");
                             flagLab = 1;
                         }
                     }
@@ -373,6 +380,7 @@ public class StudentController {
                     if(!pairToString.contains(cc.getCode()+"LAB")){
                         sendList.add(cc.getCode());
                         needLab = needLab + cc.getCode()+" ";
+                        System.out.println("HIT 2");
                         flagLab = 1;
                     }
                 }
@@ -383,6 +391,7 @@ public class StudentController {
                 if(!pairToString.contains(cc.getCode()+"LAB")){
                     sendList.add(cc.getCode());
                     needLab = needLab + cc.getCode()+" ";
+                    System.out.println("HIT 3");
                     flagLab = 1;
                 }
             }
