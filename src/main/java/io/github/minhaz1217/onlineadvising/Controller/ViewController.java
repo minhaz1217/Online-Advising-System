@@ -62,7 +62,7 @@ public class ViewController implements ErrorController{
             DbSeeder hi = null;
             hi.deleteAll();
             hi.loadAll();
-            return "ALL SUCCESS";
+            return hi.loadAll();
         }
         return "ALL FAILURE";
     }
@@ -72,7 +72,7 @@ public class ViewController implements ErrorController{
         if(password.equals("MINHAZUL_HAYAT_KHAN_EWU")){
             DbSeeder hi = null;
             hi.deleteAll();
-            return "DELETE SUCCESS";
+            return hi.deleteAll();
         }
         return "DELETE FAILURE";
     }
@@ -83,7 +83,7 @@ public class ViewController implements ErrorController{
 
             DbSeeder hi = null;
             hi.deleteAll();
-            return hi.loadAll();;
+            return hi.loadAll();
         }
         return "LOAD FAILURE";
     }
