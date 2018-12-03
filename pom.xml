@@ -6,7 +6,7 @@
 	<groupId>io.github.minhaz1217</groupId>
 	<artifactId>online-advising</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<package>war</package>
+	<packaging>jar</packaging>
 
 	<name>online-advising</name>
 	<description>Demo project for Spring Boot</description>
