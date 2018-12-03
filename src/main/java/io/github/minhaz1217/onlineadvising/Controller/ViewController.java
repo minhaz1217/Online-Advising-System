@@ -37,7 +37,7 @@ public class ViewController implements ErrorController{
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/add/course")
+    @RequestMapping(method = RequestMethod.GET, value = "add/course")
     public String addCourse(Model model, Course course, Pageable pageable){
         return "/";
     }
@@ -52,7 +52,7 @@ public class ViewController implements ErrorController{
     public String gotoDashboard(Model model){
         Student student = studentRepository.findStudentByStudentCode("2016-1-60-100");
         model.addAttribute("dashStudent", student);
-        return "/show/ShowStudentDashboard";
+        return "show/ShowStudentDashboard";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/resetall/{password}")

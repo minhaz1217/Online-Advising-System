@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/show")
+@RequestMapping("show")
 public class ShowControl {
     CourseRepository courseRepository;
     StudentRepository studentRepository;
@@ -47,13 +47,13 @@ public class ShowControl {
     public String showStudents(Model model){
         List<Student> myStudents = studentRepository.findAllByOrderByFirstNameAsc();
         model.addAttribute("student", myStudents);
-        return "/show/ShowStudent";
+        return "show/ShowStudent";
     }
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public String showCourseDescription(Model model){
         List<CourseDescription> myCourses = courseDescriptionRepository.findAllByOrderByCodeAsc();
         model.addAttribute("courseList", myCourses);
-        return "/show/ShowCourseList";
+        return "show/ShowCourseList";
     }
     
 }

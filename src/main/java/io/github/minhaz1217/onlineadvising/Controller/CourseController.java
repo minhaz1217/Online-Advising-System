@@ -73,15 +73,15 @@ public class CourseController {
         courseRepository.delete(course);
         redirectAttributes.addFlashAttribute("msg_success", "Successfully deleted: "+courseMsg);
 
-        return "redirect:/show/course";
+        return "redirect:show/course";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/edit")
+    @RequestMapping(method = RequestMethod.POST, value = "edit")
     public String courseEdit(@RequestParam("id") String id, Model model){
         //Course course = courseRepository.findCourseByCode("CSE411");
         Course course = courseRepository.findCourseById(id);
         model.addAttribute("course", course);
-        return "/edit/EditCourse";
+        return "edit/EditCourse";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     public String courseUpdate(@RequestParam MultiValueMap<String, String> myMap, RedirectAttributes redirectAttributes){
@@ -108,14 +108,14 @@ public class CourseController {
         Course c = courseRepository.save( new Course(name, code, dept, has_lab, myList) );
         myList.add(name);
         redirectAttributes.addFlashAttribute("msg_success", "Successfully updated: "+name);
-        return "redirect:/show/course";
+        return "redirect:show/course";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/add")
+    @RequestMapping(method = RequestMethod.GET, value = "add")
     public String showAddCourse(Model model){
-        return "/add/AddCourse";
+        return "add/AddCourse";
     }
-    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    @RequestMapping(method = RequestMethod.POST, value = "add")
     public String addCourse(@RequestParam MultiValueMap<String, String> myMap,  RedirectAttributes redirectAttributes){
         String name = myMap.getFirst("name");
         String code = myMap.getFirst("code");
@@ -136,7 +136,7 @@ public class CourseController {
         }
         this.courseRepository.save(new Course( name, code, dept, has_lab, myList ));
         redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+name);
-        return "redirect:/show/course";
+        return "redirect:show/course";
     }
     
 }

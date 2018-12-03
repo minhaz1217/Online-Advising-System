@@ -207,7 +207,7 @@ public class StudentController {
         }
 
         model.addAttribute("seatplan", seatPlan);
-        return  "/show/ShowAvailable";
+        return  "show/ShowAvailable";
         //return seatPlan;
     }
 
@@ -458,7 +458,7 @@ public class StudentController {
             descriptionRepository.save(fullList.get(i));
         }
 
-        return "redirect:/student/show/"+id;
+        return "redirect:/studentshow/"+id;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
@@ -470,7 +470,7 @@ public class StudentController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String showStudent(Model model){
-        return "redirect:/show/student";
+        return "redirect:show/student";
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/remove")
@@ -479,15 +479,15 @@ public class StudentController {
         String std_id = student.getStudentId();
         studentRepository.delete(student);
         redirectAttributes.addFlashAttribute("msg_success", "Successfully deleted: "+ std_id);
-        return "redirect:/show/student";
+        return "redirect:show/student";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/edit")
+    @RequestMapping(method = RequestMethod.POST, value = "edit")
     public String studentEdit(@RequestParam("id") String id, Model model){
         //Course course = courseRepository.findCourseByCode("CSE411");
         Student student = this.studentRepository.findStudentById(id);
         model.addAttribute("student", student);
-        return "/edit/EditStudent";
+        return "edit/EditStudent";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
@@ -536,14 +536,14 @@ public class StudentController {
         this.studentRepository.delete(this.studentRepository.findStudentById(id));
         this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
         redirectAttributes.addFlashAttribute("msg_success", "Successfully updated: "+ studentId);
-        return "redirect:/show/student";
+        return "redirect:show/student";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/add")
+    @RequestMapping(method = RequestMethod.GET, value = "add")
     public String showAddStudent(Model model){
-        return "/add/AddStudent";
+        return "add/AddStudent";
     }
-    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    @RequestMapping(method = RequestMethod.POST, value = "add")
     public String addStudent(@RequestParam MultiValueMap<String, String> myMap,  RedirectAttributes redirectAttributes){
 
         String firstName = (myMap.getFirst("firstName"));
@@ -571,7 +571,7 @@ public class StudentController {
         this.studentRepository.save(new Student(firstName, lastName, email,studentId, myCourseExtended));
 
         redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+ studentId);
-        return "redirect:/show/student";
+        return "redirect:show/student";
     }
 
 
@@ -588,19 +588,19 @@ public class StudentController {
 
 
     //TODO: fix this
-    @RequestMapping(method = RequestMethod.GET, value = "/show/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "show/{id}")
     public String showStudent(@PathVariable String id, Model model){
         Student student = studentRepository.findStudentByStudentCode(id);
         model.addAttribute("dashStudent", student);
-        return "/show/ShowStudentDashboard";
+        return "show/ShowStudentDashboard";
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/show")
+    @RequestMapping(method = RequestMethod.GET, value = "show")
     public String showStudentSingle(Model model){
         Student student = studentRepository.findStudentByStudentCode("2016-1-60-100");
         model.addAttribute("dashStudent", student);
-        return "/show/ShowStudentDashboard";
+        return "show/ShowStudentDashboard";
     }
 
 
