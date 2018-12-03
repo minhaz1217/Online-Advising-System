@@ -15,7 +15,7 @@
         height:100%;
     }
     body{
-        background-image: url("/image/background1.jpg");
+        //background-image: url("/image/background1.jpg");
 
         /* Full height */
         height: 100%;
@@ -32,8 +32,22 @@
     <h1>Welcome to the Online Advising System</h1>
     <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
     <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+
+    <br>
+    <br/>
+    <br/>
+    <a href="/dashboard">
+    <button type="button" class="btn btn-success">
+
+        Dashboard
+        <i class="fas fa-smile fa-lg" style="margin-left: .5em;"></i>
+
+    </button>
+    </a>
 </div>
 <div th:replace="@{'/inc/' + footTags}" th:remove="tag"></div>
-
+<script>
+    //$("nav").addClass("bg-info");
+</script>
 </body>
 </html>

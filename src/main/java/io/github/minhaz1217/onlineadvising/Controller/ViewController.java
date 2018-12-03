@@ -1,7 +1,9 @@
 package io.github.minhaz1217.onlineadvising.Controller;
 
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
+import io.github.minhaz1217.onlineadvising.Interface.StudentRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
+import io.github.minhaz1217.onlineadvising.models.Student;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,10 @@ import java.sql.Time;
 
 @Controller
 public class ViewController implements ErrorController{
+    StudentRepository studentRepository;
+    public ViewController(StudentRepository studentRepository){
+        this.studentRepository = studentRepository;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/error2")
     public String showError(){
@@ -42,6 +48,13 @@ public class ViewController implements ErrorController{
         return "/error";
     }
 
+
+    @RequestMapping(method = RequestMethod.GET, value = "/dashboard")
+    public String gotoDashboard(Model model){
+        Student student = studentRepository.findStudentByStudentCode("2016-1-60-100");
+        model.addAttribute("dashStudent", student);
+        return "/show/ShowStudentDashboard";
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
     public String test(){
