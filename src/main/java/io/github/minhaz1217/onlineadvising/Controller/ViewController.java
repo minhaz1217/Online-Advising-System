@@ -1,5 +1,6 @@
 package io.github.minhaz1217.onlineadvising.Controller;
 
+import io.github.minhaz1217.onlineadvising.DbSeeder;
 import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
 import io.github.minhaz1217.onlineadvising.Interface.StudentRepository;
 import io.github.minhaz1217.onlineadvising.models.Course;
@@ -8,9 +9,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.Time;
@@ -54,6 +53,40 @@ public class ViewController implements ErrorController{
         Student student = studentRepository.findStudentByStudentCode("2016-1-60-100");
         model.addAttribute("dashStudent", student);
         return "/show/ShowStudentDashboard";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/resetall/{password}")
+    @ResponseBody
+    public String adminResetAll(@PathVariable String password){
+        if(password.equals("MINHAZUL_HAYAT_KHAN_EWU")){
+            DbSeeder hi = null;
+            hi.deleteAll();
+            hi.loadAll();
+            return "ALL SUCCESS";
+        }
+        return "ALL FAILURE";
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/deleteall/{password}")
+    @ResponseBody
+    public String adminDeleteAll(@PathVariable String password){
+        if(password.equals("MINHAZUL_HAYAT_KHAN_EWU")){
+            DbSeeder hi = null;
+            hi.deleteAll();
+            return "DELETE SUCCESS";
+        }
+        return "DELETE FAILURE";
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/loadall/{password}")
+    @ResponseBody
+    public String adminLoadAll(@PathVariable String password){
+        if(password.equals("MINHAZUL_HAYAT_KHAN_EWU")){
+
+            DbSeeder hi = null;
+            hi.deleteAll();
+            hi.loadAll();
+            return "LOAD SUCCESS";
+        }
+        return "LOAD FAILURE";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
