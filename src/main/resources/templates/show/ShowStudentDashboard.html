@@ -64,7 +64,6 @@ and open the template in the editor.
 
                 <div th:each="take: ${dashStudent.taken}" th:remove="tag">
 
-
                     <div th:switch="${take.section}" th:remove="tag">
                         <div th:case="null">
                             <div class="input-group col-sm-12">
@@ -93,8 +92,17 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
+
         </div>
 
+        <div class="form-group row">
+            <label for="stdId" class="col-sm-2 col-form-label">Advising</label>
+            <div class="col-sm-8 offset-sm-1" id="stdId" >
+                    <div th:each="cd:${dashStudent.advising}" th:remove="tag">
+                        <div class="form-control" th:text="@{ ${cd.code} + '('+ ${cd.sec} + ') ->' + ${cd.day} +', '+${cd.time} + ' [' +${cd.room} + ']'}"></div>
+                    </div>
+            </div>
+        </div>
 
 </div>
 <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
