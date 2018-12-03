@@ -237,7 +237,7 @@ public class DbSeeder implements CommandLineRunner {
 
 
         //adding some demo students
-        studentRepository.save(new Student( "Alex", "Jone", "minhaz1217@gmail.com", "2016-1-60-100",new ArrayList<CourseExtended>( Arrays.asList(
+        studentRepository.save(new Student( "Jeremy", "G. Ingram", "JeremyGIngram@rhyta.com", "2016-1-60-100",new ArrayList<CourseExtended>( Arrays.asList(
                 new CourseExtended("ENG101"),
                 new CourseExtended("MAT101"),
                 new CourseExtended("CSE105"),
@@ -263,7 +263,7 @@ public class DbSeeder implements CommandLineRunner {
                 new CourseExtended("CSE345" )
         )
         )));
-        studentRepository.save(new Student( "Mikasa","Es Sukasa", "minhaz1217@gmail.com", "2016-1-60-101",
+        studentRepository.save(new Student( "Erin","D. Gaither", "ErinDGaither@teleworm.us", "2016-1-60-101",
                 new ArrayList<CourseExtended>( Arrays.asList(
                         new CourseExtended("ENG101"),
                         new CourseExtended("MAT101"),
@@ -276,11 +276,11 @@ public class DbSeeder implements CommandLineRunner {
                         new CourseExtended("CHE109"),
                         new CourseExtended("CSE109" )
                 ))));
-        studentRepository.save(new Student( "Hakua", "Matata", "minhaz1217@gmail.com", "2016-1-60-102",
+        studentRepository.save(new Student( "Minhazul", "Hayat Khan", "minhaz1217@gmail.com", "2016-1-60-102",
                 new ArrayList<CourseExtended>( Arrays.asList(
                         new CourseExtended("")
                 ))));
-        studentRepository.save(new Student( "Minhaz", "Khan", "minhaz1217@gmail.com", "2016-1-60-103",
+        studentRepository.save(new Student( "John", "A. Davis", "JohnADavis@armyspy.com ", "2016-1-60-103",
                 new ArrayList<CourseExtended>( Arrays.asList(
                         new CourseExtended( "MAT101","2"),
                         new CourseExtended( "ENG101","2"),
