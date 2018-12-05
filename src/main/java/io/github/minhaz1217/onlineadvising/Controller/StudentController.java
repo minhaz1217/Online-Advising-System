@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.h2.util.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -590,8 +591,23 @@ public class StudentController {
         return "SelectStudent";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/select")
-    public String selectStudentPost(@RequestParam String id){
-        System.out.println(id);
+    public String selectStudentPost(@RequestParam MultiValueMap<String, String> myMap, RedirectAttributes redirectAttributes){
+        //System.out.println(id);
+        String year = myMap.getFirst("idYear");
+        String semister = myMap.getFirst("idSemister");
+        String dept = myMap.getFirst("idDept");
+        String roll = myMap.getFirst("idRoll");
+        if( !(StringUtils.isNumber(year) && StringUtils.isNumber(dept) && StringUtils.isNumber(semister) && StringUtils.isNumber(roll)) ){
+            redirectAttributes.addFlashAttribute("msg_error", "The id can only consists of numbers.");
+
+
+            redirectAttributes.addFlashAttribute("idYear", year);
+            redirectAttributes.addFlashAttribute("idSemister", semister);
+            redirectAttributes.addFlashAttribute("idDept", dept);
+            redirectAttributes.addFlashAttribute("idRoll", roll);
+            return "redirect:/student/select";
+        }
+        String id = year + "-" + semister + "-" +dept + "-" + roll;
         return "redirect:/student/available/"+id;
     }
 

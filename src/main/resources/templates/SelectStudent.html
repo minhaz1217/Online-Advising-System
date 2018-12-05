@@ -20,13 +20,18 @@
             <label for="name" class="col-sm-2 col-form-label">Insert Student ID: </label>
             <div class="col-sm-8 offset-sm-1 form-inline" id="name">
                 <span>
-                <input type="text" class="col-sm-4  form-control"   name="idYear" onkeypress="verify(this)" minlength="4" maxlength="4" required/>
+
+                <input type="text" class="col-sm-3  form-control" th:if="${idYear}" th:value="${idYear}"  name="idYear" onkeypress="verify(this)" minlength="4" maxlength="4" required/>
+                <input type="text" class="col-sm-3  form-control" th:unless="${idYear}" name="idYear" onkeypress="verify(this)" minlength="4" maxlength="4" required/>
                 <spn>-</spn>
-                <input type="text" class="col-sm-2 form-control"  name="idSemister" onkeypress="verify(this)" minlength="1" maxlength="1" required/>
+                <input type="text" class="col-sm-2 form-control"  name="idSemister"  th:if="${idSemister}" th:value="${idSemister}" onkeypress="verify(this)" minlength="1" maxlength="1" required/>
+                <input type="text" class="col-sm-2 form-control"  name="idSemister"  th:unless="${idSemister}"  onkeypress="verify(this)" minlength="1" maxlength="1" required/>
                 <spn>-</spn>
-                <input type="text" class="col-sm-2 form-control"  name="idDept" onkeypress="verify(this)" minlength="2" maxlength="2" required/>
+                <input type="text" class="col-sm-2 form-control"  name="idDept"  th:if="${idDept}" th:value="${idDept}" onkeypress="verify(this)" minlength="2" maxlength="2" required/>
+                <input type="text" class="col-sm-2 form-control"  name="idDept"  th:unless="${idDept}"  onkeypress="verify(this)" minlength="2" maxlength="2" required/>
                 <spn>-</spn>
-                <input type="text"  class="col-sm-3 form-control" name="idRoll" onkeypress="verify(this)" minlength="3" maxlength="3" required/>
+                <input type="text"  class="col-sm-3 form-control" name="idRoll"  th:if="${idRoll}" th:value="${idRoll}" onkeypress="verify(this)" minlength="3" maxlength="3" required/>
+                <input type="text"  class="col-sm-3 form-control" name="idRoll"  th:unless="${idRoll}" onkeypress="verify(this)" minlength="3" maxlength="3" required/>
                 </span>
             </div>
         </div>
