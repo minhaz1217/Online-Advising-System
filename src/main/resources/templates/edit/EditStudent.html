@@ -20,7 +20,7 @@
         <div class="form-group row">
             <label for="code" class="col-sm-2 col-form-label">First Name</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="code" th:value="${student.firstName}" name="firstName"/>
+                <input type="text" class="form-control" id="code" th:value="${student.firstName}" name="firstName" required/>
             </div>
         </div>
 
@@ -42,7 +42,7 @@
         <div class="form-group row">
             <label for="day" class="col-sm-2 col-form-label">Student ID</label>
             <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="day" th:value="${student.studentId}" name="studentId"/>
+                <input type="text" class="form-control" id="day" th:value="${student.studentId}" name="studentId" required/>
             </div>
         </div>
 
