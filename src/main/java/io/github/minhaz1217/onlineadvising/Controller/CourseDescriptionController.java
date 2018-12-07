@@ -77,6 +77,10 @@ public class CourseDescriptionController {
         String room = myMap.getFirst("room");
         String instructor = myMap.getFirst("instructor");
         String seats = myMap.getFirst("seats");
+        if((code == null) || (sec == null) || (time == null) || (day == null) || (room == null) || (instructor == null) || (seats == null)){
+            redirectAttributes.addFlashAttribute("msg_error", "Error, Check inputs clearly");
+            return "redirect:/show/list";
+        }
         this.courseDescriptionRepository.save(new CourseDescription(code, sec, time , day, room, seats, instructor));
 
         redirectAttributes.addFlashAttribute("msg_success", "Successfully added: "+ code + "("+sec+")");
