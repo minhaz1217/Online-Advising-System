@@ -5,9 +5,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Document(collection="User")
 public class User {
@@ -21,15 +23,13 @@ public class User {
     @NotNull
     @Size(min=8, max=40)
     private String password;
-    private String[] role;
-    private User(){
-    }
-    public User(String username, String password, String... role) {
+    private Set<Role> role;
+
+    public User(@NotNull @Size(min = 5, max = 30) String username, @NotNull @Size(min = 8, max = 40) String password, Set<Role> role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
-
 
     public String getId() {
         return id;
@@ -55,11 +55,14 @@ public class User {
         this.password = password;
     }
 
-    public String[] getRole() {
+    public Set<Role> getRole() {
         return role;
     }
 
-    public void setRole(String... role) {
+    public void setRole(Set<Role> role) {
         this.role = role;
+    }
+
+    private User(){
     }
 }
