@@ -4,15 +4,12 @@
  * and open the template in the editor.
  */
 package io.github.minhaz1217.onlineadvising;
-import io.github.minhaz1217.onlineadvising.Interface.CourseDescriptionRepository;
-import io.github.minhaz1217.onlineadvising.Interface.CourseRepository;
-import io.github.minhaz1217.onlineadvising.Interface.StudentRepository;
-import io.github.minhaz1217.onlineadvising.Interface.UserRepository;
+import io.github.minhaz1217.onlineadvising.Interface.*;
 import io.github.minhaz1217.onlineadvising.models.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 /**
@@ -28,15 +25,17 @@ public class DbSeeder implements CommandLineRunner {
     private static UserRepository userRepository;
     private static StudentRepository studentRepository;
     private static CourseDescriptionRepository courseDescriptionRepository;
-
+    private static RoleRepository roleRepository;
     public DbSeeder(CourseRepository courseRepository,
                     UserRepository userRepository,
                     StudentRepository studentRepository,
-                    CourseDescriptionRepository courseDescriptionRepository){
+                    CourseDescriptionRepository courseDescriptionRepository,
+                    RoleRepository roleRepository){
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
         this.studentRepository = studentRepository;
         this.courseDescriptionRepository = courseDescriptionRepository;
+        this.roleRepository = roleRepository;
     }
 
     public static String deleteAll(){
@@ -44,6 +43,7 @@ public class DbSeeder implements CommandLineRunner {
         userRepository.deleteAll();
         studentRepository.deleteAll();
         courseDescriptionRepository.deleteAll();
+        roleRepository.deleteAll();
         System.out.println("DB Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
         return ("Details: " + " Users: "+ userRepository.count() + " Courses: "+ courseRepository.count() + " Course Description: " + courseDescriptionRepository.count() + " Students: " + studentRepository.count());
 
@@ -54,11 +54,16 @@ public class DbSeeder implements CommandLineRunner {
 
 
         //adding some user to use
-        User minhaz = new User("minhaz2", "minhaz2", "ROLE_ADMIN", "ROLE_USER");
-        User admin = new User("admin", "admin", "ROLE_ADMIN", "ROLE_USER");
-        userRepository.save(minhaz);
-        userRepository.save(admin);
+        Role userRole = roleRepository.findRoleByRole("USER");
+        Role adminRole = roleRepository.findRoleByRole("ADMIN");
 
+        User user = new User("user", "user", new HashSet<>(Arrays.asList( userRole )) );
+
+        User admin = new User("admin", "admin", new HashSet<>(Arrays.asList(adminRole)));
+        //User minhaz1 = new User("minhaz123123", "minhaz123123", new HashSet<>(Arrays.asList( adminRole )));
+        userRepository.save(admin);
+        //userRepository.save(minhaz1);
+        userRepository.save(user);
 
 
         // adding all the courses
@@ -296,11 +301,23 @@ public class DbSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        deleteAll();
 
-
+        Role userRole = roleRepository.findRoleByRole("USER");
+        if(userRole == null){
+            Role newRole = new Role();
+            newRole.setRole("USER");
+            roleRepository.save( newRole );
+        }
+        Role adminRole = roleRepository.findRoleByRole("ADMIN");
+        if(adminRole == null){
+            Role newRole = new Role();
+            newRole.setRole("ADMIN");
+            roleRepository.save( newRole );
+        }
 
         //this.courseDescriptionRepository.save(new CourseDescription( "CSE405","1","08:30 - 10:00","MW", "112","40"));
-
+        loadAll();
 
 
         //showing some messages to verify that everything went ok

@@ -4,16 +4,17 @@ import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Document(collection = "Role")
 public class Role {
-    @Id
+    @Id @GeneratedValue
     private String id;
     @Indexed(unique = true, direction = IndexDirection.ASCENDING)
     private String role;
-
     public Role(){}
+
     public Role(String role) {
         this.role = role;
     }

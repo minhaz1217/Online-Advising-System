@@ -42,16 +42,18 @@ public class UserController {
             model.addAttribute("err_confirm_pass", "Password Didn't Match, Try again.");
             return "signup";
         }else{
-            if(userRepository.findByUsername( user.getUsername() ) != null ){
+            if(userRepository.findUserByUsername( user.getUsername() ) != null ){
                 model.addAttribute("error", "Check Below for details");
                 model.addAttribute("error", "Username already exists.");
                 return "signup";
             }
+            /*
             if(adminPass.equals("minhaz")){
                 user.setRole("ROLE_ADMIN", "ROLE_USER");
             }else{
                 user.setRole("ROLE_USER");
             }
+            */
             userRepository.save(user);
         }
         return "redirect:/";

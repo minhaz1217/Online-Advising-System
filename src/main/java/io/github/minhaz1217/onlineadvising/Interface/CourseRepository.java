@@ -16,6 +16,7 @@ import java.util.List;
  *
  * @author Minhaz
  */
+
 @Repository
 public interface CourseRepository extends MongoRepository<Course, String> {
 
