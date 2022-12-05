@@ -4,8 +4,6 @@ This was my first project built using Java Spring Boot and mongodb. I built it f
 
 ### A course advising system that lets the students select courses and sections for their next semester with time conflict detection and maintaining prerequisites.
 
-### *The Project is currently hosted in [Heroku*](https://online-advising-system.herokuapp.com/)
-
 Demo 1: The landing page
 
 ![Landing Page](https://raw.githubusercontent.com/minhaz1217/Online-Advising-System/master/images/sc1.png)
@@ -78,7 +76,7 @@ Demo 17: Sample of the 404 page
 # Steps to build and run the project
 
 ### At first change the mongodb connection string in the file
-`src/main/resources/application.properties`
+`nano src/main/resources/application.properties`
 
 ## Without Docker
 
@@ -94,7 +92,7 @@ Demo 17: Sample of the 404 page
 `docker build -t i_online_advising_system .`
 
 ### Run the docker container
-`docker run --name online-advising-system --network localhost-network -d -p 8080:8080 i_online_advising_system`
+`docker run -d --name online-advising-system --network minhazul-net -p 8080:8080 i_online_advising_system`
 
 
 ## Use this to seed the database for the project to work correctly
