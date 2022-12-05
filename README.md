@@ -11,7 +11,6 @@ Demo 1: The landing page
 ![Landing Page](https://raw.githubusercontent.com/minhaz1217/Online-Advising-System/master/images/sc1.png)
 
 
-
 Demo 2: The dashboard of student, notice the already done advising
 
 ![Dashboard](https://raw.githubusercontent.com/minhaz1217/Online-Advising-System/master/images/sc2.png)
@@ -76,19 +75,27 @@ Demo 17: Sample of the 404 page
 
 ![404 page](https://raw.githubusercontent.com/minhaz1217/Online-Advising-System/master/images/sc18.png)
 
-# Steps to build run the project
+# Steps to build and run the project
 
 ### At first change the mongodb connection string in the file
 `src/main/resources/application.properties`
 
+## Without Docker
+
 ### Run these command to get the jar file
-```
-mvn compile
-mvn package
-```
+`mvn compile package`
 
 ### Use this to run the project.
-`java -jar target/online-advising-0.0.1-SNAPSHOT.jar`
+`java -jar target/online-advising-1.0.0.jar`
 
-### Use this to seed the database for the project to work correctly
+## With Docker
+
+### Build the image with
+`docker build -t i_online_advising_system .`
+
+### Run the docker container
+`docker run --name online-advising-system --network localhost-network -d -p 8080:8080 i_online_advising_system`
+
+
+## Use this to seed the database for the project to work correctly
 `curl http://localhost:8080/resetall/MINHAZUL_HAYAT_KHAN_EWU`
