@@ -4,6 +4,8 @@ This was my first project built using Java Spring Boot and mongodb. I built it f
 
 ### A course advising system that lets the students select courses and sections for their next semester with time conflict detection and maintaining prerequisites.
 
+### Live URL - [https://online-advising-system.minhazul.com/](https://online-advising-system.minhazul.com/)
+
 Demo 1: The landing page
 
 ![Landing Page](https://raw.githubusercontent.com/minhaz1217/Online-Advising-System/master/images/sc1.png)
