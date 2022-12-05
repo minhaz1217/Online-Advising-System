@@ -1,5 +1,7 @@
 # Online Course advising system
 
+This was my first project built using Java Spring Boot and mongodb. I built it for a course at university. I was new in both spring and in mongodb. The main purpose of this project was to use different types of validation and learn about spring and mongodb and try to make it look presentable. 
+
 ### A course advising system that lets the students select courses and sections for their next semester with time conflict detection and maintaining prerequisites.
 
 ### *The Project is currently hosted in [Heroku*](https://online-advising-system.herokuapp.com/)
@@ -73,3 +75,20 @@ Demo 16: Adding a course description
 Demo 17: Sample of the 404 page
 
 ![404 page](https://raw.githubusercontent.com/minhaz1217/Online-Advising-System/master/images/sc18.png)
+
+# Steps to build run the project
+
+### At first change the mongodb connection string in the file
+`src/main/resources/application.properties`
+
+### Run these command to get the jar file
+```
+mvn compile
+mvn package
+```
+
+### Use this to run the project.
+`java -jar target/online-advising-0.0.1-SNAPSHOT.jar`
+
+### Use this to seed the database for the project to work correctly
+`curl http://localhost:8080/resetall/MINHAZUL_HAYAT_KHAN_EWU`
