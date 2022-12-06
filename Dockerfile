@@ -16,4 +16,4 @@ ENTRYPOINT ["java","-jar","/usr/local/lib/demo.jar"]
 
 # docker build -t i_online_advising_system .
 
-# docker run --name online-advising-system --network localhost-network -d -p 8080:8080 i_online_advising_system
+# docker run -d -p 8080:8080 --name online-advising-system --network localhost-network --memory="300m" i_online_advising_system
