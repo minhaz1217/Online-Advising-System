@@ -1,80 +1,83 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-        <title>Courses</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
+    <title>Courses | Online Advising System | Minhazul Hayat Khan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 
-    </head>
+</head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
+    <div th:replace="@{'inc/' + nav}"></div>
 
 
-<div class="makeCenter">
-    <h1 class="row justify-content-center" >Full Course Description</h1>
-    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
-    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+    <div class="makeCenter">
+        <h1 class="row justify-content-center">Full Course Description</h1>
+        <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+        <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
 
-</div>
-<div class="">
-
-
-<table class="table table-hover table-bordered table-light" id="sortTable" >
-        <thead class="thead-dark sticky-top">
-        <th>Course Name</th>
-        <th>Code</th>
-        <th>Department</th>
-        <th>Lab</th>
-        <th>Prerequisites</th>
-        <th>Delete</th>
-        <th>Update</th>
-        </thead>
-        <tbody>
-        <tr th:each="my : ${course}">
-            <div th:id="${my.id}">
-            <td th:text="${my.name}"> </td>
-            <td th:text="${my.code}"> </td>
-            <td th:text="${my.dept}"> </td>
+    </div>
+    <div class="">
 
 
-        <!-- <td th:text="${my.has_lab}"> </td> -->
-
-            <td th:switch="${my.has_lab}">
-                <span th:case="'1'">YES</span>
-                <span th:case="'0'">NO</span>
-                <p th:case="*">no</p>
-            </td>
-
-
-
-            <td>
-                <ul th:each="pre: ${my.prerequisite}">
-                    <li th:text="${pre}"></li>
-                </ul>
-            </td>
-            <td>
-                <form th:method="delete" th:action="@{'/course/remove/' + ${my.id}}">
-                    <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash fa-lg"></i>Remove</button>
-
-                </form>
-            </td>
-                <td>
-
-                    <form th:method="post" th:action="@{'/course/edit/'}">
-                        <input type="hidden" th:value="${my.id}" name="id" />
-                        <button type="submit" class="btn btn-outline-info"><i class="fas fa-pencil-alt fa-lg"></i>Edit</button>
-                    </form>
-                </td>
-            </div>
-        </tr>
-        </tbody>
-    </table>
-</div>
+        <table class="table table-hover table-bordered table-light" id="sortTable">
+            <thead class="thead-dark sticky-top">
+                <th>Course Name</th>
+                <th>Code</th>
+                <th>Department</th>
+                <th>Lab</th>
+                <th>Prerequisites</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </thead>
+            <tbody>
+                <tr th:each="my : ${course}">
+                    <div th:id="${my.id}">
+                        <td th:text="${my.name}"> </td>
+                        <td th:text="${my.code}"> </td>
+                        <td th:text="${my.dept}"> </td>
 
 
-        <!--
+                        <!-- <td th:text="${my.has_lab}"> </td> -->
+
+                        <td th:switch="${my.has_lab}">
+                            <span th:case="'1'">YES</span>
+                            <span th:case="'0'">NO</span>
+                            <p th:case="*">no</p>
+                        </td>
+
+
+
+                        <td>
+                            <ul th:each="pre: ${my.prerequisite}">
+                                <li th:text="${pre}"></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <form th:method="delete" th:action="@{'/course/remove/' + ${my.id}}">
+                                <button type="submit" class="btn btn-outline-danger"><i
+                                        class="fas fa-trash fa-lg"></i>Remove</button>
+
+                            </form>
+                        </td>
+                        <td>
+
+                            <form th:method="post" th:action="@{'/course/edit/'}">
+                                <input type="hidden" th:value="${my.id}" name="id" />
+                                <button type="submit" class="btn btn-outline-info"><i
+                                        class="fas fa-pencil-alt fa-lg"></i>Edit</button>
+                            </form>
+                        </td>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!--
         <div th:each="my : ${course}">
             <p th:text="${my.name}"> </p>
             <p th:text="${my.code}"> </p>
@@ -87,5 +90,6 @@
         -->
     <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 
-    </body>
+</body>
+
 </html>

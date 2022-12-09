@@ -4,58 +4,61 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-    <title>Courses Offered</title>
+    <title>Courses Offered | Online Advising System | Minhazul Hayat Khan</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 </head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
+    <div th:replace="@{'inc/' + nav}"></div>
 
-<div class="makeCenter">
+    <div class="makeCenter">
 
 
-<h2 class="text-center">Select Your Desired Course</h2>
-<h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
-<h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
-<form action="#" method="post" id="courseForm" >
-    <input type="hidden" name="id" th:value="${student}"/>
+        <h2 class="text-center">Select Your Desired Course</h2>
+        <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+        <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+        <form action="#" method="post" id="courseForm">
+            <input type="hidden" name="id" th:value="${student}" />
 
-    <div th:each="st : ${seatplan}">
+            <div th:each="st : ${seatplan}">
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <label th:for="${st.code}" class="input-group-text" th:text="${st.code}"></label>
-            </div>
-
-            <select  class="custom-select" th:id="${st.code}" name="takeCode">
-                <option th:value="0">None</option>
-                <div th:each="msg : ${st.sections}" th:remove="tag">
-                    <div th:if="${take}">
-                        <option th:text="${msg.value}" th:value="${msg.key}" th:selected="${#lists.contains(take, msg.key )}"></option>
-
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label th:for="${st.code}" class="input-group-text" th:text="${st.code}"></label>
                     </div>
-                    <div th:unless="${take}">
-                        <option th:text="${msg.value}" th:value="${msg.key}"></option>
-                    </div>
-                    <!--
+
+                    <select class="custom-select" th:id="${st.code}" name="takeCode">
+                        <option th:value="0">None</option>
+                        <div th:each="msg : ${st.sections}" th:remove="tag">
+                            <div th:if="${take}">
+                                <option th:text="${msg.value}" th:value="${msg.key}"
+                                    th:selected="${#lists.contains(take, msg.key )}"></option>
+
+                            </div>
+                            <div th:unless="${take}">
+                                <option th:text="${msg.value}" th:value="${msg.key}"></option>
+                            </div>
+                            <!--
                         <option th:text="${msg.value}" th:value="${msg.key}" th:checked="${#lists.contains(take, msg.key )}" ></option>
                     -->
+                        </div>
+                    </select>
                 </div>
-            </select>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-success">
+            </div>
+            <button type="submit" class="btn btn-success">
 
-        <i class="fas fa-thumbs-up fa-lg"></i>
-        Add Course
-    </button>
-</form>
-</div>
-<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+                <i class="fas fa-thumbs-up fa-lg"></i>
+                Add Course
+            </button>
+        </form>
+    </div>
+    <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 
 </body>
+
 </html>
