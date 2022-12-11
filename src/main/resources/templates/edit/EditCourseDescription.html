@@ -1,80 +1,84 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Edit Course Description | Online Advising System | Minhazul Hayat Khan</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 </head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
+    <div th:replace="@{'inc/' + nav}"></div>
 
-<div class="makeCenter">
-    <h1>Edit Course Description</h1>
-    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
-    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
-    <form action="/coursedescription/update" method="post" id="courseForm" >
+    <div class="makeCenter">
+        <h1>Edit Course Description</h1>
+        <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+        <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+        <form action="/coursedescription/update" method="post" id="courseForm">
 
 
 
-        <input hidden name="id" th:value="${course.id}" />
-        <div class="form-group row">
-            <label for="code" class="col-sm-2 col-form-label">Course Code</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="code" th:value="${course.code}" name="code" required/>
+            <input hidden name="id" th:value="${course.id}" />
+            <div class="form-group row">
+                <label for="code" class="col-sm-2 col-form-label">Course Code</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="code" th:value="${course.code}" name="code" required />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="sec" class="col-sm-2 col-form-label">Course Section</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="sec" th:value="${course.sec}" name="sec" required/>
+            <div class="form-group row">
+                <label for="sec" class="col-sm-2 col-form-label">Course Section</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="sec" th:value="${course.sec}" name="sec" required />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="time" class="col-sm-2 col-form-label">Time</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="time" th:value="${course.time}" name="time" required/>
+            <div class="form-group row">
+                <label for="time" class="col-sm-2 col-form-label">Time</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="time" th:value="${course.time}" name="time" required />
+                </div>
             </div>
-        </div>
 
 
-        <div class="form-group row">
-            <label for="day" class="col-sm-2 col-form-label">Day</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="day" th:value="${course.day}" name="day" required/>
+            <div class="form-group row">
+                <label for="day" class="col-sm-2 col-form-label">Day</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="day" th:value="${course.day}" name="day" required />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="room" class="col-sm-2 col-form-label">Room</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="room" th:value="${course.room}" name="room" required/>
+            <div class="form-group row">
+                <label for="room" class="col-sm-2 col-form-label">Room</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="room" th:value="${course.room}" name="room" required />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="seat" class="col-sm-2 col-form-label">Seats</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="seat" th:value="${course.seats}" name="seats" required/>
+            <div class="form-group row">
+                <label for="seat" class="col-sm-2 col-form-label">Seats</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="seat" th:value="${course.seats}" name="seats"
+                        required />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="instructor" class="col-sm-2 col-form-label">Instructor</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="instructor" th:value="${course.instructor}" name="instructor"/>
+            <div class="form-group row">
+                <label for="instructor" class="col-sm-2 col-form-label">Instructor</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="instructor" th:value="${course.instructor}"
+                        name="instructor" />
+                </div>
             </div>
-        </div>
 
-        <button type="submit" class="btn btn-info"><i class="fas fa-check fa-lg"></i>Update</button>
+            <button type="submit" class="btn btn-info"><i class="fas fa-check fa-lg"></i>Update</button>
 
-    </form>
+        </form>
 
-</div>
-<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+    </div>
+    <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 
 </body>
+
 </html>

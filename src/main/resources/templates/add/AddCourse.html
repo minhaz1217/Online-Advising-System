@@ -1,76 +1,79 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Add Course | Online Advising System | Minhazul Hayat Khan</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 </head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
+    <div th:replace="@{'inc/' + nav}"></div>
 
-<div class="makeCenter">
-    <h1>Add Course</h1>
-<form action="/course/add" method="post" id="courseForm" >
+    <div class="makeCenter">
+        <h1>Add Course</h1>
+        <form action="/course/add" method="post" id="courseForm">
 
-    <div class="form-group row">
-        <label for="name" class="col-sm-2 col-form-label">Course Name</label>
-        <div class="col-sm-8 offset-sm-1">
-            <input type="text" class="form-control" id="name" name="name" required/>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="code" class="col-sm-2 col-form-label">Course Code</label>
-        <div class="col-sm-8 offset-sm-1">
-            <input type="text" class="form-control" id="code"  name="code" required/>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="dept" class="col-sm-2 col-form-label">Department</label>
-        <div class="col-sm-8 offset-sm-1">
-            <input type="text" class="form-control" id="dept" name="dept" required/>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="has_lab" class="col-sm-2 col-form-label">Lab</label>
-        <div class="col-sm-8 offset-sm-1">
-            <input type="checkbox" class="form-control" id="has_lab" name="has_lab"/>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="prerquisite" class="col-sm-2 col-form-label">Prerequisites</label>
-        <div class="col-sm-8 offset-sm-1">
-            <div id="prerquisite">
-                <button type="button" id="addReq" onclick="addPrerequisite()" class="btn btn-dark"><i class=" fas fa-angle-double-down fa-lg"></i>Add Prerequisite</button>
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Course Name</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="name" name="name" required />
+                </div>
             </div>
-        </div>
+
+            <div class="form-group row">
+                <label for="code" class="col-sm-2 col-form-label">Course Code</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="code" name="code" required />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="dept" class="col-sm-2 col-form-label">Department</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="dept" name="dept" required />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="has_lab" class="col-sm-2 col-form-label">Lab</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="checkbox" class="form-control" id="has_lab" name="has_lab" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="prerquisite" class="col-sm-2 col-form-label">Prerequisites</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <div id="prerquisite">
+                        <button type="button" id="addReq" onclick="addPrerequisite()" class="btn btn-dark"><i
+                                class=" fas fa-angle-double-down fa-lg"></i>Add Prerequisite</button>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info"><i class="fas fa-plus fa-lg"></i>Add Course</button>
+        </form>
+
     </div>
-    <button type="submit" class="btn btn-info"><i class="fas fa-plus fa-lg"></i>Add Course</button>
-</form>
 
-</div>
-
-<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+    <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 
 
 
-<script>
-    function addPrerequisite(){
-        //alert("HELLO");
-        //Console.log("ADDED");
-        //alert(mine);
-        $("#addReq").before("        <div class=\"form-group row\">\n" +
-            "        <label th:for=\"newLine\" class=\"col-sm-2 col-form-label\">Prerequisite(s)</label>\n" +
-            "        <div class=\"col-sm-8 offset-sm-1\">\n" +
-            "            <input type=\"text\" class=\"form-control\" name='prereq'/>\n" +
-            "        </div>\n" +
-            "        </div>");
-    }
-</script>
+    <script>
+        function addPrerequisite() {
+            //alert("HELLO");
+            //Console.log("ADDED");
+            //alert(mine);
+            $("#addReq").before("        <div class=\"form-group row\">\n" +
+                "        <label th:for=\"newLine\" class=\"col-sm-2 col-form-label\">Prerequisite(s)</label>\n" +
+                "        <div class=\"col-sm-8 offset-sm-1\">\n" +
+                "            <input type=\"text\" class=\"form-control\" name='prereq'/>\n" +
+                "        </div>\n" +
+                "        </div>");
+        }
+    </script>
 </body>
+
 </html>

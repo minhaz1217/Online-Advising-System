@@ -1,61 +1,71 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Select Student | Online Advising System | Minhazul Hayat Khan</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 </head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
+    <div th:replace="@{'inc/' + nav}"></div>
 
 
-<div class="makeCenter">
-    <h1>Select Student</h1>
-    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
-    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
-    <form action="/student/select" method="post" id="courseForm" >
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Insert Student ID: </label>
-            <div class="col-sm-8 offset-sm-1 form-inline" id="name">
-                <span>
+    <div class="makeCenter">
+        <h1>Select Student</h1>
+        <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+        <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+        <form action="/student/select" method="post" id="courseForm">
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Insert Student ID: </label>
+                <div class="col-sm-8 offset-sm-1 form-inline" id="name">
+                    <span>
 
-                <input type="text" class="col-sm-3  form-control" th:if="${idYear}" th:value="${idYear}"  name="idYear" onkeypress="verify(this)" minlength="4" maxlength="4" required/>
-                <input type="text" class="col-sm-3  form-control" th:unless="${idYear}" name="idYear" onkeypress="verify(this)" minlength="4" maxlength="4" required/>
-                <spn>-</spn>
-                <input type="text" class="col-sm-2 form-control"  name="idSemister"  th:if="${idSemister}" th:value="${idSemister}" onkeypress="verify(this)" minlength="1" maxlength="1" required/>
-                <input type="text" class="col-sm-2 form-control"  name="idSemister"  th:unless="${idSemister}"  onkeypress="verify(this)" minlength="1" maxlength="1" required/>
-                <spn>-</spn>
-                <input type="text" class="col-sm-2 form-control"  name="idDept"  th:if="${idDept}" th:value="${idDept}" onkeypress="verify(this)" minlength="2" maxlength="2" required/>
-                <input type="text" class="col-sm-2 form-control"  name="idDept"  th:unless="${idDept}"  onkeypress="verify(this)" minlength="2" maxlength="2" required/>
-                <spn>-</spn>
-                <input type="text"  class="col-sm-3 form-control" name="idRoll"  th:if="${idRoll}" th:value="${idRoll}" onkeypress="verify(this)" minlength="3" maxlength="3" required/>
-                <input type="text"  class="col-sm-3 form-control" name="idRoll"  th:unless="${idRoll}" onkeypress="verify(this)" minlength="3" maxlength="3" required/>
-                </span>
+                        <input type="text" class="col-sm-3  form-control" th:if="${idYear}" th:value="${idYear}"
+                            name="idYear" onkeypress="verify(this)" minlength="4" maxlength="4" required />
+                        <input type="text" class="col-sm-3  form-control" th:unless="${idYear}" name="idYear"
+                            onkeypress="verify(this)" minlength="4" maxlength="4" required />
+                        <spn>-</spn>
+                        <input type="text" class="col-sm-2 form-control" name="idSemister" th:if="${idSemister}"
+                            th:value="${idSemister}" onkeypress="verify(this)" minlength="1" maxlength="1" required />
+                        <input type="text" class="col-sm-2 form-control" name="idSemister" th:unless="${idSemister}"
+                            onkeypress="verify(this)" minlength="1" maxlength="1" required />
+                        <spn>-</spn>
+                        <input type="text" class="col-sm-2 form-control" name="idDept" th:if="${idDept}"
+                            th:value="${idDept}" onkeypress="verify(this)" minlength="2" maxlength="2" required />
+                        <input type="text" class="col-sm-2 form-control" name="idDept" th:unless="${idDept}"
+                            onkeypress="verify(this)" minlength="2" maxlength="2" required />
+                        <spn>-</spn>
+                        <input type="text" class="col-sm-3 form-control" name="idRoll" th:if="${idRoll}"
+                            th:value="${idRoll}" onkeypress="verify(this)" minlength="3" maxlength="3" required />
+                        <input type="text" class="col-sm-3 form-control" name="idRoll" th:unless="${idRoll}"
+                            onkeypress="verify(this)" minlength="3" maxlength="3" required />
+                    </span>
+                </div>
             </div>
-        </div>
-        <button type="submit" class="btn btn-outline-danger">
-            Start Advising
+            <button type="submit" class="btn btn-outline-danger">
+                Start Advising
 
-        <i class="fas fa-dragon fa-lg" style="margin-right: 0px;margin-left:1em;"></i>
-        <i class="fas fa-hand-point-right fa-lg" style="margin-left: 0px;"></i>
-        </button>
-    </form>
-</div>
-<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
-<script type="text/javascript">
-    function verify(ev){
-        //console.log(ev.value);
-        //console.log(ev.maxLength);
-        if(ev.value.length >= ev.maxLength-1 && ev.name != "idRoll"){
-            ev.nextElementSibling.nextElementSibling.focus();
-            //console.log("HI");
+                <i class="fas fa-dragon fa-lg" style="margin-right: 0px;margin-left:1em;"></i>
+                <i class="fas fa-hand-point-right fa-lg" style="margin-left: 0px;"></i>
+            </button>
+        </form>
+    </div>
+    <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+    <script type="text/javascript">
+        function verify(ev) {
+            //console.log(ev.value);
+            //console.log(ev.maxLength);
+            if (ev.value.length >= ev.maxLength - 1 && ev.name != "idRoll") {
+                ev.nextElementSibling.nextElementSibling.focus();
+                //console.log("HI");
+            }
         }
-    }
-</script>
+    </script>
 
 
 
 </body>
+
 </html>

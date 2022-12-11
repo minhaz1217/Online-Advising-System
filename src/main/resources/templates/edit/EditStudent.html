@@ -1,107 +1,112 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Edit Student | Online Advising System | Minhazul Hayat Khan</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 </head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
+    <div th:replace="@{'inc/' + nav}"></div>
 
-<div class="makeCenter">
-    <h1>Edit Student</h1>
-    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
-    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
-    <form action="/student/update" method="post" id="courseForm" >
+    <div class="makeCenter">
+        <h1>Edit Student</h1>
+        <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+        <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+        <form action="/student/update" method="post" id="courseForm">
 
-        <input hidden name="id" th:value="${student.id}" />
-        <div class="form-group row">
-            <label for="code" class="col-sm-2 col-form-label">First Name</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="code" th:value="${student.firstName}" name="firstName" required/>
+            <input hidden name="id" th:value="${student.id}" />
+            <div class="form-group row">
+                <label for="code" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="code" th:value="${student.firstName}" name="firstName"
+                        required />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="sec" class="col-sm-2 col-form-label">Last Name</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="sec" th:value="${student.lastName}" name="lastName"/>
+            <div class="form-group row">
+                <label for="sec" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="sec" th:value="${student.lastName}" name="lastName" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="time" class="col-sm-2 col-form-label">Email Address</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="time" th:value="${student.email}" name="email"/>
+            <div class="form-group row">
+                <label for="time" class="col-sm-2 col-form-label">Email Address</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="time" th:value="${student.email}" name="email" />
+                </div>
             </div>
-        </div>
 
 
-        <div class="form-group row">
-            <label for="day" class="col-sm-2 col-form-label">Student ID</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="day" th:value="${student.studentId}" name="studentId" required/>
+            <div class="form-group row">
+                <label for="day" class="col-sm-2 col-form-label">Student ID</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="day" th:value="${student.studentId}" name="studentId"
+                        required />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label for="courseTaken" class="col-sm-2 col-form-label">Course Taken</label>
-            <div class="col-sm-8 offset-sm-1" id="courseTaken">
+            <div class="form-group row">
+                <label for="courseTaken" class="col-sm-2 col-form-label">Course Taken</label>
+                <div class="col-sm-8 offset-sm-1" id="courseTaken">
 
-                <div th:each="take: ${student.taken}" th:remove="tag">
+                    <div th:each="take: ${student.taken}" th:remove="tag">
 
 
-                    <div th:switch="${take.section}" th:remove="tag">
-                        <div th:case="null">
-                            <div class="input-group col-sm-12">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Course(s)</span>
+                        <div th:switch="${take.section}" th:remove="tag">
+                            <div th:case="null">
+                                <div class="input-group col-sm-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Course(s)</span>
+                                    </div>
+                                    <input type="text" class="form-control" th:value="${take.code}" name="code" />
+
                                 </div>
-                                <input type="text" class="form-control" th:value="${take.code}" name="code"/>
-
                             </div>
-                        </div>
-                        <div th:case="*">
+                            <div th:case="*">
                                 <div class="input-group col-sm-12">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Course Code</span>
                                     </div>
-                                    <input type="text" class="form-control" th:value="${take.code}" name="cdCode"/>
+                                    <input type="text" class="form-control" th:value="${take.code}" name="cdCode" />
 
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Section</span>
                                     </div>
-                                    <input type="text" class="form-control" th:value="${take.section}"  name="cdSec"/>
+                                    <input type="text" class="form-control" th:value="${take.section}" name="cdSec" />
                                 </div>
+                            </div>
                         </div>
                     </div>
+                    <button type="button" id="addCourse" onclick="myAddCourse()" class="form-control btn btn-dark"><i
+                            class=" fas fa-angle-double-down fa-lg"></i>Add New Course</button>
                 </div>
-                <button type="button" id="addCourse"  onclick="myAddCourse()" class="form-control btn btn-dark"><i class=" fas fa-angle-double-down fa-lg"></i>Add New Course</button>
             </div>
-        </div>
-        <button type="submit" class="btn btn-info"><i class="fas fa-user-plus fa-lg"></i>Update</button>
-    </form>
+            <button type="submit" class="btn btn-info"><i class="fas fa-user-plus fa-lg"></i>Update</button>
+        </form>
 
-</div>
-<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+    </div>
+    <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 
-<script>
-    function myAddCourse(){
-        $("#addCourse").before("                               <div class=\"input-group col-sm-12\">\n" +
-            "                                    <div class=\"input-group-prepend\">\n" +
-            "                                        <span class=\"input-group-text\">Course Code</span>\n" +
-            "                                    </div>\n" +
-            "                                    <input type=\"text\" class=\"form-control\" name=\"cdCode\"/>\n" +
-            "\n" +
-            "                                    <div class=\"input-group-prepend\">\n" +
-            "                                        <span class=\"input-group-text\">Section</span>\n" +
-            "                                    </div>\n" +
-            "                                    <input type=\"text\" class=\"form-control\" name=\"cdSec\"/>\n" +
-            "                                </div>");
-    }
-</script>
+    <script>
+        function myAddCourse() {
+            $("#addCourse").before("                               <div class=\"input-group col-sm-12\">\n" +
+                "                                    <div class=\"input-group-prepend\">\n" +
+                "                                        <span class=\"input-group-text\">Course Code</span>\n" +
+                "                                    </div>\n" +
+                "                                    <input type=\"text\" class=\"form-control\" name=\"cdCode\"/>\n" +
+                "\n" +
+                "                                    <div class=\"input-group-prepend\">\n" +
+                "                                        <span class=\"input-group-text\">Section</span>\n" +
+                "                                    </div>\n" +
+                "                                    <input type=\"text\" class=\"form-control\" name=\"cdSec\"/>\n" +
+                "                                </div>");
+        }
+    </script>
 
 </body>
+
 </html>

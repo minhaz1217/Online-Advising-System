@@ -5,69 +5,73 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html lang="en">
+
 <head>
     <title>Courses Offered | Online Advising System | Minhazul Hayat Khan</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 </head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
+    <div th:replace="@{'inc/' + nav}"></div>
 
 
-<div class="makeCenter">
-    <h1 class="row justify-content-center" >All Couses Offered</h1>
-    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
-    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
-</div>
-<table class="table table-hover table-bordered table-light " id="sortTable">
-    <thead class="thead-dark sticky-top">
-    <th class="myCenter">Code</th>
-    <th class="myCenter">Section</th>
-    <th class="myCenter">Time</th>
-    <th class="myCenter">Day</th>
-    <th class="myCenter">Room</th>
-    <th class="myCenter">Seat</th>
-    <th class="myCenter">Instructor</th>
-    <th class="myCenter">Delete</th>
-    <th class="myCenter">Update</th>
-    </thead>
-    <tbody>
-    <tr th:each="my : ${courseList}">
-        <td class="myCenter" th:text="${my.code}"> </td>
-        <td class="myCenter" th:text="${my.sec}"> </td>
-        <td class="myCenter" th:text="${my.time}"> </td>
-        <td class="myCenter" th:text="${my.day}"> </td>
-        <td class="myCenter" th:text="${my.room}"> </td>
-        <td class="myCenter" th:text="${my.seats}"> </td>
-        <td class="myCenter" th:text="${my.instructor}"> </td>
-        <td>
-            <form th:method="delete" th:action="@{'/coursedescription/remove'}">
-                <input type="hidden" th:value="${my.id}" name="id" />
-                <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash fa-lg"></i>Remove</button>
-            </form>
-        </td>
-        <td>
+    <div class="makeCenter">
+        <h1 class="row justify-content-center">All Couses Offered</h1>
+        <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+        <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+    </div>
+    <table class="table table-hover table-bordered table-light " id="sortTable">
+        <thead class="thead-dark sticky-top">
+            <th class="myCenter">Code</th>
+            <th class="myCenter">Section</th>
+            <th class="myCenter">Time</th>
+            <th class="myCenter">Day</th>
+            <th class="myCenter">Room</th>
+            <th class="myCenter">Seat</th>
+            <th class="myCenter">Instructor</th>
+            <th class="myCenter">Delete</th>
+            <th class="myCenter">Update</th>
+        </thead>
+        <tbody>
+            <tr th:each="my : ${courseList}">
+                <td class="myCenter" th:text="${my.code}"> </td>
+                <td class="myCenter" th:text="${my.sec}"> </td>
+                <td class="myCenter" th:text="${my.time}"> </td>
+                <td class="myCenter" th:text="${my.day}"> </td>
+                <td class="myCenter" th:text="${my.room}"> </td>
+                <td class="myCenter" th:text="${my.seats}"> </td>
+                <td class="myCenter" th:text="${my.instructor}"> </td>
+                <td>
+                    <form th:method="delete" th:action="@{'/coursedescription/remove'}">
+                        <input type="hidden" th:value="${my.id}" name="id" />
+                        <button type="submit" class="btn btn-outline-danger"><i
+                                class="fas fa-trash fa-lg"></i>Remove</button>
+                    </form>
+                </td>
+                <td>
 
-            <form th:method="post" th:action="@{'/coursedescription/edit'}">
-                <input type="hidden" th:value="${my.id}" name="id" />
-                <button type="submit" class="btn btn-outline-info"><i class="fas fa-pencil-alt fa-lg"></i>Edit</button>
-            </form>
-        </td>
-        <!--
+                    <form th:method="post" th:action="@{'/coursedescription/edit'}">
+                        <input type="hidden" th:value="${my.id}" name="id" />
+                        <button type="submit" class="btn btn-outline-info"><i
+                                class="fas fa-pencil-alt fa-lg"></i>Edit</button>
+                    </form>
+                </td>
+                <!--
         <td class="myCenter">
             <span th:each="pre: ${my.taken}">
                 <span th:text="${pre.code} + ', '" th:remove="tag"> </span>
             </span>
         </td>
         -->
-    </tr>
-    </tbody>
-</table>
+            </tr>
+        </tbody>
+    </table>
 
 
 
-<!--
+    <!--
 <div th:each="my : ${course}">
     <p th:text="${my.name}"> </p>
     <p th:text="${my.code}"> </p>
@@ -79,8 +83,9 @@ and open the template in the editor.
 </div>
 -->
 
-<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+    <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 
 
 </body>
+
 </html>

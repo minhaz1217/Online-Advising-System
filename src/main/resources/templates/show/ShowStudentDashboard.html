@@ -4,8 +4,8 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Courses Offered | Online Advising System | Minhazul Hayat Khan</title>
     <meta charset="UTF-8">
@@ -15,36 +15,40 @@ and open the template in the editor.
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     -->
 </head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
-<!--
+    <div th:replace="@{'inc/' + nav}"></div>
+    <!--
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 -->
-<div class="makeCenter">
-    <h1 th:text="@{'Info of ' + ${dashStudent.firstName} + ' ' + ${dashStudent.lastName}}"></h1>
-    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
-    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+    <div class="makeCenter">
+        <h1 th:text="@{'Info of ' + ${dashStudent.firstName} + ' ' + ${dashStudent.lastName}}"></h1>
+        <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+        <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
 
         <div class="form-group row">
             <label for="code" class="col-sm-2 col-form-label">First Name</label>
             <div class="col-sm-8 offset-sm-1">
-                <label type="text" class="form-control" id="code" th:text="${dashStudent.firstName}" name="firstName"></label>
+                <label type="text" class="form-control" id="code" th:text="${dashStudent.firstName}"
+                    name="firstName"></label>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="lname" class="col-sm-2 col-form-label">Last Name</label>
             <div class="col-sm-8 offset-sm-1">
-                <label type="text" class="form-control" id="lname" th:text="${dashStudent.lastName}" name="firstName"></label>
+                <label type="text" class="form-control" id="lname" th:text="${dashStudent.lastName}"
+                    name="firstName"></label>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="email" class="col-sm-2 col-form-label">Email Address</label>
             <div class="col-sm-8 offset-sm-1">
-                <label type="text" class="form-control" id="email" th:text="${dashStudent.email}" name="firstName"></label>
+                <label type="text" class="form-control" id="email" th:text="${dashStudent.email}"
+                    name="firstName"></label>
             </div>
         </div>
 
@@ -52,43 +56,45 @@ and open the template in the editor.
         <div class="form-group row">
             <label for="stdId" class="col-sm-2 col-form-label">Student ID</label>
             <div class="col-sm-8 offset-sm-1">
-                <label type="text" class="form-control" id="stdId" th:text="${dashStudent.studentId}" name="firstName"></label>
+                <label type="text" class="form-control" id="stdId" th:text="${dashStudent.studentId}"
+                    name="firstName"></label>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="courseTaken" class="col-sm-2 col-form-label">Course Taken</label>
             <div class="col-sm-8 offset-sm-1" id="courseTaken">
-                <button type="button" class="btn btn-info" data-target="#collapseThis" data-toggle="collapse" >Completed Course</button>
+                <button type="button" class="btn btn-info" data-target="#collapseThis" data-toggle="collapse">Completed
+                    Course</button>
                 <div id="collapseThis" class="collapse">
 
-                <div th:each="take: ${dashStudent.taken}" th:remove="tag">
+                    <div th:each="take: ${dashStudent.taken}" th:remove="tag">
 
-                    <div th:switch="${take.section}" th:remove="tag">
-                        <div th:case="null">
-                            <div class="input-group col-sm-12">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Course(s)</span>
+                        <div th:switch="${take.section}" th:remove="tag">
+                            <div th:case="null">
+                                <div class="input-group col-sm-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Course(s)</span>
+                                    </div>
+                                    <label type="text" class="form-control" th:text="${take.code}" name="code"></label>
+
                                 </div>
-                                <label type="text" class="form-control" th:text="${take.code}" name="code"></label>
+                            </div>
+                            <div th:case="*">
+                                <div class="input-group col-sm-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Course Code</span>
+                                    </div>
+                                    <label type="text" class="form-control" th:text="${take.code}" name="code"></label>
 
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Section</span>
+                                    </div>
+                                    <label type="text" class="form-control" th:text="${take.section}"></label>
+
+                                </div>
                             </div>
                         </div>
-                        <div th:case="*">
-                            <div class="input-group col-sm-12">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Course Code</span>
-                                </div>
-                                <label type="text" class="form-control"  th:text="${take.code}" name="code"></label>
-
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Section</span>
-                                </div>
-                                <label type="text" class="form-control" th:text="${take.section}"></label>
-
-                            </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -97,15 +103,18 @@ and open the template in the editor.
 
         <div class="form-group row">
             <label for="stdId" class="col-sm-2 col-form-label">Advising</label>
-            <div class="col-sm-8 offset-sm-1" id="stdId" >
-                    <div th:each="cd:${dashStudent.advising}" th:remove="tag">
-                        <div class="form-control" th:text="@{ ${cd.code} + '('+ ${cd.sec} + ') ->' + ${cd.day} +', '+${cd.time} + ' [' +${cd.room} + ']'}"></div>
+            <div class="col-sm-8 offset-sm-1" id="stdId">
+                <div th:each="cd:${dashStudent.advising}" th:remove="tag">
+                    <div class="form-control"
+                        th:text="@{ ${cd.code} + '('+ ${cd.sec} + ') ->' + ${cd.day} +', '+${cd.time} + ' [' +${cd.room} + ']'}">
                     </div>
+                </div>
             </div>
         </div>
 
-</div>
-<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+    </div>
+    <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
 
 </body>
+
 </html>

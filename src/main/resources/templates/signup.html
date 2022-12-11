@@ -1,66 +1,76 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Signup For Advising | Online Advising System | Minhazul Hayat Khan</title>
 
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script
+        type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <link href="/css/w3_signup.css" rel="stylesheet" type="text/css" media="all" />
     <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet" />
 </head>
+
 <body>
 
 
-<div class="main-w3layouts wrapper">
-    <h1>Signup For Advising</h1>
-    <div class="main-agileinfo">
-        <div class="agileits-top">
-            <div th:if="${error != null}">
-                <span th:classappend="signup_error_big" th:text="'Error: ' + ${error}"> </span>
+    <div class="main-w3layouts wrapper">
+        <h1>Signup For Advising</h1>
+        <div class="main-agileinfo">
+            <div class="agileits-top">
+                <div th:if="${error != null}">
+                    <span th:classappend="signup_error_big" th:text="'Error: ' + ${error}"> </span>
+                </div>
+                <form method="post" th:action="@{/signup}" th:object="${user}">
+                    <p><input class="text" placeholder="Username" required="" type="text" th:field="*{username}" />
+                        <span th:classappend=="signup_error" th:if="${#fields.hasErrors('username')}"
+                            th:errors="*{username}">Name Error</span>
+                    </p>
+
+
+                    <p>
+                        <input class="text w3lpass" placeholder="Password" required="" type="password"
+                            th:field="*{password}" />
+                        <span th:classappend=="signup_error" th:if="${#fields.hasErrors('password')}"
+                            th:errors="*{password}">Password Error</span>
+                    </p>
+
+                    <p>
+                        <input class="text w3lpass" placeholder="Confirm Password" required="" type="password"
+                            name="confirm_pass" />
+                        <span th:classappend=="signup_error" th:if="${err_confirm_pass != null}"
+                            th:text="${err_confirm_pass}">Error</span>
+                    </p>
+
+                    <p><input class="text w3lpass" placeholder="Only For Admin" type="password" name="admin_pass" /></p>
+
+                    <p colspan="3"><input type="submit" value="Signup" /></p>
+
+                </form>
+
             </div>
-            <form method="post" th:action="@{/signup}" th:object="${user}">
-                        <p><input class="text" placeholder="Username" required="" type="text"  th:field="*{username}" />
-                            <span th:classappend=="signup_error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</span>
-                        </p>
-
-
-                        <p>
-                            <input class="text w3lpass" placeholder="Password" required=""  type="password"  th:field="*{password}" />
-                            <span th:classappend=="signup_error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span></p>
-
-                        <p>
-                            <input class="text w3lpass" placeholder="Confirm Password" required="" type="password"  name="confirm_pass" />
-                            <span th:classappend=="signup_error" th:if="${err_confirm_pass != null}" th:text="${err_confirm_pass}">Error</span>
-                        </p>
-
-                        <p><input class="text w3lpass" placeholder="Only For Admin" type="password"  name="admin_pass" /></p>
-
-                        <p colspan="3"><input type="submit" value="Signup" /></p>
-
-            </form>
-
         </div>
+        <!-- copyright -->
+        <div class="w3copyright-agile">
+            <p>© 2017 Bubble SignUp Form. All rights reserved | Design by <a href="http://w3layouts.com/"
+                    target="_blank">W3layouts</a></p>
+        </div>
+        <!-- //copyright -->
+        <ul class="w3lsg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </div>
-    <!-- copyright -->
-    <div class="w3copyright-agile">
-        <p>© 2017 Bubble SignUp Form. All rights reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p>
-    </div>
-    <!-- //copyright -->
-    <ul class="w3lsg-bubbles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-</div>
 
 
 </body>
+
 </html>

@@ -1,79 +1,83 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Add Student | Online Advising System | Minhazul Hayat Khan</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div th:replace="@{'inc/' + headTags}" th:remove="tag"></div>
 </head>
+
 <body class="text-center">
-<div th:replace="@{'inc/' + nav}"></div>
+    <div th:replace="@{'inc/' + nav}"></div>
 
-<div class="makeCenter">
-    <h1>Add Student</h1>
-    <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
-    <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
-    <form action="/student/add" method="post" id="courseForm" >
+    <div class="makeCenter">
+        <h1>Add Student</h1>
+        <h4 th:if="${msg_error}" th:text="${msg_error}" class="bg-danger text-light text-center"></h4>
+        <h4 th:if="${msg_success}" th:text="${msg_success}" class="bg-success text-light text-center"></h4>
+        <form action="/student/add" method="post" id="courseForm">
 
-        <div class="form-group row">
-            <label for="code" class="col-sm-2 col-form-label">First Name</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="code" name="firstName" required/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="sec" class="col-sm-2 col-form-label">Last Name</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="sec" name="lastName"/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="time" class="col-sm-2 col-form-label">Email Address</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="time" name="email"/>
-            </div>
-        </div>
-
-
-        <div class="form-group row">
-            <label for="studentId" class="col-sm-2 col-form-label">Student ID</label>
-            <div class="col-sm-8 offset-sm-1">
-                <input type="text" class="form-control" id="studentId" name="studentId" required/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="courseTaken" class="col-sm-2 col-form-label">Course Taken</label>
-            <div class="col-sm-8 offset-sm-1">
-                <div id="courseTaken">
-                    <button type="button" id="addCourse"  onclick="myAddCourse()" class="form-control btn btn-dark"><i class=" fas fa-angle-double-down fa-lg"></i>Add New Course</button>
+            <div class="form-group row">
+                <label for="code" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="code" name="firstName" required />
                 </div>
             </div>
-        </div>
-        <button type="submit" class="btn btn-info"><i class="fas fa-user-plus fa-lg"></i>Add Student</button>
-    </form>
 
-</div>
-<div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+            <div class="form-group row">
+                <label for="sec" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="sec" name="lastName" />
+                </div>
+            </div>
 
-<script>
-    function myAddCourse(){
-        $("#addCourse").before("                               <div class=\"input-group col-sm-12\">\n" +
-            "                                    <div class=\"input-group-prepend\">\n" +
-            "                                        <span class=\"input-group-text\">Course Code</span>\n" +
-            "                                    </div>\n" +
-            "                                    <input type=\"text\" class=\"form-control\" name=\"cdCode\"/>\n" +
-            "\n" +
-            "                                    <div class=\"input-group-prepend\">\n" +
-            "                                        <span class=\"input-group-text\">Section</span>\n" +
-            "                                    </div>\n" +
-            "                                    <input type=\"text\" class=\"form-control\" name=\"cdSec\"/>\n" +
-            "                                </div>");
-    }
-</script>
+            <div class="form-group row">
+                <label for="time" class="col-sm-2 col-form-label">Email Address</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="time" name="email" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="studentId" class="col-sm-2 col-form-label">Student ID</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <input type="text" class="form-control" id="studentId" name="studentId" required />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="courseTaken" class="col-sm-2 col-form-label">Course Taken</label>
+                <div class="col-sm-8 offset-sm-1">
+                    <div id="courseTaken">
+                        <button type="button" id="addCourse" onclick="myAddCourse()"
+                            class="form-control btn btn-dark"><i class=" fas fa-angle-double-down fa-lg"></i>Add New
+                            Course</button>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info"><i class="fas fa-user-plus fa-lg"></i>Add Student</button>
+        </form>
+
+    </div>
+    <div th:replace="@{'inc/' + footTags}" th:remove="tag"></div>
+
+    <script>
+        function myAddCourse() {
+            $("#addCourse").before("                               <div class=\"input-group col-sm-12\">\n" +
+                "                                    <div class=\"input-group-prepend\">\n" +
+                "                                        <span class=\"input-group-text\">Course Code</span>\n" +
+                "                                    </div>\n" +
+                "                                    <input type=\"text\" class=\"form-control\" name=\"cdCode\"/>\n" +
+                "\n" +
+                "                                    <div class=\"input-group-prepend\">\n" +
+                "                                        <span class=\"input-group-text\">Section</span>\n" +
+                "                                    </div>\n" +
+                "                                    <input type=\"text\" class=\"form-control\" name=\"cdSec\"/>\n" +
+                "                                </div>");
+        }
+    </script>
 
 </body>
+
 </html>
